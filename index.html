@@ -471,7 +471,53 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('seg-check-title')) document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
   if(document.getElementById('seg-result-title')) document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
   if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
+    // ========== TRADUCIR PÁGINA DE FICHA ==========
+  if (document.getElementById('ficha-titulo')) {
+    document.getElementById('ficha-titulo').textContent = ca !== null ? t('ficha.editTitle') : t('ficha.newTitle');
+  }
+  if (document.getElementById('ficha-sub')) document.getElementById('ficha-sub').textContent = t('ficha.subtitle');
+  if (document.getElementById('ficha-back')) document.getElementById('ficha-back').textContent = t('ficha.back');
   
+  // Datos personales
+  if (document.getElementById('ficha-personal')) document.getElementById('ficha-personal').textContent = t('ficha.personalData');
+  if (document.getElementById('ficha-nombre-label')) document.getElementById('ficha-nombre-label').textContent = t('ficha.name');
+  if (document.getElementById('f-nombre')) document.getElementById('f-nombre').placeholder = t('ficha.namePlaceholder');
+  if (document.getElementById('ficha-dorsal-label')) document.getElementById('ficha-dorsal-label').textContent = t('ficha.bib');
+  if (document.getElementById('f-dorsal')) document.getElementById('f-dorsal').placeholder = t('ficha.bibPlaceholder');
+  if (document.getElementById('ficha-sexo-label')) document.getElementById('ficha-sexo-label').textContent = t('ficha.gender');
+  
+  // Selector de género
+  var sexoSelect = document.getElementById('f-sexo');
+  if (sexoSelect) {
+    var sexoVal = sexoSelect.value;
+    sexoSelect.innerHTML = '<option value="">' + t('ficha.genderSelect') + '</option>' +
+      '<option value="M">' + t('ficha.genderM') + '</option>' +
+      '<option value="F">' + t('ficha.genderF') + '</option>';
+    sexoSelect.value = sexoVal;
+  }
+  
+  // Ciudad y carrera
+  if (document.getElementById('ficha-ciudad')) document.getElementById('ficha-ciudad').textContent = t('ficha.cityTitle');
+  if (document.getElementById('ficha-ciudad-desc')) document.getElementById('ficha-ciudad-desc').textContent = t('ficha.cityDesc');
+  if (document.getElementById('ficha-carrera-label')) document.getElementById('ficha-carrera-label').textContent = t('ficha.race');
+  if (document.getElementById('f-carrera')) document.getElementById('f-carrera').placeholder = t('ficha.racePlaceholder');
+  
+  // Tiempo objetivo
+  if (document.getElementById('ficha-tiempo')) document.getElementById('ficha-tiempo').textContent = t('ficha.targetTitle');
+  if (document.getElementById('ficha-marca-label')) document.getElementById('ficha-marca-label').textContent = t('ficha.targetTime');
+  if (document.getElementById('ficha-ritmo-label')) document.getElementById('ficha-ritmo-label').textContent = t('ficha.pace');
+  if (document.getElementById('ficha-oficial-label')) document.getElementById('ficha-oficial-label').textContent = t('ficha.officialStart');
+  if (document.getElementById('ficha-personal-label')) document.getElementById('ficha-personal-label').textContent = t('ficha.personalStart');
+  
+  // Puntos de encuentro
+  if (document.getElementById('ficha-puntos')) document.getElementById('ficha-puntos').textContent = t('ficha.checkpoints');
+  if (document.getElementById('ficha-puntos-desc')) document.getElementById('ficha-puntos-desc').textContent = t('ficha.checkpointsDesc');
+  if (document.getElementById('ficha-add')) document.getElementById('ficha-add').textContent = t('ficha.addPoint');
+  if (document.getElementById('ficha-delete')) document.getElementById('ficha-delete').textContent = t('ficha.deleteAll');
+  
+  // Botones
+  if (document.getElementById('ficha-save')) document.getElementById('ficha-save').textContent = t('ficha.save');
+  if (document.getElementById('ficha-cancel')) document.getElementById('ficha-cancel').textContent = t('ficha.cancel');
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
 }
