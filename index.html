@@ -443,62 +443,50 @@ function actualizarIdiomaInterfaz() {
   actualizarBotonesIdioma();
   
   // Navegación
-  document.getElementById('nav-lista').textContent = t('nav.runners');
-  document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
-  document.getElementById('nav-seguimiento').textContent = t('nav.follow');
-  document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
-  document.getElementById('nav-mapa').textContent = t('nav.route');
+  if(document.getElementById('nav-lista')) document.getElementById('nav-lista').textContent = t('nav.runners');
+  if(document.getElementById('nav-nuevo')) document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
+  if(document.getElementById('nav-seguimiento')) document.getElementById('nav-seguimiento').textContent = t('nav.follow');
+  if(document.getElementById('nav-pronostico')) document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
+  if(document.getElementById('nav-mapa')) document.getElementById('nav-mapa').textContent = t('nav.route');
   
   // Licencia
-  document.getElementById('lic-title').textContent = t('license.title');
-  document.getElementById('lic-subtitle').textContent = t('license.subtitle');
-  document.getElementById('lic-label').textContent = t('license.codeLabel');
-  document.getElementById('lic-btn').textContent = t('license.login');
+  if(document.getElementById('lic-title')) document.getElementById('lic-title').textContent = t('license.title');
+  if(document.getElementById('lic-subtitle')) document.getElementById('lic-subtitle').textContent = t('license.subtitle');
+  if(document.getElementById('lic-label')) document.getElementById('lic-label').textContent = t('license.codeLabel');
+  if(document.getElementById('lic-btn')) document.getElementById('lic-btn').textContent = t('license.login');
   
   // Lista
-  document.getElementById('lista-titulo').textContent = t('lista.title');
-  document.getElementById('lista-sub').textContent = t('lista.subtitle');
+  if(document.getElementById('lista-titulo')) document.getElementById('lista-titulo').textContent = t('lista.title');
+  if(document.getElementById('lista-sub')) document.getElementById('lista-sub').textContent = t('lista.subtitle');
   
   // Mapa
-  document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
-  document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
-  document.getElementById('map-select-text').textContent = t('mapa.selectCity');
-  document.getElementById('map-legend-title').textContent = t('mapa.legend');
-  document.getElementById('map-legend-route').textContent = t('mapa.route');
-  document.getElementById('map-legend-start').textContent = t('mapa.startFinish');
-  document.getElementById('map-legend-km').textContent = t('mapa.kmMarkers');
-  document.getElementById('map-legend-points').textContent = t('mapa.yourPoints');
+  if(document.getElementById('mapa-titulo')) document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
+  if(document.getElementById('mapa-subtitulo')) document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
+  if(document.getElementById('map-select-text')) document.getElementById('map-select-text').textContent = t('mapa.selectCity');
+  if(document.getElementById('map-legend-title')) document.getElementById('map-legend-title').textContent = t('mapa.legend');
+  if(document.getElementById('map-legend-route')) document.getElementById('map-legend-route').textContent = t('mapa.route');
+  if(document.getElementById('map-legend-start')) document.getElementById('map-legend-start').textContent = t('mapa.startFinish');
+  if(document.getElementById('map-legend-km')) document.getElementById('map-legend-km').textContent = t('mapa.kmMarkers');
+  if(document.getElementById('map-legend-points')) document.getElementById('map-legend-points').textContent = t('mapa.yourPoints');
   
-  // PRONÓSTICO - AÑADIR ESTA SECCIÓN COMPLETA
-  var pronTitulo = document.getElementById('pron-titulo');
-  var pronDesc = document.getElementById('pron-desc');
-  var pronRunnerTitle = document.getElementById('pron-runner-title');
-  var pronNoRunner = document.getElementById('prono-corredor');
-  var pronDataTitle = document.getElementById('pron-data-title');
-  var pronKmLabel = document.getElementById('pron-km-label');
-  var pronDistLabel = document.getElementById('pron-dist-label');
-  var pronTimeLabel = document.getElementById('pron-time-label');
-  var pronEstimated = document.getElementById('pron-estimated');
-  var pronAvg = document.getElementById('pron-avg');
-  var pronRemain = document.getElementById('pron-remain');
-  var pronArrival = document.getElementById('pron-arrival');
-  var pronCompare = document.getElementById('pron-compare');
+  // Pronóstico
+  if(document.getElementById('pron-titulo')) document.getElementById('pron-titulo').textContent = t('prognosis.title');
+  if(document.getElementById('pron-desc')) document.getElementById('pron-desc').textContent = t('prognosis.desc');
+  if(document.getElementById('pron-runner-title')) document.getElementById('pron-runner-title').textContent = t('prognosis.runnerTitle');
   
-  if(pronTitulo) pronTitulo.textContent = t('prognosis.title');
-  if(pronDesc) pronDesc.textContent = t('prognosis.desc');
-  if(pronRunnerTitle) pronRunnerTitle.textContent = t('prognosis.runnerTitle');
-  if(pronNoRunner && pronNoRunner.options[0]) pronNoRunner.options[0].textContent = t('prognosis.noRunner');
-  if(pronDataTitle) pronDataTitle.textContent = t('prognosis.dataTitle');
-  if(pronKmLabel) pronKmLabel.textContent = t('prognosis.currentKm');
-  if(pronDistLabel) pronDistLabel.textContent = t('prognosis.totalDist');
-  if(pronTimeLabel) pronTimeLabel.textContent = t('prognosis.raceTime');
-  if(pronEstimated) pronEstimated.textContent = '⏱ ' + t('prognosis.estimated');
-  if(pronAvg) pronAvg.textContent = t('prognosis.avgPace');
-  if(pronRemain) pronRemain.textContent = t('prognosis.remainingKm');
-  if(pronArrival) pronArrival.textContent = t('prognosis.arrivalTime');
-  if(pronCompare) pronCompare.textContent = t('prognosis.compare');
+  var pronoSelect = document.getElementById('prono-corredor');
+  if(pronoSelect && pronoSelect.options[0]) pronoSelect.options[0].textContent = t('prognosis.noRunner');
   
-  // Etiquetas de horas/minutos/segundos en resultado del pronóstico
+  if(document.getElementById('pron-data-title')) document.getElementById('pron-data-title').textContent = t('prognosis.dataTitle');
+  if(document.getElementById('pron-km-label')) document.getElementById('pron-km-label').textContent = t('prognosis.currentKm');
+  if(document.getElementById('pron-dist-label')) document.getElementById('pron-dist-label').textContent = t('prognosis.totalDist');
+  if(document.getElementById('pron-time-label')) document.getElementById('pron-time-label').textContent = t('prognosis.raceTime');
+  if(document.getElementById('pron-estimated')) document.getElementById('pron-estimated').textContent = '⏱ ' + t('prognosis.estimated');
+  if(document.getElementById('pron-avg')) document.getElementById('pron-avg').textContent = t('prognosis.avgPace');
+  if(document.getElementById('pron-remain')) document.getElementById('pron-remain').textContent = t('prognosis.remainingKm');
+  if(document.getElementById('pron-arrival')) document.getElementById('pron-arrival').textContent = t('prognosis.arrivalTime');
+  if(document.getElementById('pron-compare')) document.getElementById('pron-compare').textContent = t('prognosis.compare');
+  
   var hLabels = document.querySelectorAll('.pron-h-label');
   var mLabels = document.querySelectorAll('.pron-m-label');
   var sLabels = document.querySelectorAll('.pron-s-label');
@@ -507,6 +495,15 @@ function actualizarIdiomaInterfaz() {
   for(var i=0; i<sLabels.length; i++) sLabels[i].textContent = t('prognosis.seconds');
   
   // Seguimiento
+  if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
+  if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
+  if(document.getElementById('seg-pace')) document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
+  if(document.getElementById('seg-arrival')) document.getElementById('seg-arrival').textContent = t('seguimiento.arrivalTime');
+  if(document.getElementById('seg-calc')) document.getElementById('seg-calc').textContent = t('seguimiento.calculatedTime');
+  if(document.getElementById('seg-check-title')) document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
+  if(document.getElementById('seg-result-title')) document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
+  if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
+  
   var segTitulo = document.getElementById('seg-nombre');
   if(segTitulo && ca !== null) {
     var c = C[ca];
@@ -517,21 +514,6 @@ function actualizarIdiomaInterfaz() {
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
 }
-  // Actualizar opción por defecto del selector
-  const pronoSelect = document.getElementById('prono-corredor');
-  if(pronoSelect && pronoSelect.options[0]) {
-    pronoSelect.options[0].textContent = t('prognosis.noRunner');
-  }
-  
-  // Actualizar etiquetas h/min/seg en el resultado
-  const hLabels = document.querySelectorAll('.pron-h-label');
-  const mLabels = document.querySelectorAll('.pron-m-label');
-  const sLabels = document.querySelectorAll('.pron-s-label');
-  hLabels.forEach(el => { if(el) el.textContent = t('prognosis.hours'); });
-  mLabels.forEach(el => { if(el) el.textContent = t('prognosis.minutes'); });
-  sLabels.forEach(el => { if(el) el.textContent = t('prognosis.seconds'); });
-}
-
 // ===================== DATOS =====================
 const CIUDADES = {
   "Barcelona":{flag:"🇪🇸", coords:[[41.38887,2.16922],[41.38933,2.16864],[41.3927,2.17272],[41.39389,2.1743],[41.39456,2.17601],[41.39573,2.17669],[41.39908,2.18101],[41.4018,2.17787],[41.39063,2.16283],[41.38326,2.15296],[41.38393,2.15165],[41.39279,2.16349],[41.40284,2.17688],[41.41278,2.19012],[41.4162,2.19248],[41.42041,2.19125],[41.42238,2.19116],[41.42284,2.1872],[41.41215,2.18698],[41.39355,2.16224],[41.38392,2.14943],[41.37981,2.15497],[41.38775,2.16605],[41.38828,2.16673],[41.38749,2.16834],[41.38595,2.16466],[41.38414,2.16383],[41.37794,2.1555],[41.3771,2.1563],[41.37912,2.15935],[41.38029,2.1609],[41.37858,2.16312],[41.37589,2.15963],[41.37503,2.16341],[41.37465,2.17535],[41.37553,2.17743],[41.37633,2.1781],[41.37896,2.18032],[41.38087,2.18186],[41.38131,2.18224],[41.38243,2.18316],[41.3855,2.18586],[41.38806,2.1827],[41.39288,2.18896],[41.38793,2.19586],[41.38916,2.19943],[41.39237,2.2041],[41.39635,2.20803],[41.40446,2.2169],[41.40826,2.21658],[41.41088,2.21899],[41.40712,2.20165],[41.40435,2.19057],[41.40502,2.19377],[41.40882,2.20948],[41.40362,2.20547],[41.4,2.20069],[41.40156,2.19833],[41.39655,2.19155],[41.39441,2.1944],[41.39064,2.19949],[41.38805,2.19606],[41.39268,2.18979],[41.39461,2.18709],[41.3916,2.18249],[41.3939,2.17911],[41.39251,2.17728],[41.39063,2.1748],[41.39158,2.17982]], puntos:[{km:6,calle:"Carrer de València"},{km:10,calle:"Carrer de València"},{km:14,calle:"Carrer de Mallorca"},{km:18,calle:"Gran Via"},{km:20,calle:"Carrer de Sepúlveda"},{km:24,calle:"Passeig de Colom"},{km:28,calle:"Avinguda del Litoral"},{km:32,calle:"Avinguda Diagonal"},{km:36,calle:"Carrer de Llull"},{km:40,calle:"Carrer de la Marina"},{km:42.195,calle:"Arc de Triomf"}]},
@@ -845,11 +827,6 @@ function autoRellenarProno(){
   calcProno();
 }
 
-function rPS(){
-  const s=document.getElementById('prono-corredor');
-  s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+
-    C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');
-}
 function rPS(){
   const s=document.getElementById('prono-corredor');
   s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');
