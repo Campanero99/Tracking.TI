@@ -681,7 +681,7 @@ async function loadMapaCiudad(name) {
   
   const info = INFO_CIUDADES[name];
   const numPuntos = info ? info.puntos.length : 0;
-  document.getElementById('mapa-subtitulo').textContent = '42,195 km · ' + numPuntos + ' puntos de referencia';
+ document.getElementById('mapa-subtitulo').textContent = '42,195 km · ' + numPuntos + ' ' + t('mapa.puntosReferencia');
   
   const poly = L.polyline(coords, { color: '#1a6fc4', weight: 4, opacity: 0.85 }).addTo(leafletMap);
   mapaLayers.push(poly);
