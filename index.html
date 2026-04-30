@@ -675,19 +675,16 @@ function buildCityGrid() {
 }
 
 function selCiudad(name) {
-  ciudadSel = name;
-  document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('sel'));
-  const btn = document.getElementById('cbtn-' + name);
-  if (btn) btn.classList.add('sel');
-  const fc = document.getElementById('f-carrera');
-  if (!fc.value) { fc.value = 'Marathon ' + name; }
-  const info = INFO_CIUDADES[name];
-  if (info && info.puntos) {
-    pt = info.puntos.map(function(p) { return { km: p.km, calle: p.calle }; });
+  if (!fc.value) { 
+  if (idiomaActual === 'es') {
+    fc.value = 'Maratón de ' + name;
+  } else if (idiomaActual === 'fr') {
+    fc.value = 'Marathon de ' + name;
+  } else if (idiomaActual === 'en') {
+    fc.value = name + ' Marathon';
   } else {
-    pt = [];
+    fc.value = 'Marathon ' + name;
   }
-  rPF();
 }
 
 function rL() {
