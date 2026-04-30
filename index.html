@@ -748,16 +748,7 @@ function selCiudad(name) {
  } else {
    fc.value = 'Marathon ' + name;
  } 
-  if (idiomaActual === 'es') {
-    fc.value = 'Maratón de ' + name;
-  } else if (idiomaActual === 'fr') {
-    fc.value = 'Marathon de ' + name;
-  } else if (idiomaActual === 'en') {
-    fc.value = name + ' Marathon';
-  } else {
-    fc.value = 'Marathon ' + name;
-  }
-}
+  
   const info = INFO_CIUDADES[name];
   if (info && info.puntos) {
     pt = info.puntos.map(function(p) { return { km: p.km, calle: p.calle }; });
