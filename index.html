@@ -442,43 +442,52 @@ function actualizarBotonesIdioma() {
 function actualizarIdiomaInterfaz() {
   actualizarBotonesIdioma();
   
+  // Navegación
   document.getElementById('nav-lista').textContent = t('nav.runners');
   document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
   document.getElementById('nav-seguimiento').textContent = t('nav.follow');
   document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
   document.getElementById('nav-mapa').textContent = t('nav.route');
   
+  // Licencia
   document.getElementById('lic-title').textContent = t('license.title');
   document.getElementById('lic-subtitle').textContent = t('license.subtitle');
   document.getElementById('lic-label').textContent = t('license.codeLabel');
   document.getElementById('lic-btn').textContent = t('license.login');
   
+  // Lista
   document.getElementById('lista-titulo').textContent = t('lista.title');
   document.getElementById('lista-sub').textContent = t('lista.subtitle');
   
-  if (document.getElementById('page-lista').classList.contains('active')) rL();
-  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
-  
+  // Mapa
   document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
   document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
   document.getElementById('map-select-text').textContent = t('mapa.selectCity');
-    // Actualizar página de pronóstico
-  const pronTitulo = document.getElementById('pron-titulo');
-  const pronDesc = document.getElementById('pron-desc');
-  const pronRunnerTitle = document.getElementById('pron-runner-title');
-  const pronDataTitle = document.getElementById('pron-data-title');
-  const pronKmLabel = document.getElementById('pron-km-label');
-  const pronDistLabel = document.getElementById('pron-dist-label');
-  const pronTimeLabel = document.getElementById('pron-time-label');
-  const pronEstimated = document.getElementById('pron-estimated');
-  const pronAvg = document.getElementById('pron-avg');
-  const pronRemain = document.getElementById('pron-remain');
-  const pronArrival = document.getElementById('pron-arrival');
-  const pronCompare = document.getElementById('pron-compare');
+  document.getElementById('map-legend-title').textContent = t('mapa.legend');
+  document.getElementById('map-legend-route').textContent = t('mapa.route');
+  document.getElementById('map-legend-start').textContent = t('mapa.startFinish');
+  document.getElementById('map-legend-km').textContent = t('mapa.kmMarkers');
+  document.getElementById('map-legend-points').textContent = t('mapa.yourPoints');
+  
+  // PRONÓSTICO - AÑADIR ESTA SECCIÓN COMPLETA
+  var pronTitulo = document.getElementById('pron-titulo');
+  var pronDesc = document.getElementById('pron-desc');
+  var pronRunnerTitle = document.getElementById('pron-runner-title');
+  var pronNoRunner = document.getElementById('prono-corredor');
+  var pronDataTitle = document.getElementById('pron-data-title');
+  var pronKmLabel = document.getElementById('pron-km-label');
+  var pronDistLabel = document.getElementById('pron-dist-label');
+  var pronTimeLabel = document.getElementById('pron-time-label');
+  var pronEstimated = document.getElementById('pron-estimated');
+  var pronAvg = document.getElementById('pron-avg');
+  var pronRemain = document.getElementById('pron-remain');
+  var pronArrival = document.getElementById('pron-arrival');
+  var pronCompare = document.getElementById('pron-compare');
   
   if(pronTitulo) pronTitulo.textContent = t('prognosis.title');
   if(pronDesc) pronDesc.textContent = t('prognosis.desc');
   if(pronRunnerTitle) pronRunnerTitle.textContent = t('prognosis.runnerTitle');
+  if(pronNoRunner && pronNoRunner.options[0]) pronNoRunner.options[0].textContent = t('prognosis.noRunner');
   if(pronDataTitle) pronDataTitle.textContent = t('prognosis.dataTitle');
   if(pronKmLabel) pronKmLabel.textContent = t('prognosis.currentKm');
   if(pronDistLabel) pronDistLabel.textContent = t('prognosis.totalDist');
@@ -489,6 +498,25 @@ function actualizarIdiomaInterfaz() {
   if(pronArrival) pronArrival.textContent = t('prognosis.arrivalTime');
   if(pronCompare) pronCompare.textContent = t('prognosis.compare');
   
+  // Etiquetas de horas/minutos/segundos en resultado del pronóstico
+  var hLabels = document.querySelectorAll('.pron-h-label');
+  var mLabels = document.querySelectorAll('.pron-m-label');
+  var sLabels = document.querySelectorAll('.pron-s-label');
+  for(var i=0; i<hLabels.length; i++) hLabels[i].textContent = t('prognosis.hours');
+  for(var i=0; i<mLabels.length; i++) mLabels[i].textContent = t('prognosis.minutes');
+  for(var i=0; i<sLabels.length; i++) sLabels[i].textContent = t('prognosis.seconds');
+  
+  // Seguimiento
+  var segTitulo = document.getElementById('seg-nombre');
+  if(segTitulo && ca !== null) {
+    var c = C[ca];
+    segTitulo.textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
+  }
+  
+  // Refrescar contenido dinámico
+  if (document.getElementById('page-lista').classList.contains('active')) rL();
+  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
+}
   // Actualizar opción por defecto del selector
   const pronoSelect = document.getElementById('prono-corredor');
   if(pronoSelect && pronoSelect.options[0]) {
