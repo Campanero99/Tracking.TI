@@ -516,18 +516,47 @@ function actualizarIdiomaInterfaz() {
 }
 // ===================== DATOS =====================
 const CIUDADES = {
-  "Barcelona":{flag:"🇪🇸", coords:[[41.38887,2.16922],[41.38933,2.16864],[41.3927,2.17272],[41.39389,2.1743],[41.39456,2.17601],[41.39573,2.17669],[41.39908,2.18101],[41.4018,2.17787],[41.39063,2.16283],[41.38326,2.15296],[41.38393,2.15165],[41.39279,2.16349],[41.40284,2.17688],[41.41278,2.19012],[41.4162,2.19248],[41.42041,2.19125],[41.42238,2.19116],[41.42284,2.1872],[41.41215,2.18698],[41.39355,2.16224],[41.38392,2.14943],[41.37981,2.15497],[41.38775,2.16605],[41.38828,2.16673],[41.38749,2.16834],[41.38595,2.16466],[41.38414,2.16383],[41.37794,2.1555],[41.3771,2.1563],[41.37912,2.15935],[41.38029,2.1609],[41.37858,2.16312],[41.37589,2.15963],[41.37503,2.16341],[41.37465,2.17535],[41.37553,2.17743],[41.37633,2.1781],[41.37896,2.18032],[41.38087,2.18186],[41.38131,2.18224],[41.38243,2.18316],[41.3855,2.18586],[41.38806,2.1827],[41.39288,2.18896],[41.38793,2.19586],[41.38916,2.19943],[41.39237,2.2041],[41.39635,2.20803],[41.40446,2.2169],[41.40826,2.21658],[41.41088,2.21899],[41.40712,2.20165],[41.40435,2.19057],[41.40502,2.19377],[41.40882,2.20948],[41.40362,2.20547],[41.4,2.20069],[41.40156,2.19833],[41.39655,2.19155],[41.39441,2.1944],[41.39064,2.19949],[41.38805,2.19606],[41.39268,2.18979],[41.39461,2.18709],[41.3916,2.18249],[41.3939,2.17911],[41.39251,2.17728],[41.39063,2.1748],[41.39158,2.17982]], puntos:[{km:6,calle:"Carrer de València"},{km:10,calle:"Carrer de València"},{km:14,calle:"Carrer de Mallorca"},{km:18,calle:"Gran Via"},{km:20,calle:"Carrer de Sepúlveda"},{km:24,calle:"Passeig de Colom"},{km:28,calle:"Avinguda del Litoral"},{km:32,calle:"Avinguda Diagonal"},{km:36,calle:"Carrer de Llull"},{km:40,calle:"Carrer de la Marina"},{km:42.195,calle:"Arc de Triomf"}]},
-  "Berlín":{flag:"🇩🇪", coords:[[52.515150,13.360120],[52.514670,13.352990],[52.514650,13.351670],[52.514780,13.351100],[52.515070,13.350250],[52.515080,13.350000],[52.514950,13.349450],[52.514510,13.348620],[52.514450,13.348330],[52.513630,13.336270],[52.513640,13.335870],[52.513380,13.332790],[52.512800,13.323390],[52.512830,13.323130],[52.513020,13.322740],[52.513330,13.322550],[52.513720,13.322560],[52.514400,13.322390],[52.514870,13.322570],[52.517010,13.324360],[52.517700,13.325120],[52.519980,13.326950],[52.522180,13.328460],[52.522440,13.328560],[52.522840,13.329370],[52.523070,13.329620],[52.523780,13.329850],[52.523940,13.330310],[52.524230,13.331720],[52.524650,13.333350],[52.524770,13.334030],[52.525170,13.335390],[52.525410,13.336850],[52.525940,13.338910],[52.525970,13.339360],[52.525910,13.340340],[52.525690,13.341440],[52.525650,13.342170],[52.525340,13.344280],[52.525250,13.345270],[52.525050,13.346350],[52.524810,13.348920],[52.524540,13.350900],[52.524410,13.351400],[52.524180,13.352950],[52.523730,13.358390],[52.523100,13.363460],[52.522790,13.364400],[52.522510,13.366940],[52.522290,13.368100],[52.521260,13.369950],[52.520970,13.370580],[52.520900,13.371360],[52.520940,13.373590],[52.521050,13.374040],[52.521680,13.375250],[52.522040,13.376220],[52.522300,13.377500],[52.522430,13.377880],[52.522940,13.381530],[52.523140,13.382330],[52.523510,13.383360],[52.523580,13.383960],[52.523570,13.384960],[52.523960,13.387420],[52.524050,13.387530],[52.525240,13.387510],[52.527050,13.387200],[52.527160,13.387390],[52.527910,13.390070],[52.528540,13.393230],[52.529520,13.397330],[52.529520,13.399990],[52.529910,13.403340],[52.529700,13.405440],[52.529360,13.406970],[52.529260,13.407890],[52.528620,13.411080],[52.528080,13.413080],[52.527930,13.413810],[52.527630,13.414740],[52.527350,13.415120],[52.526720,13.416260],[52.526000,13.417950],[52.525880,13.418370],[52.525320,13.419540],[52.525200,13.419580],[52.524410,13.418910],[52.523560,13.417910],[52.522300,13.416690],[52.522180,13.416860],[52.521680,13.418100],[52.519330,13.425680],[52.519210,13.426360],[52.518980,13.427190],[52.518890,13.428580],[52.518660,13.428980],[52.518400,13.428960],[52.518280,13.428810],[52.518180,13.427970],[52.517550,13.427500],[52.516380,13.426870],[52.512800,13.423670],[52.511940,13.422780],[52.509950,13.421310],[52.509850,13.421140],[52.510130,13.419840],[52.510960,13.416590],[52.510910,13.416390],[52.508030,13.414360],[52.506650,13.413030],[52.505890,13.412540],[52.503970,13.411030],[52.503680,13.410470],[52.503290,13.410470],[52.501960,13.409500],[52.501730,13.409520],[52.501310,13.410850],[52.501170,13.411560],[52.500910,13.412310],[52.500870,13.412630],[52.499690,13.416390],[52.499330,13.417760],[52.499050,13.417930],[52.498860,13.418280],[52.497590,13.419210],[52.495860,13.420260],[52.494730,13.421110],[52.491840,13.422950],[52.490610,13.423620],[52.490110,13.424020],[52.488440,13.425110],[52.488000,13.425290],[52.487750,13.425260],[52.486590,13.424420],[52.486560,13.424130],[52.486890,13.422940],[52.486900,13.422750],[52.487340,13.421070],[52.487950,13.416790],[52.488130,13.414900],[52.488650,13.410740],[52.488920,13.409110],[52.489030,13.408100],[52.489490,13.406340],[52.489560,13.405170],[52.490350,13.400960],[52.491000,13.397950],[52.491600,13.394770],[52.492010,13.392960],[52.492980,13.387640],[52.493700,13.384510],[52.493750,13.383790],[52.493730,13.383220],[52.493450,13.382320],[52.493020,13.381340],[52.492720,13.380460],[52.492720,13.380310],[52.492240,13.378690],[52.491530,13.376660],[52.491610,13.375910],[52.491740,13.375640],[52.491850,13.375210],[52.492060,13.374980],[52.492170,13.373550],[52.492530,13.372050],[52.493160,13.368530],[52.493310,13.368140],[52.493890,13.364940],[52.494420,13.361350],[52.494400,13.361150],[52.494320,13.361000],[52.494200,13.360950],[52.493620,13.361040],[52.491250,13.360930],[52.490920,13.360770],[52.490550,13.360350],[52.490540,13.359210],[52.490380,13.357610],[52.490170,13.356150],[52.490030,13.354410],[52.489850,13.353670],[52.489680,13.352500],[52.489670,13.351130],[52.489520,13.349960],[52.489360,13.349330],[52.489310,13.347500],[52.489150,13.345360],[52.489080,13.345190],[52.488890,13.345000],[52.488130,13.345130],[52.485890,13.345170],[52.485050,13.345080],[52.484150,13.345130],[52.483020,13.344930],[52.482070,13.344930],[52.481210,13.345070],[52.479320,13.345020],[52.479140,13.344880],[52.478550,13.344010],[52.478170,13.343570],[52.477960,13.343190],[52.477760,13.343040],[52.476900,13.342020],[52.476760,13.341700],[52.473730,13.338130],[52.473440,13.337650],[52.472680,13.336800],[52.472300,13.336240],[52.470660,13.334350],[52.470250,13.334000],[52.469930,13.333590],[52.469100,13.332750],[52.469090,13.332520],[52.469650,13.331360],[52.469930,13.330990],[52.470020,13.330660],[52.470920,13.329220],[52.471150,13.328960],[52.471270,13.328310],[52.471600,13.327280],[52.471600,13.326870],[52.471690,13.326370],[52.471710,13.325550],[52.471570,13.325170],[52.471640,13.325000],[52.471570,13.323990],[52.471680,13.322850],[52.471640,13.321160],[52.471790,13.320570],[52.471660,13.319810],[52.471680,13.319480],[52.470680,13.317830],[52.470550,13.317430],[52.469560,13.315200],[52.469170,13.313890],[52.468940,13.313360],[52.468890,13.313110],[52.467870,13.310350],[52.467610,13.309450],[52.467620,13.309180],[52.468260,13.308120],[52.468160,13.307710],[52.467740,13.306760],[52.467710,13.306220],[52.467880,13.305190],[52.467980,13.303990],[52.468440,13.301430],[52.468440,13.301010],[52.468660,13.299830],[52.468750,13.298860],[52.468980,13.298130],[52.469050,13.297550],[52.469210,13.296920],[52.469480,13.295200],[52.469640,13.294590],[52.470010,13.292470],[52.470110,13.292160],[52.470470,13.290170],[52.470660,13.289640],[52.470700,13.289250],[52.472130,13.287200],[52.476570,13.281310],[52.476750,13.281180],[52.476910,13.281260],[52.478580,13.283540],[52.479410,13.284780],[52.479910,13.285720],[52.480680,13.286970],[52.482140,13.289560],[52.482300,13.290010],[52.483220,13.291680],[52.484280,13.293810],[52.485260,13.295360],[52.485670,13.296120],[52.485920,13.296720],[52.487600,13.299670],[52.488320,13.301350],[52.488420,13.301880],[52.488430,13.303100],[52.488330,13.305600],[52.488340,13.307060],[52.488430,13.307640],[52.488960,13.309520],[52.489430,13.310950],[52.489710,13.311540],[52.490140,13.312990],[52.490330,13.313400],[52.490460,13.314050],[52.490560,13.314150],[52.490670,13.314130],[52.491580,13.312470],[52.493260,13.310150],[52.493550,13.309960],[52.494080,13.310280],[52.494470,13.310380],[52.498610,13.312240],[52.499230,13.312600],[52.499360,13.312810],[52.499630,13.312990],[52.500440,13.313110],[52.500510,13.313260],[52.501030,13.315870],[52.501250,13.316610],[52.501550,13.318590],[52.501560,13.319030],[52.501630,13.319240],[52.501650,13.319810],[52.501930,13.321380],[52.502050,13.322360],[52.502000,13.322430],[52.502230,13.323430],[52.502340,13.323700],[52.502570,13.324830],[52.502620,13.325810],[52.502800,13.326380],[52.502800,13.326670],[52.503020,13.327680],[52.503480,13.329330],[52.503690,13.330290],[52.503890,13.331890],[52.504410,13.333690],[52.504560,13.334420],[52.504590,13.335350],[52.504490,13.336040],[52.504320,13.336520],[52.503980,13.336660],[52.503910,13.336780],[52.503630,13.337950],[52.503250,13.338980],[52.502940,13.339490],[52.502590,13.340480],[52.502210,13.341200],[52.501490,13.343100],[52.501500,13.343850],[52.501450,13.344050],[52.501450,13.344470],[52.501390,13.344820],[52.501410,13.345090],[52.501320,13.345370],[52.501330,13.345580],[52.501210,13.346310],[52.501230,13.346570],[52.500100,13.351930],[52.499920,13.353980],[52.499740,13.354570],[52.499400,13.355290],[52.499010,13.356630],[52.498950,13.357090],[52.498500,13.359070],[52.498410,13.359790],[52.498090,13.361300],[52.498010,13.361900],[52.498040,13.362060],[52.498340,13.362320],[52.498510,13.362630],[52.499070,13.362600],[52.499720,13.362820],[52.500450,13.363310],[52.500970,13.363790],[52.501200,13.363900],[52.503290,13.365710],[52.505250,13.367720],[52.506540,13.368700],[52.507480,13.369220],[52.508370,13.369860],[52.508890,13.370850],[52.509130,13.372610],[52.509460,13.373750],[52.509590,13.374430],[52.509550,13.375140],[52.509720,13.375720],[52.509680,13.376510],[52.509790,13.377670],[52.509730,13.378370],[52.509760,13.379540],[52.509950,13.381550],[52.510040,13.383310],[52.510010,13.384100],[52.510310,13.387400],[52.510240,13.389090],[52.510430,13.391540],[52.510550,13.392210],[52.510760,13.392920],[52.511020,13.394910],[52.511120,13.396510],[52.511090,13.396590],[52.511740,13.396560],[52.511780,13.396620],[52.512360,13.396550],[52.512430,13.396360],[52.512390,13.393810],[52.512440,13.393490],[52.512540,13.393380],[52.513890,13.392830],[52.514250,13.392840],[52.514690,13.392560],[52.514860,13.392530],[52.514940,13.392390],[52.514810,13.391110],[52.514870,13.389700],[52.514730,13.388420],[52.514690,13.387470],[52.514730,13.386840],[52.514690,13.386390],[52.514780,13.386300],[52.515030,13.386270],[52.515100,13.386330],[52.515730,13.386050],[52.516570,13.385910],[52.516660,13.385750],[52.516510,13.383190],[52.516400,13.379980],[52.516230,13.379000],[52.516240,13.376460],[52.515960,13.372560]
-], puntos:[{km:5,calle:"Alt Moabit"},{km:10,calle:"Torstraße"},{km:15,calle:"Kottbuser Tor"},{km:20,calle:"Yorkstraße"},{km:21,calle:"Goebenstraße"},{km:25,calle:"Hauptstraße"},{km:30,calle:"Hohenzollerndamm"},{km:35,calle:"Tauentzienstr."},{km:40,calle:"Jerusalemer Str."},{km:41,calle:"Leipziger Str."},{km:42.195,calle:"Brandenburger Tor"}
-]},
-  "Frankfurt":{flag:"🇩🇪", coords:[[50.11254,8.65297],[50.10974,8.6598],[50.11253,8.6676],[50.11346,8.67151],[50.11406,8.65295],[50.11861,8.65358],[50.11792,8.66361],[50.11264,8.67597],[50.11287,8.67844],[50.11664,8.67989],[50.11539,8.67139],[50.11957,8.67093],[50.12645,8.67123],[50.12758,8.67231],[50.1228,8.67566],[50.11967,8.67782],[50.11799,8.6845],[50.11776,8.68793],[50.11243,8.68784],[50.10962,8.6877],[50.10746,8.68503],[50.10542,8.67778],[50.10241,8.67661],[50.08832,8.6599],[50.08849,8.65138],[50.08622,8.63692],[50.08507,8.63496],[50.08406,8.61871],[50.08706,8.61686],[50.08655,8.61116],[50.08835,8.58088],[50.09122,8.57],[50.08994,8.56922],[50.09522,8.57761],[50.09647,8.57078],[50.10021,8.56119],[50.1026,8.55655],[50.10285,8.55192],[50.10324,8.55595],[50.10274,8.56969],[50.10302,8.57715],[50.10016,8.61088],[50.10251,8.63925],[50.10605,8.63976],[50.10833,8.64028],[50.11056,8.65117],[50.11396,8.67009],[50.11483,8.67254],[50.11322,8.67903],[50.11662,8.67985],[50.11529,8.67099],[50.11295,8.65268]], puntos:[{km:5,calle:"Bockenheimer"},{km:10,calle:"Bremer Straße"},{km:15,calle:"Kennedyallee"},{km:20,calle:"Zur Frankenfurt"},{km:25,calle:"Nieder Kirchweg"},{km:30,calle:"Mainzer Landstraße"},{km:35,calle:"Europaallee"},{km:40,calle:"Taubenstr."},{km:42.195,calle:"Festhalle"}]},
-  "London":{flag:"🇬🇧", coords:[[51.47309,0.01158],[51.47537,0.02918],[51.47884,0.04398],[51.48229,0.06117],[51.48694,0.06342],[51.49268,0.06093],[51.49241,0.04515],[51.49033,0.03997],[51.48781,0.03089],[51.48607,0.01499],[51.4832,-0.00959],[51.48142,-0.01466],[51.48116,-0.0248],[51.48679,-0.03616],[51.49003,-0.04211],[51.49311,-0.04675],[51.49555,-0.04583],[51.49883,-0.04544],[51.49659,-0.04116],[51.49894,-0.03574],[51.50416,-0.03618],[51.50563,-0.03897],[51.50323,-0.04776],[51.49948,-0.05517],[51.498,-0.06565],[51.49994,-0.07249],[51.50369,-0.07659],[51.50697,-0.07439],[51.50877,-0.06856],[51.5098,-0.05001],[51.51049,-0.04218],[51.50895,-0.03378],[51.50931,-0.02872],[51.50792,-0.02736],[51.50422,-0.02567],[51.49681,-0.02579],[51.49162,-0.02416],[51.48727,-0.01342],[51.49078,-0.01454],[51.49737,-0.01382],[51.50138,-0.02338],[51.50328,-0.01996],[51.505,-0.01698],[51.50343,-0.01596],[51.50239,-0.01376],[51.50489,-0.01196],[51.50673,-0.0095],[51.5088,-0.00918],[51.50896,-0.01768],[51.50898,-0.02355],[51.51237,-0.03012],[51.51278,-0.04082],[51.51021,-0.04584],[51.50964,-0.05423],[51.50941,-0.06079],[51.50835,-0.07091],[51.50977,-0.07485],[51.50904,-0.08184],[51.51055,-0.09146],[51.51101,-0.10569],[51.50962,-0.119],[51.50312,-0.12365],[51.50107,-0.12608],[51.50045,-0.13898],[51.50153,-0.14004]], puntos:[{km:6,calle:"Woolwich Rd"},{km:10,calle:"Romney Road"},{km:14,calle:"Redriff Road"},{km:18,calle:"Jamaica Road"},{km:20,calle:"Tower Bridge"},{km:24,calle:"Westferry Road"},{km:30,calle:"Upper Bank Street"},{km:34,calle:"Comercial Road"},{km:37,calle:"Lower Thames"},{km:40,calle:"Victoria Embankment"},{km:42.195,calle:"The Mall"}]},
-  "París":{flag:"🇫🇷", coords:[[48.86929,2.3094],[48.86635,2.32136],[48.86534,2.32727],[48.87024,2.33217],[48.87218,2.33257],[48.8602,2.33328],[48.86087,2.34092],[48.85337,2.36767],[48.85241,2.37196],[48.84966,2.38727],[48.84385,2.39663],[48.83402,2.41111],[48.84012,2.43407],[48.82455,2.45733],[48.82051,2.44597],[48.81911,2.44388],[48.82036,2.435],[48.82483,2.41152],[48.8298,2.40097],[48.84161,2.38692],[48.84964,2.37077],[48.85354,2.36921],[48.85286,2.35913],[48.85876,2.34017],[48.86483,2.31835],[48.86265,2.29436],[48.84086,2.2653],[48.84329,2.2597],[48.84561,2.25059],[48.84774,2.24235],[48.85844,2.24477],[48.85701,2.26592],[48.85829,2.27249],[48.8693,2.28544],[48.87165,2.27654]], puntos:[{km:6,calle:"Rue de Rivoli"},{km:10,calle:"Bd de Reuilly"},{km:14,calle:"Rue de la Pyramide"},{km:18,calle:"Av. de Gravelle"},{km:22,calle:"Rue de Charenton"},{km:26,calle:"Parc Rives de Seine"},{km:30,calle:"Cours la Reine"},{km:34,calle:"Bd Exelmans"},{km:38,calle:"Av. de l'Hippodrome"},{km:40,calle:"Av. Paul Doumer"},{km:42.195,calle:"Av. Foch"}]},
-  "Valencia":{flag:"🇪🇸", coords:[[39.45629,-0.35661],[39.45866,-0.35415],[39.46187,-0.35266],[39.46458,-0.35156],[39.46507,-0.34959],[39.46227,-0.34018],[39.46048,-0.3344],[39.46099,-0.3318],[39.46291,-0.3285],[39.46324,-0.32506],[39.46729,-0.32506],[39.47199,-0.32549],[39.47484,-0.32759],[39.47711,-0.33526],[39.48022,-0.346],[39.48036,-0.34772],[39.47401,-0.33394],[39.47053,-0.33592],[39.47225,-0.34098],[39.47428,-0.34764],[39.47593,-0.35416],[39.48037,-0.35257],[39.48333,-0.35167],[39.48759,-0.3527],[39.49089,-0.35496],[39.49385,-0.35789],[39.49084,-0.36062],[39.48718,-0.36247],[39.48353,-0.36433],[39.47692,-0.36702],[39.47394,-0.36481],[39.46941,-0.36103],[39.46977,-0.35845],[39.47597,-0.35553],[39.4744,-0.35007],[39.47355,-0.34721],[39.47081,-0.33836],[39.47023,-0.33403],[39.47495,-0.33343],[39.47571,-0.33154],[39.47326,-0.32797],[39.47084,-0.32833],[39.466,-0.32904],[39.46245,-0.33044],[39.46027,-0.33344],[39.46139,-0.33775],[39.46063,-0.34043],[39.45675,-0.34759],[39.45883,-0.35195],[39.46053,-0.35566],[39.46248,-0.35823],[39.4652,-0.35929],[39.46864,-0.36141],[39.47145,-0.36316],[39.47462,-0.3658],[39.47703,-0.36806],[39.47964,-0.37193],[39.4805,-0.37356],[39.47835,-0.3733],[39.47567,-0.36974],[39.4735,-0.37418],[39.47192,-0.37433],[39.46914,-0.37385],[39.46922,-0.37683],[39.46839,-0.37995],[39.46957,-0.38235],[39.47253,-0.3864],[39.47893,-0.39112],[39.48005,-0.39596],[39.48268,-0.40142],[39.48179,-0.40526],[39.48045,-0.407],[39.47576,-0.406],[39.47048,-0.40509],[39.46791,-0.40586],[39.46393,-0.40535],[39.46177,-0.40457],[39.45848,-0.40256],[39.46045,-0.39983],[39.46509,-0.39484],[39.46748,-0.39254],[39.46643,-0.38671],[39.46572,-0.38179],[39.46816,-0.37975],[39.46715,-0.37488],[39.46993,-0.37086],[39.47133,-0.36689],[39.46889,-0.36402],[39.46544,-0.36181],[39.46211,-0.36041],[39.45964,-0.35864],[39.45855,-0.35574],[39.45665,-0.35252],[39.45484,-0.35114]], puntos:[{km:5,calle:"Av. Tarongers"},{km:10,calle:"Blasco Ibañez"},{km:15,calle:"Cavanilles"},{km:20,calle:"Lluis Peixó"},{km:25,calle:"Plaza Saragossa"},{km:30,calle:"Guillerm de Castro"},{km:35,calle:"Tres Creus"},{km:40,calle:"Porta de la mar"},{km:42.195,calle:"Hemisferic"}]},
-  "Rom":{flag:"🇮🇹", coords:[[41.89204,12.4894],[41.89555,12.48301],[41.88937,12.48131],[41.8863,12.48668],[41.87991,12.48364],[41.87253,12.48974],[41.86806,12.49607],[41.86736,12.48575],[41.8606,12.47836],[41.85246,12.47659],[41.86117,12.47028],[41.86306,12.47468],[41.86811,12.473],[41.8711,12.46775],[41.87415,12.46767],[41.87758,12.47299],[41.8767,12.4739],[41.88198,12.47695],[41.88789,12.48103],[41.89159,12.47807],[41.89691,12.46605],[41.90073,12.46476],[41.90304,12.45821],[41.90333,12.46299],[41.90566,12.46347],[41.90597,12.47041],[41.90509,12.47335],[41.90983,12.47306],[41.90655,12.45689],[41.90646,12.45594],[41.90906,12.45682],[41.91274,12.4653],[41.91169,12.45466],[41.91624,12.45447],[41.91505,12.45806],[41.91546,12.46281],[41.91927,12.46162],[41.92085,12.46645],[41.91896,12.4691],[41.91933,12.46948],[41.92207,12.46328],[41.92417,12.45872],[41.92786,12.4571],[41.93065,12.45632],[41.93328,12.45754],[41.93516,12.45671],[41.9335,12.45924],[41.93076,12.46211],[41.93414,12.4662],[41.93539,12.47314],[41.93472,12.47855],[41.9331,12.47842],[41.93185,12.46857],[41.92853,12.46912],[41.92444,12.47065],[41.92606,12.46428],[41.92722,12.46168],[41.9251,12.46257],[41.92093,12.47078],[41.91179,12.47261],[41.90776,12.47514],[41.90652,12.47797],[41.91028,12.47649],[41.91092,12.4766],[41.90543,12.4825],[41.90298,12.48544],[41.90155,12.48036],[41.90453,12.47892],[41.90183,12.47189],[41.90053,12.47268],[41.89801,12.47301],[41.89664,12.47428],[41.89603,12.47916],[41.89661,12.48209],[41.89222,12.48055],[41.88875,12.48146],[41.88685,12.48376]], puntos:[{km:6,calle:"Ostiense"},{km:10,calle:"Vittorio Gassman"},{km:14,calle:"Aventino"},{km:18,calle:"Piazza Cavour"},{km:22,calle:"delle Milizie"},{km:26,calle:"Flaminio"},{km:30,calle:"Acqua Acetosa"},{km:34,calle:"Flaminio, 4"},{km:38,calle:"Due Macelli"},{km:40,calle:"Piazza Navana"},{km:42.195,calle:"Circus Maximus"}]},
-  "Sevilla":{flag:"🇪🇸", coords:[[37.37839,-5.99006],[37.37946,-5.98946],[37.38427,-5.98682],[37.38941,-5.98438],[37.39357,-5.98387],[37.39739,-5.98143],[37.39987,-5.98412],[37.403,-5.98766],[37.40353,-5.99336],[37.40003,-5.99902],[37.39389,-6.00356],[37.38803,-6.00209],[37.38417,-5.99775],[37.38026,-5.99731],[37.37836,-6.00106],[37.37584,-6.00544],[37.37289,-6.00349],[37.3721,-6.00731],[37.37424,-6.00886],[37.37616,-6.00571],[37.38036,-6.00907],[37.38551,-6.01126],[37.39054,-6.01074],[37.39313,-6.00881],[37.3967,-6.00676],[37.40114,-6.00444],[37.41038,-6.00196],[37.41241,-6.00149],[37.41495,-6.00132],[37.41825,-6.00213],[37.4158,-6.00108],[37.4125,-6.00134],[37.41191,-5.99979],[37.4091,-5.99629],[37.40585,-5.99858],[37.40365,-5.99595],[37.4076,-5.99286],[37.41201,-5.98942],[37.41366,-5.98852],[37.41606,-6.00109],[37.43103,-6.00421]], puntos:[{km:5,calle:"Paseo Delicias"},{km:10,calle:"Ronda Triana"},{km:15,calle:"Ing. Luis Salvador"},{km:20,calle:"Ronda Capuchinos"},{km:25,calle:"C/ Ada"},{km:30,calle:"Manuel Siurot"},{km:35,calle:"Plaza España"},{km:38,calle:"San Bernardo"},{km:40,calle:"Alameda Hércules"},{km:42.195,calle:"Paseo Delicias"}]}
+  // URLs de los archivos GPX en GitHub
+// Si cambias tu usuario de GitHub, solo tienes que cambiar "Campanero99" por tu nuevo usuario
+const GITHUB_BASE = "https://raw.githubusercontent.com/Campanero99/Tracking.TI/main/gpx";
+
+// Lista de ciudades con sus archivos GPX
+const CIUDADES_GPX = {
+  "Barcelona":   GITHUB_BASE + "/barcelona.gpx",
+  "Berlín":      GITHUB_BASE + "/berlin.gpx",
+  "Frankfurt":   GITHUB_BASE + "/frankfurt.gpx",
+  "London":      GITHUB_BASE + "/london.gpx",
+  "París":       GITHUB_BASE + "/paris.gpx",
+  "Valencia":    GITHUB_BASE + "/valencia.gpx",
+  "Rom":         GITHUB_BASE + "/roma.gpx",
+  "Sevilla":     GITHUB_BASE + "/sevilla.gpx",
+  "Hamburg":     GITHUB_BASE + "/hamburg.gpx",
+  "Tokyo":       GITHUB_BASE + "/tokyo.gpx",
+  "Rotterdam":   GITHUB_BASE + "/rotterdam.gpx",
+  "New York":    GITHUB_BASE + "/new-york.gpx",
+  "Chicago":     GITHUB_BASE + "/chicago.gpx",
+  "Sídney":      GITHUB_BASE + "/sidney.gpx"
+};
+// Banderas e información de cada ciudad
+const INFO_CIUDADES = {
+  "Barcelona":   {flag:"🇪🇸", puntos:[{km:5,calle:"Av. Diagonal"},{km:10,calle:"C/ València"},{km:15,calle:"C/ Mallorca"},{km:20,calle:"C/ Sepúlveda"},{km:25,calle:"Passeig de Colom"},{km:30,calle:"Av. Litoral"},{km:35,calle:"Av. Diagonal"},{km:40,calle:"C/ Marina"},{km:42.195,calle:"Arc de Triomf"}]},
+  "Berlín":      {flag:"🇩🇪", puntos:[{km:5,calle:"Alt Moabit"},{km:10,calle:"Torstraße"},{km:15,calle:"Kottbuser Tor"},{km:20,calle:"Yorkstraße"},{km:25,calle:"Hauptstraße"},{km:30,calle:"Hohenzollerndamm"},{km:35,calle:"Tauentzienstr."},{km:40,calle:"Jerusalemer Str."},{km:42.195,calle:"Brandenburger Tor"}]},
+  "Frankfurt":   {flag:"🇩🇪", puntos:[{km:5,calle:"Bockenheimer"},{km:10,calle:"Bremer Straße"},{km:15,calle:"Kennedyallee"},{km:20,calle:"Zur Frankenfurt"},{km:25,calle:"Nieder Kirchweg"},{km:30,calle:"Mainzer Landstraße"},{km:35,calle:"Europaallee"},{km:40,calle:"Taubenstr."},{km:42.195,calle:"Festhalle"}]},
+  "London":      {flag:"🇬🇧", puntos:[{km:6,calle:"Woolwich Rd"},{km:10,calle:"Romney Road"},{km:15,calle:"Isle of Dogs"},{km:20,calle:"Tower Bridge"},{km:25,calle:"Westferry Road"},{km:30,calle:"Upper Bank Street"},{km:35,calle:"The Highway"},{km:40,calle:"Victoria Embankment"},{km:42.195,calle:"The Mall"}]},
+  "París":       {flag:"🇫🇷", puntos:[{km:5,calle:"Bois de Vincennes"},{km:10,calle:"Nation"},{km:15,calle:"Bastille"},{km:20,calle:"Notre-Dame"},{km:25,calle:"Hotel de Ville"},{km:30,calle:"Louvre"},{km:35,calle:"Trocadero"},{km:40,calle:"Bois de Boulogne"},{km:42.195,calle:"Av. Foch"}]},
+  "Valencia":    {flag:"🇪🇸", puntos:[{km:5,calle:"Av. Tarongers"},{km:10,calle:"Blasco Ibañez"},{km:15,calle:"Cavanilles"},{km:20,calle:"Lluis Peixó"},{km:25,calle:"Plaza Saragossa"},{km:30,calle:"Guillem de Castro"},{km:35,calle:"Tres Creus"},{km:40,calle:"Porta de la mar"},{km:42.195,calle:"Hemisferic"}]},
+  "Rom":         {flag:"🇮🇹", puntos:[{km:5,calle:"Via Ostiense"},{km:10,calle:"Lungotevere"},{km:15,calle:"Trastevere"},{km:20,calle:"Cola di Rienzo"},{km:25,calle:"Flaminio"},{km:30,calle:"Acqua Acetosa"},{km:35,calle:"Parioli"},{km:40,calle:"Piazza Navona"},{km:42.195,calle:"Circo Massimo"}]},
+  "Sevilla":     {flag:"🇪🇸", puntos:[{km:5,calle:"Paseo Delicias"},{km:10,calle:"Ronda Triana"},{km:15,calle:"Ing. Luis Salvador"},{km:20,calle:"Ronda Capuchinos"},{km:25,calle:"C/ Ada"},{km:30,calle:"Manuel Siurot"},{km:35,calle:"Plaza España"},{km:40,calle:"Alameda Hércules"},{km:42.195,calle:"Paseo Delicias"}]},
+  "Hamburg":     {flag:"🇩🇪", puntos:[{km:5,calle:"Bernadottestraße"},{km:10,calle:"Palmaille"},{km:15,calle:"Ballindamm"},{km:20,calle:"Langenzugbrücke"},{km:25,calle:"Fuhlsbütteler Str."},{km:30,calle:"Rathenaustraße"},{km:35,calle:"Bebelallee"},{km:40,calle:"Mittelweg"},{km:42.195,calle:"Karolinenstraße"}]},
+  "Tokyo":       {flag:"🇯🇵", puntos:[{km:5,calle:"Shinjuku"},{km:10,calle:"Hibiya"},{km:15,calle:"Koto City"},{km:20,calle:"Kiba Park"},{km:25,calle:"Tsukishima"},{km:30,calle:"Shinonome"},{km:35,calle:"Tatsumi"},{km:40,calle:"Harumi"},{km:42.195,calle:"Tokyo Station"}]},
+  "Rotterdam":   {flag:"🇳🇱", puntos:[{km:5,calle:"Adriaan Volkerlaan"},{km:10,calle:"Maeterlinckweg"},{km:15,calle:"Erasmusbrug"},{km:20,calle:"Oldegaarde"},{km:25,calle:"Dorpsweg"},{km:30,calle:"Boezemweg"},{km:35,calle:"De Kuip"},{km:40,calle:"Kralingseweg"},{km:42.195,calle:"Coolsingel"}]},
+  "New York":    {flag:"🇺🇸", puntos:[{km:5,calle:"Verrazzano Bridge"},{km:10,calle:"4th Ave"},{km:15,calle:"Bedford Ave"},{km:20,calle:"Manhattan Ave"},{km:25,calle:"1st Avenue"},{km:30,calle:"1st Avenue"},{km:35,calle:"5th Avenue"},{km:40,calle:"Central Park"},{km:42.195,calle:"Central Park"}]},
+  "Chicago":     {flag:"🇺🇸", puntos:[{km:5,calle:"Grant Park"},{km:10,calle:"N Cannon Drive"},{km:15,calle:"Wrigleyville"},{km:20,calle:"W Kinzie Street"},{km:25,calle:"The Loop"},{km:30,calle:"S Ashland Avenue"},{km:35,calle:"Chinatown"},{km:40,calle:"S Michigan Avenue"},{km:42.195,calle:"Grant Park"}]},
+  "Sídney":      {flag:"🇦🇺", puntos:[{km:5,calle:"Pyrmont"},{km:10,calle:"Hickson Road"},{km:15,calle:"Macquarie Street"},{km:20,calle:"Anzac Parade"},{km:25,calle:"Centennial Park"},{km:30,calle:"Lang Road"},{km:35,calle:"Surry Hills"},{km:40,calle:"Mrs Macquaries Rd"},{km:42.195,calle:"The Domain"}]}
 };
 
+// Esta variable guardará las coordenadas cargadas de cada ciudad
+const coordenadasCache = {};
 const KM=42.195;
 let C=JSON.parse(localStorage.getItem('mt_v5_de')||'[]');
 let ca=null,timerSeg=null,pt=[],ciudadSel=null;
@@ -575,27 +604,130 @@ function initMapa(){
 
 let mapaLayers=[];
 function clearMapaLayers(){mapaLayers.forEach(l=>leafletMap.removeLayer(l));mapaLayers=[];}
-
-function loadMapaCiudad(name){
-  if(!leafletMap)return;
-  document.querySelectorAll('.mapa-city-btn').forEach(b=>b.classList.remove('active'));
-  const btn=document.getElementById('mcbtn-'+name);if(btn)btn.classList.add('active');
-  mapCiudadActual=name;
-  const ciudad=CIUDADES[name];
-  document.getElementById('mapa-titulo').textContent='🗺 Marathon '+name;
-  document.getElementById('mapa-subtitulo').textContent='42,195 km · '+ciudad.puntos.length+' Punkte';
-  document.getElementById('map-no-city').style.display='none';
-  document.getElementById('map-legend').style.display='block';
+// ===================== CARGAR GPX DESDE ARCHIVO =====================
+// Esta función va a internet, descarga el archivo GPX y extrae las coordenadas
+async function cargarGPXdesdeURL(url) {
+  try {
+    // 1. Descargar el archivo GPX desde internet
+    const respuesta = await fetch(url);
+    
+    // 2. Leer el contenido como texto
+    const textoGPX = await respuesta.text();
+    
+    // 3. Convertir el texto XML en algo que JavaScript pueda leer
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(textoGPX, "text/xml");
+    
+    // 4. Buscar todos los puntos de coordenadas en el archivo
+    const puntos = xml.querySelectorAll("trkpt");
+    
+    // 5. Extraer latitud y longitud de cada punto
+    const coordenadas = [];
+    puntos.forEach(function(punto) {
+      const lat = parseFloat(punto.getAttribute("lat"));
+      const lon = parseFloat(punto.getAttribute("lon"));
+      coordenadas.push([lat, lon]);
+    });
+    
+    console.log("✅ Cargado: " + coordenadas.length + " puntos");
+    return coordenadas;
+  } catch (error) {
+    console.error("❌ Error al cargar GPX:", error);
+    return null;
+  }
+}
+async function loadMapaCiudad(name){
+  if(!leafletMap) return;
+  
+  // Mostrar ciudad seleccionada
+  document.querySelectorAll('.mapa-city-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('mcbtn-'+name);
+  if(btn) btn.classList.add('active');
+  
+  mapCiudadActual = name;
+  document.getElementById('mapa-titulo').textContent = '🗺 Marathon ' + name;
+  document.getElementById('map-no-city').style.display = 'none';
+  document.getElementById('map-legend').style.display = 'block';
   clearMapaLayers();
-
-  const poly=L.polyline(ciudad.coords,{color:'#1a6fc4',weight:4,opacity:.85}).addTo(leafletMap);
+  
+  // Mostrar mensaje de carga
+  document.getElementById('mapa-subtitulo').textContent = '⏳ Cargando ruta...';
+  
+  // Obtener coordenadas (del caché o descargando)
+  let coords = coordenadasCache[name];
+  
+  if (!coords) {
+    // Si no están en caché, descargar del archivo GPX
+    const urlGPX = CIUDADES_GPX[name];
+    if (urlGPX) {
+      coords = await cargarGPXdesdeURL(urlGPX);
+      if (coords && coords.length > 0) {
+        coordenadasCache[name] = coords; // Guardar en caché
+      }
+    }
+  }
+  
+  // Si no se pudieron cargar las coordenadas, mostrar error
+  if (!coords || coords.length === 0) {
+    document.getElementById('mapa-subtitulo').textContent = '❌ Error al cargar la ruta';
+    return;
+  }
+  
+  // Actualizar información
+  const info = INFO_CIUDADES[name];
+  const numPuntos = info ? info.puntos.length : 0;
+  document.getElementById('mapa-subtitulo').textContent = '42,195 km · ' + numPuntos + ' puntos de referencia';
+  
+  // Dibujar la línea de la ruta
+  const poly = L.polyline(coords, {
+    color: '#1a6fc4',
+    weight: 4,
+    opacity: 0.85
+  }).addTo(leafletMap);
   mapaLayers.push(poly);
-
-  const kmIcon=(km,isStart,isMeta)=>{
-    const bg=isStart?'#1a9e5c':isMeta?'#c0392b':'#1a6fc4';
-    const label=isStart?'S':isMeta?'🏁':km;
-    return L.divIcon({className:'',html:`<div style="background:${bg};color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:${isMeta?'12px':'10px'};font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${label}</div>`,iconSize:[26,26],iconAnchor:[13,13]});
+  
+  // Icono para los marcadores de kilómetros
+  const kmIcon = function(km, isStart, isMeta) {
+    const bg = isStart ? '#1a9e5c' : (isMeta ? '#c0392b' : '#1a6fc4');
+    const label = isStart ? 'S' : (isMeta ? '🏁' : km);
+    return L.divIcon({
+      className: '',
+      html: '<div style="background:' + bg + ';color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:' + (isMeta ? '12px' : '10px') + ';font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">' + label + '</div>',
+      iconSize: [26, 26],
+      iconAnchor: [13, 13]
+    });
   };
+  
+  // Calcular punto en la ruta para un kilómetro específico
+  const totalPuntos = coords.length;
+  const idxPorKm = function(km) {
+    return Math.floor((km / 42.195) * (totalPuntos - 1));
+  };
+  
+  // Añadir marcadores de kilómetros
+  if (info && info.puntos) {
+    info.puntos.forEach(function(p) {
+      const idx = idxPorKm(p.km);
+      const lat = coords[idx][0];
+      const lng = coords[idx][1];
+      const isStart = p.km <= 2;
+      const isMeta = p.km >= 42;
+      
+      const marker = L.marker([lat, lng], {icon: kmIcon(p.km, isStart, isMeta)})
+        .bindTooltip((isStart ? '🏁 START' : (isMeta ? '🏁 META' : 'km ' + p.km)) + ' · ' + p.calle, {
+          permanent: false,
+          direction: 'top',
+          offset: [0, -14]
+        })
+        .addTo(leafletMap);
+      mapaLayers.push(marker);
+    });
+  }
+  
+  // Ajustar el mapa para que se vea toda la ruta
+  leafletMap.fitBounds(poly.getBounds(), {padding: [30, 30]});
+  setTimeout(function() { leafletMap.invalidateSize(); }, 150);
+}
 
   const myIcon=(km)=>{
     return L.divIcon({className:'',html:`<div style="background:#e8a020;color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${km}</div>`,iconSize:[22,22],iconAnchor:[11,11]});
@@ -644,9 +776,40 @@ function loadMapaCiudad(name){
 
 // ===================== FICHA =====================
 function buildCityGrid(){
-  const g=document.getElementById('city-grid');
-  g.innerHTML=Object.entries(CIUDADES).map(([name,d])=>`<div class="city-btn" id="cbtn-${name}" onclick="selCiudad('${name}')"><span class="city-flag">${d.flag}</span>${name}</div>`).join('');
-  if(ciudadSel){const b=document.getElementById('cbtn-'+ciudadSel);if(b)b.classList.add('sel');}
+  const g = document.getElementById('city-grid');
+  let html = '';
+  
+  // Usar las ciudades de INFO_CIUDADES (14 ciudades)
+  for (const nombre in INFO_CIUDADES) {
+    const info = INFO_CIUDADES[nombre];
+    html += '<div class="city-btn" id="cbtn-' + nombre + '" onclick="selCiudad(\'' + nombre + '\')">';
+    html += '<span class="city-flag">' + info.flag + '</span>' + nombre;
+    html += '</div>';
+  }
+  
+  g.innerHTML = html;
+  
+  if (ciudadSel) {
+    const b = document.getElementById('cbtn-' + ciudadSel);
+    if (b) b.classList.add('sel');
+  }
+}
+
+// También actualizar el selector del mapa
+function buildMapaCitySelector(){
+  const g = document.getElementById('mapa-city-selector');
+  let html = '';
+  
+  for (const nombre in INFO_CIUDADES) {
+    const info = INFO_CIUDADES[nombre];
+    html += '<button class="mapa-city-btn" id="mcbtn-' + nombre + '" onclick="loadMapaCiudad(\'' + nombre + '\')">' + info.flag + ' ' + nombre + '</button>';
+  }
+  
+  g.innerHTML = html;
+  
+  if (ca !== null && C[ca] && C[ca].ciudad) {
+    loadMapaCiudad(C[ca].ciudad);
+  }
 }
 function selCiudad(name){
   ciudadSel=name;
