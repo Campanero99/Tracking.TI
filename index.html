@@ -411,10 +411,16 @@ let idiomaActual = localStorage.getItem('marathon_lang') || 'de';
 function t(clave) {
   const claves = clave.split('.');
   let valor = TRADUCCIONES[idiomaActual];
+  
   for (const k of claves) {
-    if (valor && valor[k] !== undefined) valor = valor[k];
-    else return clave;
+    if (valor && valor[k] !== undefined) {
+      valor = valor[k];
+    } else {
+      // Si no encuentra la traducción, devuelve la clave original
+      return clave;
+    }
   }
+  
   return typeof valor === 'string' ? valor : clave;
 }
 
