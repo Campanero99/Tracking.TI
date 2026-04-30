@@ -1,41 +1,394 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/png" sizes="180x180" href="icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marathon Tracking</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root {
+    --primary:#1a6fc4;--primary-dark:#1558a0;--primary-light:#e8f1fb;
+    --bg:#f4f7fc;--bg2:#ffffff;--bg3:#eef2f8;
+    --border:#c8d8ee;--text:#1a2740;--text2:#5a7499;
+    --green:#1a9e5c;--green-bg:#e6f7ef;
+    --yellow:#b87d00;--yellow-bg:#fff8e1;
+    --red:#c0392b;--red-bg:#fdecea;
+    --shadow:0 2px 8px rgba(26,111,196,0.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+  nav{background:var(--primary);padding:0 16px;display:flex;align-items:center;position:sticky;top:0;z-index:100;overflow-x:auto;box-shadow:0 2px 8px rgba(26,111,196,0.25);flex-wrap:wrap}
+  .nav-logo{font-weight:800;font-size:1.1rem;color:#fff;padding:14px 16px 14px 0;border-right:1px solid rgba(255,255,255,0.25);margin-right:8px;white-space:nowrap;letter-spacing:-.3px}
+  .nav-logo span{color:#b8d8ff}
+  .nav-btn{background:none;border:none;color:rgba(255,255,255,0.75);padding:14px;cursor:pointer;font-size:.85rem;font-weight:600;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+  .nav-btn:hover{color:#fff}.nav-btn.active{color:#fff;border-bottom-color:#fff}
+  
+  .language-selector{display:flex;gap:4px;margin-left:auto;padding:8px 0}
+  .lang-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.9);padding:6px 8px;border-radius:6px;cursor:pointer;font-size:.75rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:3px;white-space:nowrap}
+  .lang-btn:hover{background:rgba(255,255,255,0.25);color:#fff;transform:translateY(-1px)}
+  .lang-btn.active{background:#fff;color:var(--primary);border-color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+  .lang-flag{font-size:1.1rem}
+  .lang-text{font-size:.7rem}
+  
+  .page{display:none;padding:24px 16px;max-width:960px;margin:0 auto}.page.active{display:block}
+  .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
+  .card-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--primary);margin-bottom:14px;display:flex;align-items:center;gap:6px}
+  label{font-size:.8rem;color:var(--text2);font-weight:600;display:block;margin-bottom:4px;margin-top:12px}
+  label:first-child{margin-top:0}
+  input,select{width:100%;background:var(--bg3);border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:.9rem;outline:none;transition:border .2s}
+  input:focus,select:focus{border-color:var(--primary);background:#fff}
+  input[readonly]{background:var(--primary-light);color:var(--primary);font-weight:700;border-color:var(--primary)}
+  input::placeholder{color:#a0b4cc}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .btn{display:inline-block;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:.85rem;transition:all .2s}
+  .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
+  .btn-outline{background:#fff;border:1.5px solid var(--border);color:var(--text2)}.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+  .btn-green{background:var(--green);color:#fff;font-weight:800}.btn-green:hover{opacity:.88}
+  .btn-danger{background:transparent;border:1.5px solid #e0b0ac;color:var(--red)}.btn-danger:hover{background:var(--red-bg)}
+  .btn-sm{padding:7px 14px;font-size:.78rem}
+  .runner-item{background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow)}
+  .runner-avatar{width:44px;height:44px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;flex-shrink:0;color:#fff}
+  .runner-info{flex:1;min-width:0}.runner-name{font-weight:700;font-size:.95rem;color:var(--text)}
+  .runner-sub{font-size:.78rem;color:var(--text2);margin-top:2px}
+  .runner-actions{display:flex;gap:6px;flex-shrink:0}
+  .city-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+  .city-btn{background:var(--bg3);border:1.5px solid var(--border);border-radius:10px;padding:10px 6px;cursor:pointer;text-align:center;font-size:.8rem;font-weight:600;color:var(--text2);transition:all .2s}
+  .city-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+  .city-btn.sel{border-color:var(--primary);background:var(--primary);color:#fff}
+  .city-flag{font-size:1.3rem;display:block;margin-bottom:3px}
+  .badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.72rem;font-weight:700}
+  .badge-green{background:var(--green-bg);color:var(--green)}
+  .badge-yellow{background:var(--yellow-bg);color:var(--yellow)}
+  .badge-red{background:var(--red-bg);color:var(--red)}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+  .stat-box{background:var(--bg2);border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+  .stat-val{font-size:1.3rem;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums}
+  .stat-label{font-size:.7rem;color:var(--text2);font-weight:600;margin-top:4px;text-transform:uppercase}
+  .km-table{width:100%;border-collapse:collapse}
+  .km-table th{font-size:.72rem;text-transform:uppercase;color:var(--text2);font-weight:700;padding:8px 10px;text-align:left;border-bottom:2px solid var(--border);white-space:nowrap}
+  .km-table td{padding:9px 10px;font-size:.85rem;border-bottom:1px solid var(--border);vertical-align:middle}
+  .km-table tr:last-child td{border-bottom:none}
+  .km-table tr:hover td{background:#f8fafd}
+  .km-passed td{opacity:.45}
+  .km-next td{background:var(--primary-light) !important}
+  .km-next td b{color:var(--primary)}
+  .prono-result{background:linear-gradient(135deg,var(--primary),#2980d9);border-radius:14px;padding:28px;text-align:center;margin-top:16px;color:#fff;box-shadow:0 4px 16px rgba(26,111,196,0.3)}
+  .prono-time{font-size:3rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+  .alert{padding:10px 14px;border-radius:8px;font-size:.85rem;margin-top:10px}
+  .alert-info{background:var(--primary-light);border:1px solid var(--border);color:var(--primary)}
+  .alert-landscape{background:var(--yellow-bg);border:1.5px solid #f0d080;color:var(--yellow);padding:12px 16px;border-radius:10px;display:flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:600}
+  .punto-row{display:grid;grid-template-columns:75px 1fr auto;gap:8px;margin-bottom:8px;align-items:center}
+  .marca-inputs{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:6px;align-items:center;margin-top:4px}
+  .marca-sep{font-size:1.4rem;font-weight:800;color:var(--primary);text-align:center;line-height:1}
+  .marca-lbl{font-size:.7rem;color:var(--text2);text-align:center;margin-top:2px}
+  .sep{height:1px;background:var(--border);margin:16px 0}
+  h2{font-size:1.15rem;font-weight:800;margin-bottom:4px;color:var(--text)}
+  .text2{color:var(--text2);font-size:.85rem}
+  .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+  .page-header-left{display:flex;align-items:center;gap:12px}
+
+  #page-mapa{padding:0;max-width:100%}
+  .mapa-header{padding:16px 16px 0 16px;max-width:960px;margin:0 auto;}
+  .mapa-header h2{margin-bottom:4px}
+  .mapa-city-selector{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;max-width:960px;margin:0 auto;}
+  .mapa-city-btn{background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:.8rem;font-weight:600;color:var(--text2);transition:all .2s;display:flex;align-items:center;gap:5px}
+  .mapa-city-btn:hover{border-color:var(--primary);color:var(--primary)}
+  .mapa-city-btn.active{background:var(--primary);border-color:var(--primary);color:#fff}
+  #map-container{width:100%;height:calc(100vh - 180px);min-height:400px;position:relative;}
+  #leaflet-map{width:100%;height:100%;}
+  .map-legend{position:absolute;bottom:20px;left:16px;z-index:1000;background:white;border-radius:10px;padding:10px 14px;box-shadow:0 2px 12px rgba(0,0,0,0.15);font-size:.75rem;color:var(--text2);border:1px solid var(--border)}
+  .map-legend-title{font-weight:700;color:var(--text);margin-bottom:6px;font-size:.78rem}
+  .map-legend-item{display:flex;align-items:center;gap:6px;margin-bottom:4px}
+  .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+  .map-no-city{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:var(--bg3);color:var(--text2);gap:12px;font-size:.95rem}
+  .map-no-city-icon{font-size:3rem}
+
+  @media(max-width:640px){
+    .row2,.row3{grid-template-columns:1fr}
+    .stats-row{grid-template-columns:1fr 1fr}
+    .km-table{font-size:.75rem}.km-table th,.km-table td{padding:6px 5px}
+    .city-grid{grid-template-columns:repeat(3,1fr)}
+    .runner-actions{flex-direction:column}
+    #map-container{height:calc(100vh - 220px)}
+    .language-selector{margin-left:0;justify-content:center;padding:4px 0}
+    .lang-btn{padding:4px 6px}
+    .lang-text{display:none}
+  }
+  @media(orientation:portrait) and (max-width:768px){.landscape-hint{display:flex !important}}
+  .landscape-hint{display:none}
+  .leaflet-popup-content-wrapper{border-radius:12px!important;box-shadow:0 4px 20px rgba(0,0,0,0.15)!important;}
+  .leaflet-popup-content{margin:12px 14px!important;}
+  .km-popup .leaflet-popup-tip{background:white;}
+</style>
+</head>
+<body>
+
+<!-- LICENSE SCREEN -->
+<div id="license-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1a6fc4,#0d3d73);display:flex;align-items:center;justify-content:center;z-index:99999;font-family:Segoe UI,system-ui,sans-serif;">
+  <div style="background:#fff;border-radius:20px;padding:36px 28px;max-width:400px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.3);text-align:center;">
+    <div style="font-size:3rem;margin-bottom:8px;">&#127939;</div>
+    <div style="font-size:1.3rem;font-weight:800;color:#1a2740;margin-bottom:4px;" id="lic-title">MaratonTrack</div>
+    <div style="font-size:.85rem;color:#5a7499;margin-bottom:24px;" id="lic-subtitle">Bitte Lizenzcode eingeben</div>
+    <label style="font-size:.8rem;font-weight:700;color:#5a7499;display:block;text-align:left;margin-bottom:6px;" id="lic-label">Lizenzcode</label>
+    <input id="lic-input" type="text" placeholder="XXXXXX-XXXXXX-XXXXXX-..." style="width:100%;padding:11px 14px;border:2px solid #c8d8ee;border-radius:10px;font-size:.9rem;outline:none;text-align:center;font-family:monospace;letter-spacing:1px;color:#1a2740;" onkeydown="if(event.key==='Enter')checkLicense()">
+    <div id="lic-err" style="color:#c0392b;font-size:.8rem;margin-top:8px;min-height:18px;"></div>
+    <button onclick="checkLicense()" style="width:100%;margin-top:12px;padding:12px;background:#1a6fc4;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:800;cursor:pointer;" id="lic-btn">Anmelden &rarr;</button>
+    <div id="lic-ok" style="display:none;margin-top:14px;background:#e6f7ef;border-radius:10px;padding:12px;font-size:.82rem;color:#1a9e5c;font-weight:600;"></div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav-logo">🏃 <span>Marathon</span> Tracking</div>
+  <button class="nav-btn active" id="nav-lista" onclick="showPage('lista')">Läufer</button>
+  <button class="nav-btn" id="nav-nuevo" onclick="nuevoCorreder()">Neuer Läufer</button>
+  <button class="nav-btn" id="nav-seguimiento" onclick="showPage('seguimiento')">Folgen</button>
+  <button class="nav-btn" id="nav-pronostico" onclick="showPage('pronostico')">Prognose</button>
+  <button class="nav-btn" id="nav-mapa" onclick="showPage('mapa')">Strecke</button>
+  
+  <div class="language-selector">
+    <button class="lang-btn active" onclick="cambiarIdioma('de')" data-lang="de" title="Deutsch">
+      <span class="lang-flag">🇩🇪</span> <span class="lang-text">DE</span>
+    </button>
+    <button class="lang-btn" onclick="cambiarIdioma('en')" data-lang="en" title="English">
+      <span class="lang-flag">🇬🇧</span> <span class="lang-text">EN</span>
+    </button>
+    <button class="lang-btn" onclick="cambiarIdioma('es')" data-lang="es" title="Español">
+      <span class="lang-flag">🇪🇸</span> <span class="lang-text">ES</span>
+    </button>
+    <button class="lang-btn" onclick="cambiarIdioma('fr')" data-lang="fr" title="Français">
+      <span class="lang-flag">🇫🇷</span> <span class="lang-text">FR</span>
+    </button>
+  </div>
+</nav>
+
+<!-- LISTA -->
+<div id="page-lista" class="page active">
+  <div class="page-header">
+    <div><h2 id="lista-titulo">Meine Läufer</h2><p class="text2" id="lista-sub">Bis zu 5 Läufern</p></div>
+  </div>
+  <div id="lista-corredores"></div>
+</div>
+
+<!-- FICHA -->
+<div id="page-ficha" class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <button class="btn btn-outline btn-sm" onclick="showPage('lista')" id="ficha-back">← Zurück</button>
+      <div><h2 id="ficha-titulo">Neuer Läufer</h2><p class="text2" id="ficha-sub">Scrolle nach unten und drücke Läufer speichern</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">👤 <span id="ficha-personal">Persönliche Daten</span></div>
+    <label id="ficha-nombre-label">Name des Läufers *</label>
+    <input type="text" id="f-nombre" placeholder="z.B.: Thomas">
+    <div class="row2">
+      <div><label id="ficha-dorsal-label">Startnummer</label><input type="number" id="f-dorsal" placeholder="z.B.: 4521" min="1"></div>
+      <div><label id="ficha-sexo-label">Geschlecht</label>
+        <select id="f-sexo"><option value="">—</option><option value="M">Männlich</option><option value="F">Weiblich</option></select>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">🌍 <span id="ficha-ciudad">Stadt / Wettkampf</span></div>
+    <p class="text2" style="margin-bottom:10px;" id="ficha-ciudad-desc">Stadt auswählen, um die Treffpunkte automatisch zu laden.</p>
+    <div class="city-grid" id="city-grid"></div>
+    <label style="margin-top:14px;" id="ficha-carrera-label">Name des Wettkampfs</label>
+    <input type="text" id="f-carrera" placeholder="z.B.: Berlin Marathon">
+  </div>
+  <div class="card">
+    <div class="card-title">⏱ <span id="ficha-tiempo">Zielzeit und Start</span></div>
+    <label id="ficha-marca-label">Zielzeit</label>
+    <div class="marca-inputs">
+      <div><input type="number" id="f-marca-h" placeholder="0" min="0" max="9" inputmode="numeric" oninput="calcularRitmo()"><div class="marca-lbl">h</div></div>
+      <div class="marca-sep">:</div>
+      <div><input type="number" id="f-marca-m" placeholder="00" min="0" max="59" inputmode="numeric" oninput="calcularRitmo()"><div class="marca-lbl">min</div></div>
+      <div class="marca-sep">:</div>
+      <div><input type="number" id="f-marca-s" placeholder="00" min="0" max="59" inputmode="numeric" oninput="calcularRitmo()"><div class="marca-lbl">s</div></div>
+    </div>
+    <div class="row2" style="margin-top:12px;">
+      <div><label id="ficha-ritmo-label">Berechnetes Tempo/km</label><input type="text" id="f-ritmo" readonly placeholder="—"></div>
+    </div>
+    <div class="row2">
+      <div><label id="ficha-oficial-label">Offizielle Startzeit</label><input type="time" id="f-salida-oficial" step="1"></div>
+      <div><label id="ficha-personal-label">Persönliche Startzeit (Chip)</label><input type="time" id="f-salida-personal" step="1" oninput="syncSalida()"></div>
+    </div>
+    <div id="diferencia-salida" class="alert alert-info" style="display:none;"></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📍 <span id="ficha-puntos">Treffpunkte</span></div>
+    <p class="text2" style="margin-bottom:12px;" id="ficha-puntos-desc">KM und Straßenname, wo du den Läufer siehst. Wird automatisch sortiert.</p>
+    <div id="puntos-container"></div>
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <button class="btn btn-outline btn-sm" onclick="addPunto()" id="ficha-add">+ Punkt hinzufügen</button>
+      <button class="btn btn-danger btn-sm" onclick="limpiarPuntos()" id="ficha-delete">✕ Alle löschen</button>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;">
+    <button class="btn btn-primary" style="flex:1;" onclick="guardarCorreder()" id="ficha-save">💾 Läufer speichern</button>
+    <button class="btn btn-outline" onclick="showPage('lista')" id="ficha-cancel">Abbrechen</button>
+  </div>
+</div>
+
+<!-- SEGUIMIENTO -->
+<div id="page-seguimiento" class="page">
+  <div class="alert-landscape landscape-hint">
+    <span style="font-size:1.4rem;">📱↔️</span>
+    <span id="seg-landscape">Für alle Informationen, drehe das Handy <b>horizontal</b></span>
+  </div>
+  <div class="page-header">
+    <div class="page-header-left">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <button class="btn btn-outline btn-sm" onclick="showPage('lista')" id="seg-back">← Zurück</button>
+          <h2 id="seg-nombre">Folgen</h2>
+        </div>
+        <p class="text2" id="seg-sub"></p>
+      </div>
+    </div>
+  </div>
+  <div id="seg-reloj" style="text-align:center;font-size:2rem;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums;padding:10px 0 4px;letter-spacing:1px;"></div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-val" id="stat-ra">—</div><div class="stat-label" id="seg-pace">Aktuelles Tempo</div></div>
+    <div class="stat-box"><div class="stat-val" id="stat-mp">—</div><div class="stat-label" id="seg-arrival">Ankunftszeit Ziel</div></div>
+    <div class="stat-box"><div class="stat-val" id="stat-bz">—</div><div class="stat-label" id="seg-calc">Berechnete Zeit</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title" id="seg-check-title">📍 Treffpunkte — "Hier!" drücken wenn der Läufer vorbeikommt</div>
+    <div style="overflow-x:auto;">
+      <table class="km-table">
+        <thead><tr>
+          <th id="seg-th-calle">Straße / Punkt</th><th id="seg-th-km">KM</th><th id="seg-th-plan">Geplante Zeit</th>
+          <th id="seg-th-real">Echte Zeit</th><th id="seg-th-diff">Differenz</th><th id="seg-th-accion">Aktion</th>
+        </tr></thead>
+        <tbody id="seg-tabla"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card" id="seg-meta-card" style="display:none;">
+    <div class="card-title" id="seg-result-title">🏁 Endergebnis</div>
+    <div style="text-align:center;padding:12px 0;">
+      <div style="font-size:2.2rem;font-weight:800;color:var(--green);" id="seg-meta-t">—</div>
+      <div class="text2" style="margin-top:4px;" id="seg-total">Gesamtzeit</div>
+      <div style="margin-top:8px;" id="seg-meta-d"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRONOSTICO -->
+<div id="page-pronostico" class="page">
+  <h2 style="margin-bottom:4px;" id="pron-titulo">Zielprognose</h2>
+  <p class="text2" style="margin-bottom:20px;" id="pron-desc">Aktuellen KM und Laufzeit eingeben, um die Zielankunft zu berechnen</p>
+  <div class="card">
+    <div class="card-title" id="pron-runner-title">👤 Läufer (optional)</div>
+    <select id="prono-corredor" onchange="autoRellenarProno()">
+      <option value="">— Keinen Läufer ausgewählt —</option>
+    </select>
+  </div>
+  <div class="card">
+    <div class="card-title" id="pron-data-title">📊 Durchgangsdaten</div>
+    <div class="row2">
+      <div><label id="pron-km-label">Aktueller Kilometer</label><input type="number" id="prono-km" min="0.1" max="50" step="0.1" oninput="calcProno()"></div>
+      <div><label id="pron-dist-label">Gesamtdistanz (km)</label><input type="number" id="prono-dist" value="42.195" step="0.001" oninput="calcProno()"></div>
+    </div>
+    <div style="margin-top:10px;">
+      <label style="display:block;margin-bottom:6px;" id="pron-time-label">Laufzeit (h:mm:ss)</label>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <input type="number" id="prono-th" min="0" max="9" placeholder="1" inputmode="numeric" oninput="calcProno()" style="width:52px;text-align:center;padding:8px 4px;">
+        <span style="font-size:1.3rem;font-weight:800;opacity:.7;">:</span>
+        <input type="number" id="prono-tm2" min="0" max="59" placeholder="45" inputmode="numeric" oninput="calcProno()" style="width:52px;text-align:center;padding:8px 4px;">
+        <span style="font-size:1.3rem;font-weight:800;opacity:.7;">:</span>
+        <input type="number" id="prono-ts" min="0" max="59" placeholder="30" inputmode="numeric" oninput="calcProno()" style="width:52px;text-align:center;padding:8px 4px;">
+      </div>
+    </div>
+  </div>
+  <div id="prono-res" style="display:none;">
+    <div class="prono-result">
+      <div style="font-size:.85rem;opacity:.85;margin-bottom:8px;" id="pron-estimated">⏱ Geschätzte Gesamtzeit</div>
+      <div style="display:flex;align-items:baseline;justify-content:center;gap:4px;font-variant-numeric:tabular-nums;">
+        <div style="text-align:center;"><div id="prono-tm-h" style="font-size:3rem;font-weight:800;line-height:1;">—</div><div style="font-size:.75rem;opacity:.75;" class="pron-h-label">Std</div></div>
+        <span style="font-size:3rem;font-weight:800;line-height:1;padding:0 2px;opacity:.6;">:</span>
+        <div style="text-align:center;"><div id="prono-tm-m" style="font-size:3rem;font-weight:800;line-height:1;">—</div><div style="font-size:.75rem;opacity:.75;" class="pron-m-label">Min</div></div>
+        <span style="font-size:3rem;font-weight:800;line-height:1;padding:0 2px;opacity:.6;">:</span>
+        <div style="text-align:center;"><div id="prono-tm-s" style="font-size:3rem;font-weight:800;line-height:1;">—</div><div style="font-size:.75rem;opacity:.75;" class="pron-s-label">Sek</div></div>
+      </div>
+      <div class="sep" style="background:rgba(255,255,255,0.25);"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;text-align:center;">
+        <div><div style="font-weight:800;font-size:1.1rem;" id="prono-rm">—</div><div style="font-size:.75rem;opacity:.8;" id="pron-avg">Durchschnittstempo/km</div></div>
+        <div><div style="font-weight:800;font-size:1.1rem;" id="prono-kr">—</div><div style="font-size:.75rem;opacity:.8;" id="pron-remain">Verbleibende KM</div></div>
+        <div><div style="font-weight:800;font-size:1.1rem;" id="prono-hl">—</div><div style="font-size:.75rem;opacity:.8;" id="pron-arrival">Ankunftszeit</div></div>
+      </div>
+    </div>
+    <div id="prono-vs" class="card" style="margin-top:12px;text-align:center;display:none;">
+      <div class="card-title" id="pron-compare">Vergleich mit Zielzeit</div>
+      <div id="prono-vs-t" style="font-size:1rem;font-weight:700;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAPA -->
+<div id="page-mapa" class="page">
+  <div class="mapa-header">
+    <h2 id="mapa-titulo">🗺 Strecke</h2>
+    <p class="text2" id="mapa-subtitulo">Wähle eine Stadt, um die Strecke zu sehen</p>
+  </div>
+  <div class="mapa-city-selector" id="mapa-city-selector"></div>
+  <div id="map-container">
+    <div id="leaflet-map"></div>
+    <div class="map-legend" id="map-legend" style="display:none;">
+      <div class="map-legend-title" id="map-legend-title">Legende</div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#1a6fc4;width:20px;height:4px;border-radius:2px;"></div> <span id="map-legend-route">Strecke</span></div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#1a9e5c;"></div> <span id="map-legend-start">Start / Ziel</span></div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#1a6fc4;border:2px solid white;box-shadow:0 0 0 1px #1a6fc4;"></div> <span id="map-legend-km">KM-Marker</span></div>
+      <div class="map-legend-item"><div class="legend-dot" style="background:#e8a020;border:2px solid white;"></div> <span id="map-legend-points">Deine Punkte</span></div>
+    </div>
+    <div class="map-no-city" id="map-no-city">
+      <div class="map-no-city-icon">🗺</div>
+      <div id="map-select-text">Wähle oben eine Stadt aus, um die Strecke zu sehen</div>
+    </div>
+  </div>
+</div>
 <script>
 // ===================== SISTEMA DE TRADUCCIONES =====================
 const TRADUCCIONES = {
   de: {
     nav: { runners: "Läufer", newRunner: "Neuer Läufer", follow: "Folgen", prognosis: "Prognose", route: "Strecke" },
     lista: { title: "Meine Läufer", subtitle: "Bis zu 5 Läufern", noRunners: "Es gibt noch keine Läufer.", addRunner: "Klicke \"+ Neuer Läufer\" um anzufangen.", edit: "Bearbeiten", follow: "Folgen", route: "Strecke", delete: "Löschen", waiting: "Wartend", finished: "Beendet ✓", running: "laufend" },
-    ficha: { newTitle: "Neuer Läufer", editTitle: "Bearbeiten", subtitle: "Scrolle nach unten und drücke Läufer speichern", personalData: "Persönliche Daten", name: "Name des Läufers *", namePlaceholder: "z.B.: Thomas", bib: "Startnummer", bibPlaceholder: "z.B.: 4521", gender: "Geschlecht", genderSelect: "—", genderM: "Männlich", genderF: "Weiblich", cityTitle: "Stadt / Wettkampf", cityDesc: "Stadt auswählen, um die Treffpunkte automatisch zu laden.", race: "Name des Wettkampfs", racePlaceholder: "z.B.: Berlin Marathon", targetTitle: "Zielzeit und Start", targetTime: "Zielzeit", pace: "Berechnetes Tempo/km", officialStart: "Offizielle Startzeit", personalStart: "Persönliche Startzeit (Chip)", checkpoints: "Treffpunkte", checkpointsDesc: "KM und Straßenname, wo du den Läufer siehst. Wird automatisch sortiert.", addPoint: "+ Punkt hinzufügen", deleteAll: "✕ Alle löschen", save: "💾 Läufer speichern", cancel: "Abbrechen", back: "← Zurück" },
-    seguimiento: { title: "Folgen", landscape: "Für alle Informationen, drehe das Handy horizontal", currentPace: "Aktuelles Tempo", arrivalTime: "Ankunftszeit Ziel", calculatedTime: "Berechnete Zeit", checkpointTitle: "Treffpunkte — \"Hier!\" drücken wenn der Läufer vorbeikommt", thStreet: "Straße / Punkt", thKm: "KM", thPlanned: "Geplante Zeit", thReal: "Echte Zeit", thDiff: "Differenz", thAction: "Aktion", here: "📍 Hier!", undo: "↩ Rückgängig", onTime: "Pünktlich", result: "Endergebnis", totalTime: "Gesamtzeit", hours: "Std", minutes: "Min", seconds: "Sek" },
-    prognosis: { title: "Zielprognose", desc: "Aktuellen KM und Laufzeit eingeben, um die Zielankunft zu berechnen", runnerTitle: "Läufer (optional)", noRunner: "— Keinen Läufer ausgewählt —", dataTitle: "Durchgangsdaten", currentKm: "Aktueller Kilometer", totalDist: "Gesamtdistanz (km)", raceTime: "Laufzeit (h:mm:ss)", estimated: "Geschätzte Gesamtzeit", avgPace: "Durchschnittstempo/km", remainingKm: "Verbleibende KM", arrivalTime: "Ankunftszeit", compare: "Vergleich mit Zielzeit", hours: "Std", minutes: "Min", seconds: "Sek" },
-    mapa: { title: "Strecke", subtitle: "Wähle eine Stadt, um die Strecke zu sehen", legend: "Legende", route: "Strecke", startFinish: "Start / Ziel", kmMarkers: "KM-Marker", yourPoints: "Deine Punkte", selectCity: "Wähle oben eine Stadt aus, um die Strecke zu sehen", estimatedTime: "Voraussichtliche Zeit", start: "START", goal: "ZIEL" },
-    license: { title: "MaratonTrack", subtitle: "Bitte Lizenzcode eingeben", codeLabel: "Lizenzcode", login: "Anmelden →", welcome: "Willkommen", validUntil: "Lizenz gültig bis", daysLeft: "verbleibende Tage", invalidCode: "Code invalide. Bitte überprüfe die Eingabe.", expired: "Lizenz abgelaufen. Kontaktieren Sie Ihren Anbieter.", tampered: "Code invalide." }
+    ficha: { newTitle: "Neuer Läufer", editTitle: "Bearbeiten", subtitle: "Scrolle nach unten und drücke Läufer speichern", personalData: "Persönliche Daten", name: "Name des Läufers *", namePlaceholder: "z.B.: Thomas", bib: "Startnummer", bibPlaceholder: "z.B.: 4521", gender: "Geschlecht", genderSelect: "—", genderM: "Männlich", genderF: "Weiblich", cityTitle: "Stadt / Wettkampf", cityDesc: "Stadt auswählen, um die Treffpunkte automatisch zu laden.", race: "Name des Wettkampfs", racePlaceholder: "z.B.: Berlin Marathon", targetTitle: "Zielzeit und Start", targetTime: "Zielzeit", pace: "Berechnetes Tempo/km", officialStart: "Offizielle Startzeit", personalStart: "Persönliche Startzeit (Chip)", checkpoints: "Treffpunkte", checkpointsDesc: "KM und Straßenname, wo du den Läufer siehst.", addPoint: "+ Punkt hinzufügen", deleteAll: "✕ Alle löschen", save: "💾 Läufer speichern", cancel: "Abbrechen", back: "← Zurück" },
+    seguimiento: { title: "Folgen", landscape: "Für alle Informationen, drehe das Handy horizontal", currentPace: "Aktuelles Tempo", arrivalTime: "Ankunftszeit Ziel", calculatedTime: "Berechnete Zeit", onTime: "Pünktlich", result: "Endergebnis", totalTime: "Gesamtzeit", here: "📍 Hier!", undo: "↩ Rückgängig", hours: "Std", minutes: "Min", seconds: "Sek" },
+    prognosis: { title: "Zielprognose", desc: "Aktuellen KM und Laufzeit eingeben", noRunner: "— Keinen Läufer ausgewählt —", hours: "Std", minutes: "Min", seconds: "Sek" },
+    mapa: { title: "Strecke", subtitle: "Wähle eine Stadt", legend: "Legende", route: "Strecke", startFinish: "Start / Ziel", kmMarkers: "KM-Marker", yourPoints: "Deine Punkte", selectCity: "Wähle oben eine Stadt aus", estimatedTime: "Voraussichtliche Zeit", start: "START", goal: "ZIEL" },
+    license: { title: "MaratonTrack", subtitle: "Bitte Lizenzcode eingeben", codeLabel: "Lizenzcode", login: "Anmelden →", welcome: "Willkommen", validUntil: "Lizenz gültig bis", daysLeft: "verbleibende Tage", invalidCode: "Code invalide.", expired: "Lizenz abgelaufen.", tampered: "Code invalide." }
   },
   en: {
     nav: { runners: "Runners", newRunner: "New Runner", follow: "Follow", prognosis: "Forecast", route: "Route" },
-    lista: { title: "My Runners", subtitle: "Up to 5 runners", noRunners: "No runners yet.", addRunner: "Click \"+ New Runner\" to get started.", edit: "Edit", follow: "Follow", route: "Route", delete: "Delete", waiting: "Waiting", finished: "Finished ✓", running: "running" },
-    ficha: { newTitle: "New Runner", editTitle: "Edit", subtitle: "Scroll down and press Save runner", personalData: "Personal Data", name: "Runner's name *", namePlaceholder: "e.g.: Thomas", bib: "Bib number", bibPlaceholder: "e.g.: 4521", gender: "Gender", genderSelect: "—", genderM: "Male", genderF: "Female", cityTitle: "City / Race", cityDesc: "Select a city to automatically load checkpoints.", race: "Race name", racePlaceholder: "e.g.: Berlin Marathon", targetTitle: "Target Time & Start", targetTime: "Target time", pace: "Calculated pace/km", officialStart: "Official start time", personalStart: "Personal start time (Chip)", checkpoints: "Checkpoints", checkpointsDesc: "KM and street name where you'll see the runner. Automatically sorted.", addPoint: "+ Add point", deleteAll: "✕ Delete all", save: "💾 Save runner", cancel: "Cancel", back: "← Back" },
-    seguimiento: { title: "Follow", landscape: "For all information, rotate your phone horizontally", currentPace: "Current pace", arrivalTime: "Arrival time", calculatedTime: "Calculated time", checkpointTitle: "Checkpoints — Press \"Here!\" when the runner passes", thStreet: "Street / Point", thKm: "KM", thPlanned: "Planned time", thReal: "Actual time", thDiff: "Difference", thAction: "Action", here: "📍 Here!", undo: "↩ Undo", onTime: "On time", result: "Final Result", totalTime: "Total time", hours: "hrs", minutes: "min", seconds: "sec" },
-    prognosis: { title: "Finish Forecast", desc: "Enter current KM and race time to calculate finish time", runnerTitle: "Runner (optional)", noRunner: "— No runner selected —", dataTitle: "Split data", currentKm: "Current kilometer", totalDist: "Total distance (km)", raceTime: "Race time (h:mm:ss)", estimated: "Estimated total time", avgPace: "Average pace/km", remainingKm: "Remaining KM", arrivalTime: "Arrival time", compare: "Comparison with target time", hours: "hrs", minutes: "min", seconds: "sec" },
-    mapa: { title: "Route", subtitle: "Select a city to view the route", legend: "Legend", route: "Route", startFinish: "Start / Finish", kmMarkers: "KM markers", yourPoints: "Your points", selectCity: "Select a city above to view the route", estimatedTime: "Estimated time", start: "START", goal: "FINISH" },
-    license: { title: "MaratonTrack", subtitle: "Please enter license code", codeLabel: "License code", login: "Login →", welcome: "Welcome", validUntil: "License valid until", daysLeft: "days remaining", invalidCode: "Invalid code. Please check your entry.", expired: "License expired. Contact your provider.", tampered: "Invalid code." }
+    lista: { title: "My Runners", subtitle: "Up to 5 runners", noRunners: "No runners yet.", addRunner: "Click \"+ New Runner\" to start.", edit: "Edit", follow: "Follow", route: "Route", delete: "Delete", waiting: "Waiting", finished: "Finished ✓", running: "running" },
+    ficha: { newTitle: "New Runner", editTitle: "Edit", subtitle: "Scroll down and press Save runner", personalData: "Personal Data", name: "Runner's name *", namePlaceholder: "e.g.: Thomas", bib: "Bib number", bibPlaceholder: "e.g.: 4521", gender: "Gender", genderSelect: "—", genderM: "Male", genderF: "Female", cityTitle: "City / Race", cityDesc: "Select city to load checkpoints.", race: "Race name", racePlaceholder: "e.g.: Berlin Marathon", targetTitle: "Target Time & Start", targetTime: "Target time", pace: "Calculated pace/km", officialStart: "Official start time", personalStart: "Personal start time (Chip)", checkpoints: "Checkpoints", checkpointsDesc: "KM and street name.", addPoint: "+ Add point", deleteAll: "✕ Delete all", save: "💾 Save runner", cancel: "Cancel", back: "← Back" },
+    seguimiento: { title: "Follow", landscape: "Rotate your phone horizontally", currentPace: "Current pace", arrivalTime: "Arrival time", calculatedTime: "Calculated time", onTime: "On time", result: "Final Result", totalTime: "Total time", here: "📍 Here!", undo: "↩ Undo", hours: "hrs", minutes: "min", seconds: "sec" },
+    prognosis: { title: "Finish Forecast", desc: "Enter current KM and time", noRunner: "— No runner selected —", hours: "hrs", minutes: "min", seconds: "sec" },
+    mapa: { title: "Route", subtitle: "Select a city", legend: "Legend", route: "Route", startFinish: "Start / Finish", kmMarkers: "KM markers", yourPoints: "Your points", selectCity: "Select a city above", estimatedTime: "Estimated time", start: "START", goal: "FINISH" },
+    license: { title: "MaratonTrack", subtitle: "Please enter license code", codeLabel: "License code", login: "Login →", welcome: "Welcome", validUntil: "License valid until", daysLeft: "days remaining", invalidCode: "Invalid code.", expired: "License expired.", tampered: "Invalid code." }
   },
   es: {
     nav: { runners: "Corredores", newRunner: "Nuevo Corredor", follow: "Seguir", prognosis: "Pronóstico", route: "Recorrido" },
-    lista: { title: "Mis Corredores", subtitle: "Hasta 5 corredores", noRunners: "No hay corredores todavía.", addRunner: "Haz clic en \"+ Nuevo Corredor\" para empezar.", edit: "Editar", follow: "Seguir", route: "Recorrido", delete: "Eliminar", waiting: "Esperando", finished: "Finalizado ✓", running: "corriendo" },
-    ficha: { newTitle: "Nuevo Corredor", editTitle: "Editar", subtitle: "Desplázate hacia abajo y pulsa Guardar corredor", personalData: "Datos Personales", name: "Nombre del corredor *", namePlaceholder: "ej.: Thomas", bib: "Dorsal", bibPlaceholder: "ej.: 4521", gender: "Género", genderSelect: "—", genderM: "Masculino", genderF: "Femenino", cityTitle: "Ciudad / Carrera", cityDesc: "Selecciona una ciudad para cargar los puntos automáticamente.", race: "Nombre de la carrera", racePlaceholder: "ej.: Maratón de Berlín", targetTitle: "Tiempo Objetivo y Salida", targetTime: "Tiempo objetivo", pace: "Ritmo calculado/km", officialStart: "Hora oficial de salida", personalStart: "Hora personal de salida (Chip)", checkpoints: "Puntos de Encuentro", checkpointsDesc: "KM y calle donde verás al corredor. Se ordena automáticamente.", addPoint: "+ Añadir punto", deleteAll: "✕ Eliminar todos", save: "💾 Guardar corredor", cancel: "Cancelar", back: "← Volver" },
-    seguimiento: { title: "Seguimiento", landscape: "Para ver toda la información, gira el teléfono horizontalmente", currentPace: "Ritmo actual", arrivalTime: "Hora de llegada", calculatedTime: "Tiempo calculado", checkpointTitle: "Puntos de encuentro — ¡Pulsa \"Aquí!\" cuando pase el corredor!", thStreet: "Calle / Punto", thKm: "KM", thPlanned: "Hora prevista", thReal: "Hora real", thDiff: "Diferencia", thAction: "Acción", here: "📍 ¡Aquí!", undo: "↩ Deshacer", onTime: "En tiempo", result: "Resultado final", totalTime: "Tiempo total", hours: "hrs", minutes: "min", seconds: "seg" },
-    prognosis: { title: "Pronóstico de Llegada", desc: "Introduce el KM actual y el tiempo para calcular la hora de llegada", runnerTitle: "Corredor (opcional)", noRunner: "— Sin corredor seleccionado —", dataTitle: "Datos de paso", currentKm: "Kilómetro actual", totalDist: "Distancia total (km)", raceTime: "Tiempo de carrera (h:mm:ss)", estimated: "Tiempo total estimado", avgPace: "Ritmo medio/km", remainingKm: "KM restantes", arrivalTime: "Hora de llegada", compare: "Comparación con objetivo", hours: "hrs", minutes: "min", seconds: "seg" },
-    mapa: { title: "Recorrido", subtitle: "Selecciona una ciudad para ver el recorrido", legend: "Leyenda", route: "Recorrido", startFinish: "Salida / Meta", kmMarkers: "Marcadores KM", yourPoints: "Tus puntos", selectCity: "Selecciona una ciudad arriba para ver el recorrido", estimatedTime: "Hora estimada", start: "SALIDA", goal: "META" },
-    license: { title: "MaratonTrack", subtitle: "Por favor introduce el código de licencia", codeLabel: "Código de licencia", login: "Acceder →", welcome: "Bienvenido", validUntil: "Licencia válida hasta", daysLeft: "días restantes", invalidCode: "Código inválido. Por favor revisa la entrada.", expired: "Licencia expirada. Contacta con tu proveedor.", tampered: "Código inválido." }
+    lista: { title: "Mis Corredores", subtitle: "Hasta 5 corredores", noRunners: "No hay corredores.", addRunner: "Haz clic en \"+ Nuevo Corredor\"", edit: "Editar", follow: "Seguir", route: "Recorrido", delete: "Eliminar", waiting: "Esperando", finished: "Finalizado ✓", running: "corriendo" },
+    ficha: { newTitle: "Nuevo Corredor", editTitle: "Editar", subtitle: "Desplázate y pulsa Guardar corredor", personalData: "Datos Personales", name: "Nombre del corredor *", namePlaceholder: "ej.: Thomas", bib: "Dorsal", bibPlaceholder: "ej.: 4521", gender: "Género", genderSelect: "—", genderM: "Masculino", genderF: "Femenino", cityTitle: "Ciudad / Carrera", cityDesc: "Selecciona ciudad para cargar puntos.", race: "Nombre de la carrera", racePlaceholder: "ej.: Maratón de Berlín", targetTitle: "Tiempo Objetivo", targetTime: "Tiempo objetivo", pace: "Ritmo calculado/km", officialStart: "Hora oficial", personalStart: "Hora personal (Chip)", checkpoints: "Puntos de Encuentro", checkpointsDesc: "KM y calle.", addPoint: "+ Añadir punto", deleteAll: "✕ Eliminar todos", save: "💾 Guardar corredor", cancel: "Cancelar", back: "← Volver" },
+    seguimiento: { title: "Seguimiento", landscape: "Gira el teléfono horizontalmente", currentPace: "Ritmo actual", arrivalTime: "Hora de llegada", calculatedTime: "Tiempo calculado", onTime: "En tiempo", result: "Resultado final", totalTime: "Tiempo total", here: "📍 ¡Aquí!", undo: "↩ Deshacer", hours: "hrs", minutes: "min", seconds: "seg" },
+    prognosis: { title: "Pronóstico de Llegada", desc: "Introduce KM actual y tiempo", noRunner: "— Sin corredor seleccionado —", hours: "hrs", minutes: "min", seconds: "seg" },
+    mapa: { title: "Recorrido", subtitle: "Selecciona una ciudad", legend: "Leyenda", route: "Recorrido", startFinish: "Salida / Meta", kmMarkers: "Marcadores KM", yourPoints: "Tus puntos", selectCity: "Selecciona una ciudad", estimatedTime: "Hora estimada", start: "SALIDA", goal: "META" },
+    license: { title: "MaratonTrack", subtitle: "Introduce el código de licencia", codeLabel: "Código de licencia", login: "Acceder →", welcome: "Bienvenido", validUntil: "Licencia válida hasta", daysLeft: "días restantes", invalidCode: "Código inválido.", expired: "Licencia expirada.", tampered: "Código inválido." }
   },
   fr: {
-    nav: { runners: "Coureurs", newRunner: "Nouveau Coureur", follow: "Suivre", prognosis: "Pronostic", route: "Parcours" },
-    lista: { title: "Mes Coureurs", subtitle: "Jusqu'à 5 coureurs", noRunners: "Pas encore de coureurs.", addRunner: "Cliquez sur \"+ Nouveau Coureur\" pour commencer.", edit: "Modifier", follow: "Suivre", route: "Parcours", delete: "Supprimer", waiting: "En attente", finished: "Terminé ✓", running: "en course" },
-    ficha: { newTitle: "Nouveau Coureur", editTitle: "Modifier", subtitle: "Faites défiler vers le bas et appuyez sur Enregistrer", personalData: "Données Personnelles", name: "Nom du coureur *", namePlaceholder: "ex.: Thomas", bib: "Dossard", bibPlaceholder: "ex.: 4521", gender: "Genre", genderSelect: "—", genderM: "Masculin", genderF: "Féminin", cityTitle: "Ville / Course", cityDesc: "Sélectionnez une ville pour charger les points automatiquement.", race: "Nom de la course", racePlaceholder: "ex.: Marathon de Berlin", targetTitle: "Temps Objectif et Départ", targetTime: "Temps objectif", pace: "Allure calculée/km", officialStart: "Heure de départ officielle", personalStart: "Heure de départ personnelle (Puce)", checkpoints: "Points de Rencontre", checkpointsDesc: "KM et rue où vous verrez le coureur. Trié automatiquement.", addPoint: "+ Ajouter un point", deleteAll: "✕ Tout supprimer", save: "💾 Enregistrer le coureur", cancel: "Annuler", back: "← Retour" },
-    seguimiento: { title: "Suivi", landscape: "Pour toutes les informations, tournez le téléphone en mode paysage", currentPace: "Allure actuelle", arrivalTime: "Heure d'arrivée", calculatedTime: "Temps calculé", checkpointTitle: "Points de rencontre — Appuyez sur \"Ici!\" quand le coureur passe", thStreet: "Rue / Point", thKm: "KM", thPlanned: "Heure prévue", thReal: "Heure réelle", thDiff: "Différence", thAction: "Action", here: "📍 Ici!", undo: "↩ Annuler", onTime: "Dans les temps", result: "Résultat final", totalTime: "Temps total", hours: "h", minutes: "min", seconds: "sec" },
-    prognosis: { title: "Pronostic d'Arrivée", desc: "Entrez le KM actuel et le temps pour calculer l'heure d'arrivée", runnerTitle: "Coureur (optionnel)", noRunner: "— Aucun coureur sélectionné —", dataTitle: "Données de passage", currentKm: "Kilomètre actuel", totalDist: "Distance totale (km)", raceTime: "Temps de course (h:mm:ss)", estimated: "Temps total estimé", avgPace: "Allure moyenne/km", remainingKm: "KM restants", arrivalTime: "Heure d'arrivée", compare: "Comparaison avec l'objectif", hours: "h", minutes: "min", seconds: "sec" },
-    mapa: { title: "Parcours", subtitle: "Sélectionnez une ville pour voir le parcours", legend: "Légende", route: "Parcours", startFinish: "Départ / Arrivée", kmMarkers: "Marqueurs KM", yourPoints: "Vos points", selectCity: "Sélectionnez une ville ci-dessus pour voir le parcours", estimatedTime: "Heure estimée", start: "DÉPART", goal: "ARRIVÉE" },
-    license: { title: "MaratonTrack", subtitle: "Veuillez entrer le code de licence", codeLabel: "Code de licence", login: "Se connecter →", welcome: "Bienvenue", validUntil: "Licence valide jusqu'au", daysLeft: "jours restants", invalidCode: "Code invalide. Veuillez vérifier votre saisie.", expired: "Licence expirée. Contactez votre fournisseur.", tampered: "Code invalide." }
+    nav: { runners: "Coureurs", newRunner: "Nouveau", follow: "Suivre", prognosis: "Pronostic", route: "Parcours" },
+    lista: { title: "Mes Coureurs", subtitle: "Jusqu'à 5 coureurs", noRunners: "Pas encore de coureurs.", addRunner: "Cliquez sur \"+ Nouveau\"", edit: "Modifier", follow: "Suivre", route: "Parcours", delete: "Supprimer", waiting: "En attente", finished: "Terminé ✓", running: "en course" },
+    ficha: { newTitle: "Nouveau Coureur", editTitle: "Modifier", subtitle: "Défilez et appuyez sur Enregistrer", personalData: "Données Personnelles", name: "Nom du coureur *", namePlaceholder: "ex.: Thomas", bib: "Dossard", bibPlaceholder: "ex.: 4521", gender: "Genre", genderSelect: "—", genderM: "Masculin", genderF: "Féminin", cityTitle: "Ville / Course", cityDesc: "Sélectionnez une ville.", race: "Nom de la course", racePlaceholder: "ex.: Marathon de Berlin", targetTitle: "Temps Objectif", targetTime: "Temps objectif", pace: "Allure calculée/km", officialStart: "Départ officiel", personalStart: "Départ personnel (Puce)", checkpoints: "Points de Rencontre", checkpointsDesc: "KM et rue.", addPoint: "+ Ajouter un point", deleteAll: "✕ Tout supprimer", save: "💾 Enregistrer", cancel: "Annuler", back: "← Retour" },
+    seguimiento: { title: "Suivi", landscape: "Tournez le téléphone", currentPace: "Allure actuelle", arrivalTime: "Heure d'arrivée", calculatedTime: "Temps calculé", onTime: "Dans les temps", result: "Résultat final", totalTime: "Temps total", here: "📍 Ici!", undo: "↩ Annuler", hours: "h", minutes: "min", seconds: "sec" },
+    prognosis: { title: "Pronostic", desc: "Entrez le KM actuel", noRunner: "— Aucun coureur —", hours: "h", minutes: "min", seconds: "sec" },
+    mapa: { title: "Parcours", subtitle: "Sélectionnez une ville", legend: "Légende", route: "Parcours", startFinish: "Départ / Arrivée", kmMarkers: "Marqueurs KM", yourPoints: "Vos points", selectCity: "Sélectionnez une ville", estimatedTime: "Heure estimée", start: "DÉPART", goal: "ARRIVÉE" },
+    license: { title: "MaratonTrack", subtitle: "Entrez le code de licence", codeLabel: "Code de licence", login: "Se connecter →", welcome: "Bienvenue", validUntil: "Licence valide jusqu'au", daysLeft: "jours restants", invalidCode: "Code invalide.", expired: "Licence expirée.", tampered: "Code invalide." }
   }
 };
 
@@ -45,16 +398,8 @@ function t(clave) {
   const claves = clave.split('.');
   let valor = TRADUCCIONES[idiomaActual];
   for (const k of claves) {
-    if (valor && valor[k] !== undefined) {
-      valor = valor[k];
-    } else {
-      let fallback = TRADUCCIONES['de'];
-      for (const fk of claves) {
-        if (fallback && fallback[fk] !== undefined) fallback = fallback[fk];
-        else return clave;
-      }
-      return typeof fallback === 'string' ? fallback : clave;
-    }
+    if (valor && valor[k] !== undefined) valor = valor[k];
+    else return clave;
   }
   return typeof valor === 'string' ? valor : clave;
 }
@@ -75,119 +420,40 @@ function actualizarBotonesIdioma() {
 }
 
 function actualizarIdiomaInterfaz() {
-  // Actualizar botones de idioma
   actualizarBotonesIdioma();
   
-  // Actualizar navegación
   document.getElementById('nav-lista').textContent = t('nav.runners');
   document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
   document.getElementById('nav-seguimiento').textContent = t('nav.follow');
-  document.getElementById('nav-pronostico').textContent = t('nav.pronosis');
+  document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
   document.getElementById('nav-mapa').textContent = t('nav.route');
   
-  // Actualizar licencia
   document.getElementById('lic-title').textContent = t('license.title');
   document.getElementById('lic-subtitle').textContent = t('license.subtitle');
   document.getElementById('lic-label').textContent = t('license.codeLabel');
   document.getElementById('lic-btn').textContent = t('license.login');
   
-  // Actualizar página de lista
   document.getElementById('lista-titulo').textContent = t('lista.title');
   document.getElementById('lista-sub').textContent = t('lista.subtitle');
   
-  // Actualizar página de ficha
-  document.getElementById('ficha-back').textContent = t('ficha.back');
-  document.getElementById('ficha-sub').textContent = t('ficha.subtitle');
-  document.querySelectorAll('#page-ficha .card-title span').forEach((el, i) => {
-    const keys = ['ficha.personalData', 'ficha.cityTitle', 'ficha.targetTitle', 'ficha.checkpoints'];
-    if (keys[i]) el.textContent = t(keys[i]);
-  });
-  document.getElementById('ficha-nombre-label').textContent = t('ficha.name');
-  document.getElementById('f-nombre').placeholder = t('ficha.namePlaceholder');
-  document.getElementById('ficha-dorsal-label').textContent = t('ficha.bib');
-  document.getElementById('f-dorsal').placeholder = t('ficha.bibPlaceholder');
-  document.getElementById('ficha-sexo-label').textContent = t('ficha.gender');
-  const sexo = document.getElementById('f-sexo');
-  if (sexo) {
-    const val = sexo.value;
-    sexo.innerHTML = `<option value="">${t('ficha.genderSelect')}</option><option value="M">${t('ficha.genderM')}</option><option value="F">${t('ficha.genderF')}</option>`;
-    sexo.value = val;
-  }
-  document.getElementById('ficha-ciudad-desc').textContent = t('ficha.cityDesc');
-  document.getElementById('ficha-carrera-label').textContent = t('ficha.race');
-  document.getElementById('f-carrera').placeholder = t('ficha.racePlaceholder');
-  document.getElementById('ficha-marca-label').textContent = t('ficha.targetTime');
-  document.getElementById('ficha-ritmo-label').textContent = t('ficha.pace');
-  document.getElementById('ficha-oficial-label').textContent = t('ficha.officialStart');
-  document.getElementById('ficha-personal-label').textContent = t('ficha.personalStart');
-  document.getElementById('ficha-puntos-desc').textContent = t('ficha.checkpointsDesc');
-  document.getElementById('ficha-add').textContent = t('ficha.addPoint');
-  document.getElementById('ficha-delete').textContent = t('ficha.deleteAll');
-  document.getElementById('ficha-save').textContent = t('ficha.save');
-  document.getElementById('ficha-cancel').textContent = t('ficha.cancel');
-  
-  // Actualizar página de seguimiento
-  document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape').replace('<b>', '<b>').replace('</b>', '</b>');
-  document.getElementById('seg-back').textContent = t('ficha.back');
-  document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
-  document.getElementById('seg-arrival').textContent = t('seguimiento.arrivalTime');
-  document.getElementById('seg-calc').textContent = t('seguimiento.calculatedTime');
-  document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
-  document.getElementById('seg-th-calle').textContent = t('seguimiento.thStreet');
-  document.getElementById('seg-th-km').textContent = t('seguimiento.thKm');
-  document.getElementById('seg-th-plan').textContent = t('seguimiento.thPlanned');
-  document.getElementById('seg-th-real').textContent = t('seguimiento.thReal');
-  document.getElementById('seg-th-diff').textContent = t('seguimiento.thDiff');
-  document.getElementById('seg-th-accion').textContent = t('seguimiento.thAction');
-  document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
-  document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
-  
-  // Actualizar página de pronóstico
-  document.getElementById('pron-titulo').textContent = t('prognosis.title');
-  document.getElementById('pron-desc').textContent = t('prognosis.desc');
-  document.getElementById('pron-runner-title').textContent = '👤 ' + t('prognosis.runnerTitle');
-  document.getElementById('prono-corredor').options[0].textContent = t('prognosis.noRunner');
-  document.getElementById('pron-data-title').textContent = '📊 ' + t('prognosis.dataTitle');
-  document.getElementById('pron-km-label').textContent = t('prognosis.currentKm');
-  document.getElementById('pron-dist-label').textContent = t('prognosis.totalDist');
-  document.getElementById('pron-time-label').textContent = t('prognosis.raceTime');
-  document.getElementById('pron-estimated').textContent = '⏱ ' + t('prognosis.estimated');
-  document.querySelectorAll('.pron-h-label').forEach(el => el.textContent = t('prognosis.hours'));
-  document.querySelectorAll('.pron-m-label').forEach(el => el.textContent = t('prognosis.minutes'));
-  document.querySelectorAll('.pron-s-label').forEach(el => el.textContent = t('prognosis.seconds'));
-  document.getElementById('pron-avg').textContent = t('prognosis.avgPace');
-  document.getElementById('pron-remain').textContent = t('prognosis.remainingKm');
-  document.getElementById('pron-arrival').textContent = t('prognosis.arrivalTime');
-  document.getElementById('pron-compare').textContent = t('prognosis.compare');
-  
-  // Actualizar página de mapa
-  document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
-  document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
-  document.getElementById('map-legend-title').textContent = t('mapa.legend');
-  document.getElementById('map-legend-route').textContent = t('mapa.route');
-  document.getElementById('map-legend-start').textContent = t('mapa.startFinish');
-  document.getElementById('map-legend-km').textContent = t('mapa.kmMarkers');
-  document.getElementById('map-legend-points').textContent = t('mapa.yourPoints');
-  document.getElementById('map-select-text').textContent = t('mapa.selectCity');
-  
-  // Actualizar título
-  document.getElementById('ficha-titulo').textContent = ca !== null ? t('ficha.editTitle') : t('ficha.newTitle');
-  
-  // Refrescar páginas activas
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
+  
+  document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
+  document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
+  document.getElementById('map-select-text').textContent = t('mapa.selectCity');
 }
 
 // ===================== DATOS =====================
 const CIUDADES = {
-"Barcelona":{flag:"🇪🇸",
-    coords:[[41.38887,2.16922],[41.38933,2.16864],[41.38938,2.16863],[41.38948,2.16866],[41.38952,2.1687],[41.38956,2.16865],[41.38974,2.16877],[41.3927,2.17272],[41.39389,2.1743],[41.39393,2.17425],[41.39441,2.17533],[41.39442,2.17569],[41.39456,2.17601],[41.39471,2.17615],[41.39483,2.17619],[41.39502,2.17619],[41.39573,2.17669],[41.39908,2.18101],[41.4018,2.17787],[41.40181,2.1778],[41.40045,2.17598],[41.39063,2.16283],[41.38326,2.15296],[41.38326,2.15268],[41.38331,2.15262],[41.38326,2.15257],[41.38393,2.15165],[41.39279,2.16349],[41.40284,2.17688],[41.41278,2.19012],[41.41539,2.19353],[41.4162,2.19248],[41.4188,2.18897],[41.42041,2.19125],[41.42238,2.19116],[41.42238,2.19103],[41.42245,2.19099],[41.42284,2.1872],[41.4227,2.18715],[41.4227,2.1871],[41.41215,2.18698],[41.40372,2.17577],[41.39355,2.16224],[41.38392,2.14943],[41.37981,2.15497],[41.37984,2.15513],[41.37971,2.15533],[41.38775,2.16605],[41.38828,2.16673],[41.38835,2.16701],[41.38827,2.16728],[41.38749,2.16834],[41.38744,2.16822],[41.3874,2.16819],[41.38595,2.16466],[41.3854,2.16401],[41.38414,2.16383],[41.38412,2.16371],[41.37794,2.1555],[41.37791,2.15556],[41.37789,2.15554],[41.37768,2.15552],[41.3771,2.1563],[41.3771,2.15654],[41.37765,2.1573],[41.3776,2.15735],[41.37912,2.15935],[41.38029,2.1609],[41.37858,2.16312],[41.37848,2.163],[41.37848,2.16299],[41.37589,2.15963],[41.37586,2.15966],[41.37527,2.15882],[41.37514,2.15883],[41.37505,2.15881],[41.37503,2.16341],[41.37465,2.17535],[41.37443,2.17573],[41.37446,2.17642],[41.37454,2.17665],[41.37553,2.17743],[41.37564,2.17737],[41.37571,2.17736],[41.3758,2.17739],[41.37598,2.17751],[41.37607,2.17764],[41.37614,2.17786],[41.37613,2.17794],[41.37633,2.1781],[41.3763,2.17817],[41.37896,2.18032],[41.37893,2.18037],[41.37948,2.18081],[41.3795,2.18076],[41.38087,2.18186],[41.38084,2.18191],[41.38088,2.18195],[41.38085,2.18203],[41.3809,2.18206],[41.38094,2.18197],[41.38098,2.18195],[41.38131,2.18224],[41.38125,2.18232],[41.38138,2.18243],[41.38148,2.18237],[41.38243,2.18316],[41.38247,2.18308],[41.38251,2.18312],[41.38243,2.1833],[41.38273,2.18364],[41.38303,2.1838],[41.3855,2.18586],[41.38561,2.18587],[41.38631,2.18495],[41.38806,2.1827],[41.38808,2.18273],[41.38816,2.18275],[41.38819,2.18271],[41.39288,2.18896],[41.39288,2.18922],[41.3929,2.18927],[41.38793,2.19586],[41.38788,2.19581],[41.38777,2.1958],[41.3876,2.19585],[41.38754,2.19591],[41.38745,2.19612],[41.38746,2.19634],[41.38762,2.19657],[41.38766,2.1966],[41.38916,2.19943],[41.39031,2.20029],[41.39136,2.20201],[41.39237,2.2041],[41.39456,2.20576],[41.39462,2.20578],[41.39635,2.20803],[41.3986,2.20934],[41.40446,2.2169],[41.40624,2.21922],[41.40826,2.21658],[41.41023,2.21839],[41.41088,2.21899],[41.41089,2.21896],[41.411,2.21904],[41.41121,2.21904],[41.41125,2.21898],[41.41133,2.21892],[41.41137,2.21891],[41.41136,2.21885],[41.40712,2.20165],[41.40435,2.19057],[41.40437,2.19064],[41.40428,2.19069],[41.40425,2.19075],[41.40502,2.19377],[41.40491,2.19392],[41.40882,2.20948],[41.40876,2.20953],[41.40973,2.21348],[41.40972,2.2135],[41.40969,2.21351],[41.40362,2.20547],[41.4,2.20069],[41.4,2.20049],[41.4006,2.19966],[41.40058,2.19961],[41.40156,2.19833],[41.39937,2.19543],[41.39655,2.19155],[41.39441,2.1944],[41.39064,2.19949],[41.38805,2.19606],[41.38803,2.19599],[41.39268,2.18979],[41.39419,2.18778],[41.39414,2.18771],[41.39461,2.18709],[41.39456,2.18691],[41.39462,2.18671],[41.3916,2.18249],[41.3916,2.18228],[41.3939,2.17911],[41.39251,2.17728],[41.39063,2.1748],[41.39044,2.17478],[41.39002,2.17536],[41.39158,2.17982],[41.39157,2.17993],[41.39146,2.18006],[41.39058,2.18126]],
-    puntos:[{km:6,calle:"Carrer de València"},{km:8,calle:"Carrer de València"},{km:10,calle:"Carrer de València"},{km:12,calle:"Avinguda Meridiana"},{km:14,calle:"Carrer de Mallorca"},{km:16,calle:"Carrer de Mallorca"},{km:18,calle:"Gran Via de les Corts Catalanes"},{km:20,calle:"Carrer de Sepúveda"},{km:22,calle:"Carrer de Manso"},{km:24,calle:"Passeig de Colom"},{km:26,calle:"Passeig de Pujades"},{km:28,calle:"Avinguda del Litoral"},{km:30,calle:"Avinguda del Litoral"},{km:32,calle:"Avinguda Diagonal"},{km:34,calle:"Avinguda Diagonal"},{km:36,calle:"Carrer de Llull"},{km:38,calle:"Carrer de Pallars"},{km:40,calle:"Carrer de la Marina"},{km:42.195,calle:"Arc de Triomf"}]
-  },
-  "Berlín":{flag:"🇩🇪",
-    coords:[[52.51515,13.36012],[52.51507,13.35025],[52.51508,13.35],[52.51451,13.34862],[52.51445,13.34833],[52.5128,13.32339],[52.51283,13.32313],[52.51302,13.32274],[52.51333,13.32255],[52.51372,13.32256],[52.5144,13.32239],[52.51487,13.32257],[52.5177,13.32512],[52.52244,13.32856],[52.52284,13.32937],[52.52307,13.32962],[52.52378,13.32985],[52.52423,13.33172],[52.52541,13.33685],[52.52569,13.34144],[52.52505,13.34635],[52.52418,13.35295],[52.52251,13.36694],[52.52229,13.3681],[52.52097,13.37058],[52.5209,13.37136],[52.52204,13.37622],[52.52314,13.38233],[52.52396,13.38742],[52.52405,13.38753],[52.52705,13.3872],[52.52716,13.38739],[52.52952,13.39999],[52.52926,13.40789],[52.52763,13.41474],[52.52588,13.41837],[52.52532,13.41954],[52.5252,13.41958],[52.52356,13.41791],[52.5223,13.41669],[52.51933,13.42568],[52.51889,13.42858],[52.51866,13.42898],[52.5184,13.42896],[52.51828,13.42881],[52.51818,13.42797],[52.51755,13.4275],[52.50995,13.42131],[52.50985,13.42114],[52.51096,13.41659],[52.51091,13.41639],[52.50397,13.41103],[52.50368,13.41047],[52.50329,13.41047],[52.50196,13.4095],[52.50173,13.40952],[52.50087,13.41263],[52.49933,13.41776],[52.49905,13.41793],[52.49886,13.41828],[52.49184,13.42295],[52.488,13.42529],[52.48775,13.42526],[52.48659,13.42442],[52.48656,13.42413],[52.48689,13.42294],[52.48813,13.4149],[52.48949,13.40634],[52.4916,13.39477],[52.49375,13.38379],[52.49373,13.38322],[52.49272,13.38046],[52.49272,13.38031],[52.49153,13.37666],[52.49161,13.37591],[52.49185,13.37521],[52.49206,13.37498],[52.49217,13.37355],[52.49389,13.36494],[52.4944,13.36115],[52.49432,13.361],[52.4942,13.36095],[52.49125,13.36093],[52.49092,13.36077],[52.49055,13.36035],[52.49003,13.35441],[52.48952,13.34996],[52.48915,13.34536],[52.48908,13.34519],[52.48889,13.345],[52.48505,13.34508],[52.48121,13.34507],[52.47932,13.34502],[52.47914,13.34488],[52.47817,13.34357],[52.47796,13.34319],[52.4769,13.34202],[52.47676,13.3417],[52.4723,13.33624],[52.4691,13.33275],[52.46909,13.33252],[52.46993,13.33099],[52.47002,13.33066],[52.47115,13.32896],[52.4716,13.32728],[52.47171,13.32555],[52.47157,13.32517],[52.47164,13.325],[52.47164,13.32116],[52.47179,13.32057],[52.47168,13.31948],[52.47068,13.31783],[52.46894,13.31336],[52.46761,13.30945],[52.46762,13.30918],[52.46826,13.30812],[52.46774,13.30676],[52.46771,13.30622],[52.46844,13.30101],[52.46905,13.29755],[52.47001,13.29247],[52.4707,13.28925],[52.47657,13.28131],[52.47675,13.28118],[52.47691,13.28126],[52.48068,13.28697],[52.48428,13.29381],[52.4876,13.29967],[52.48833,13.3056],[52.48943,13.31095],[52.49046,13.31405],[52.49056,13.31415],[52.49067,13.31413],[52.49326,13.31015],[52.49355,13.30996],[52.49408,13.31028],[52.49861,13.31224],[52.49923,13.3126],[52.49936,13.31281],[52.49963,13.31299],[52.50044,13.31311],[52.50155,13.31859],[52.50156,13.31903],[52.50163,13.31924],[52.50193,13.32138],[52.50205,13.32236],[52.502,13.32243],[52.50234,13.3237],[52.5028,13.32638],[52.5028,13.32667],[52.50389,13.33189],[52.50449,13.33604],[52.50432,13.33652],[52.50398,13.33666],[52.50391,13.33678],[52.50363,13.33795],[52.50221,13.3412],[52.50149,13.3431],[52.50145,13.34447],[52.50141,13.34509],[52.50132,13.34537],[52.50133,13.34558],[52.50123,13.34657],[52.49992,13.35398],[52.49895,13.35709],[52.49801,13.3619],[52.49804,13.36206],[52.49834,13.36232],[52.49851,13.36263],[52.49907,13.3626],[52.49972,13.36282],[52.50097,13.36379],[52.5012,13.3639],[52.50748,13.36922],[52.50837,13.36986],[52.50889,13.37085],[52.50946,13.37375],[52.50955,13.37514],[52.50972,13.37572],[52.50968,13.37651],[52.50995,13.38155],[52.51024,13.38909],[52.51102,13.39491],[52.51112,13.39651],[52.51109,13.39659],[52.51174,13.39656],[52.51178,13.39662],[52.51236,13.39655],[52.51243,13.39636],[52.51244,13.39349],[52.51254,13.39338],[52.51389,13.39283],[52.51425,13.39284],[52.51469,13.39256],[52.51486,13.39253],[52.51494,13.39239],[52.51487,13.3897],[52.51469,13.38639],[52.51478,13.3863],[52.51503,13.38627],[52.5151,13.38633],[52.51573,13.38605],[52.51657,13.38591],[52.51666,13.38575],[52.5164,13.37998],[52.51596,13.37256]],
-    puntos:[{km:5,calle:"Alt Moabit"},{km:6,calle:"Alt Moabit"},{km:7,calle:"Otto von Bismarck Allee"},{km:8,calle:"Friedrichstraße"},{km:9,calle:"Torstraße"},{km:10,calle:"Torstraße"},{km:11,calle:"Otto-Braun-straße"},{km:12,calle:"Strausberger Platz"},{km:13,calle:"Lichtenberger Straße"},{km:14,calle:"Heinrich Heine Str."},{km:15,calle:"Kottbuser Tor"},{km:16,calle:"Kottbuser Damm"},{km:17,calle:"Hasenheide"},{km:18,calle:"Gneisenaustr."},{km:19,calle:"Gneisenaustr."},{km:20,calle:"Yorkstraße"},{km:21,calle:"Goebenstraße"},{km:22,calle:"Kleistpark"},{km:23,calle:"Martin-Luther Str."},{km:24,calle:"Hauptstraße"},{km:25,calle:"Hauptstraße"},{km:26,calle:"Wiesbadener Str."},{km:27,calle:"Breitenbach Platz"},{km:28,calle:"Lenzeallee"},{km:29,calle:"Roseneck Platz"},{km:30,calle:"Hohenzollerndamm"},{km:31,calle:"Hohenzollerndamm"},{km:32,calle:"Fehrberliner Platz"},{km:33,calle:"Konstanzer Straße"},{km:34,calle:"Kurfürstendamm"},{km:35,calle:"Tauentzienstr."},{km:36,calle:"Kleiststraße"},{km:37,calle:"Postdammer Straße"},{km:38,calle:"Postdamer Platz"},{km:39,calle:"Leipzieger Str."},{km:40,calle:"Jerusalemer Str."},{km:42.195,calle:""}]
-  }
+  "Barcelona":{flag:"🇪🇸", coords:[[41.38887,2.16922],[41.38933,2.16864],[41.3927,2.17272],[41.39389,2.1743],[41.39456,2.17601],[41.39573,2.17669],[41.39908,2.18101],[41.4018,2.17787],[41.39063,2.16283],[41.38326,2.15296],[41.38393,2.15165],[41.39279,2.16349],[41.40284,2.17688],[41.41278,2.19012],[41.4162,2.19248],[41.42041,2.19125],[41.42238,2.19116],[41.42284,2.1872],[41.41215,2.18698],[41.39355,2.16224],[41.38392,2.14943],[41.37981,2.15497],[41.38775,2.16605],[41.38828,2.16673],[41.38749,2.16834],[41.38595,2.16466],[41.38414,2.16383],[41.37794,2.1555],[41.3771,2.1563],[41.37912,2.15935],[41.38029,2.1609],[41.37858,2.16312],[41.37589,2.15963],[41.37503,2.16341],[41.37465,2.17535],[41.37553,2.17743],[41.37633,2.1781],[41.37896,2.18032],[41.38087,2.18186],[41.38131,2.18224],[41.38243,2.18316],[41.3855,2.18586],[41.38806,2.1827],[41.39288,2.18896],[41.38793,2.19586],[41.38916,2.19943],[41.39237,2.2041],[41.39635,2.20803],[41.40446,2.2169],[41.40826,2.21658],[41.41088,2.21899],[41.40712,2.20165],[41.40435,2.19057],[41.40502,2.19377],[41.40882,2.20948],[41.40362,2.20547],[41.4,2.20069],[41.40156,2.19833],[41.39655,2.19155],[41.39441,2.1944],[41.39064,2.19949],[41.38805,2.19606],[41.39268,2.18979],[41.39461,2.18709],[41.3916,2.18249],[41.3939,2.17911],[41.39251,2.17728],[41.39063,2.1748],[41.39158,2.17982]], puntos:[{km:6,calle:"Carrer de València"},{km:10,calle:"Carrer de València"},{km:14,calle:"Carrer de Mallorca"},{km:18,calle:"Gran Via"},{km:20,calle:"Carrer de Sepúlveda"},{km:24,calle:"Passeig de Colom"},{km:28,calle:"Avinguda del Litoral"},{km:32,calle:"Avinguda Diagonal"},{km:36,calle:"Carrer de Llull"},{km:40,calle:"Carrer de la Marina"},{km:42.195,calle:"Arc de Triomf"}]},
+  "Berlín":{flag:"🇩🇪", coords:[[52.51515,13.36012],[52.51445,13.34833],[52.5128,13.32339],[52.5177,13.32512],[52.52244,13.32856],[52.52541,13.33685],[52.52505,13.34635],[52.52251,13.36694],[52.5209,13.37136],[52.52314,13.38233],[52.52705,13.3872],[52.52952,13.39999],[52.52763,13.41474],[52.52588,13.41837],[52.52356,13.41791],[52.51933,13.42568],[52.51818,13.42797],[52.50995,13.42131],[52.50397,13.41103],[52.50196,13.4095],[52.50087,13.41263],[52.49933,13.41776],[52.49886,13.41828],[52.49184,13.42295],[52.48659,13.42442],[52.48689,13.42294],[52.48949,13.40634],[52.49375,13.38379],[52.49153,13.37666],[52.49206,13.37498],[52.49389,13.36494],[52.4942,13.36095],[52.49003,13.35441],[52.48915,13.34536],[52.48505,13.34508],[52.47932,13.34502],[52.4769,13.34202],[52.4723,13.33624],[52.46993,13.33099],[52.47115,13.32896],[52.47164,13.32116],[52.47068,13.31783],[52.46761,13.30945],[52.46844,13.30101],[52.47001,13.29247],[52.47657,13.28131],[52.48428,13.29381],[52.4876,13.29967],[52.48943,13.31095],[52.49326,13.31015],[52.49861,13.31224],[52.50155,13.31859],[52.50193,13.32138],[52.5028,13.32638],[52.50389,13.33189],[52.50449,13.33604],[52.50391,13.33678],[52.50221,13.3412],[52.50133,13.34558],[52.49992,13.35398],[52.49801,13.3619],[52.49972,13.36282],[52.50748,13.36922],[52.50946,13.37375],[52.50995,13.38155],[52.51102,13.39491],[52.51236,13.39655],[52.51389,13.39283],[52.51486,13.39253],[52.51573,13.38605],[52.51596,13.37256]], puntos:[{km:5,calle:"Alt Moabit"},{km:10,calle:"Torstraße"},{km:15,calle:"Kottbuser Tor"},{km:20,calle:"Yorkstraße"},{km:25,calle:"Hauptstraße"},{km:30,calle:"Hohenzollerndamm"},{km:35,calle:"Tauentzienstr."},{km:40,calle:"Jerusalemer Str."},{km:42.195,calle:"Brandenburger Tor"}]},
+  "Frankfurt":{flag:"🇩🇪", coords:[[50.11254,8.65297],[50.10974,8.6598],[50.11253,8.6676],[50.11346,8.67151],[50.11406,8.65295],[50.11861,8.65358],[50.11792,8.66361],[50.11264,8.67597],[50.11287,8.67844],[50.11664,8.67989],[50.11539,8.67139],[50.11957,8.67093],[50.12645,8.67123],[50.12758,8.67231],[50.1228,8.67566],[50.11967,8.67782],[50.11799,8.6845],[50.11776,8.68793],[50.11243,8.68784],[50.10962,8.6877],[50.10746,8.68503],[50.10542,8.67778],[50.10241,8.67661],[50.08832,8.6599],[50.08849,8.65138],[50.08622,8.63692],[50.08507,8.63496],[50.08406,8.61871],[50.08706,8.61686],[50.08655,8.61116],[50.08835,8.58088],[50.09122,8.57],[50.08994,8.56922],[50.09522,8.57761],[50.09647,8.57078],[50.10021,8.56119],[50.1026,8.55655],[50.10285,8.55192],[50.10324,8.55595],[50.10274,8.56969],[50.10302,8.57715],[50.10016,8.61088],[50.10251,8.63925],[50.10605,8.63976],[50.10833,8.64028],[50.11056,8.65117],[50.11396,8.67009],[50.11483,8.67254],[50.11322,8.67903],[50.11662,8.67985],[50.11529,8.67099],[50.11295,8.65268]], puntos:[{km:5,calle:"Bockenheimer"},{km:10,calle:"Bremer Straße"},{km:15,calle:"Kennedyallee"},{km:20,calle:"Zur Frankenfurt"},{km:25,calle:"Nieder Kirchweg"},{km:30,calle:"Mainzer Landstraße"},{km:35,calle:"Europaallee"},{km:40,calle:"Taubenstr."},{km:42.195,calle:"Festhalle"}]},
+  "London":{flag:"🇬🇧", coords:[[51.47309,0.01158],[51.47537,0.02918],[51.47884,0.04398],[51.48229,0.06117],[51.48694,0.06342],[51.49268,0.06093],[51.49241,0.04515],[51.49033,0.03997],[51.48781,0.03089],[51.48607,0.01499],[51.4832,-0.00959],[51.48142,-0.01466],[51.48116,-0.0248],[51.48679,-0.03616],[51.49003,-0.04211],[51.49311,-0.04675],[51.49555,-0.04583],[51.49883,-0.04544],[51.49659,-0.04116],[51.49894,-0.03574],[51.50416,-0.03618],[51.50563,-0.03897],[51.50323,-0.04776],[51.49948,-0.05517],[51.498,-0.06565],[51.49994,-0.07249],[51.50369,-0.07659],[51.50697,-0.07439],[51.50877,-0.06856],[51.5098,-0.05001],[51.51049,-0.04218],[51.50895,-0.03378],[51.50931,-0.02872],[51.50792,-0.02736],[51.50422,-0.02567],[51.49681,-0.02579],[51.49162,-0.02416],[51.48727,-0.01342],[51.49078,-0.01454],[51.49737,-0.01382],[51.50138,-0.02338],[51.50328,-0.01996],[51.505,-0.01698],[51.50343,-0.01596],[51.50239,-0.01376],[51.50489,-0.01196],[51.50673,-0.0095],[51.5088,-0.00918],[51.50896,-0.01768],[51.50898,-0.02355],[51.51237,-0.03012],[51.51278,-0.04082],[51.51021,-0.04584],[51.50964,-0.05423],[51.50941,-0.06079],[51.50835,-0.07091],[51.50977,-0.07485],[51.50904,-0.08184],[51.51055,-0.09146],[51.51101,-0.10569],[51.50962,-0.119],[51.50312,-0.12365],[51.50107,-0.12608],[51.50045,-0.13898],[51.50153,-0.14004]], puntos:[{km:6,calle:"Woolwich Rd"},{km:10,calle:"Romney Road"},{km:14,calle:"Redriff Road"},{km:18,calle:"Jamaica Road"},{km:20,calle:"Tower Bridge"},{km:24,calle:"Westferry Road"},{km:30,calle:"Upper Bank Street"},{km:34,calle:"Comercial Road"},{km:37,calle:"Lower Thames"},{km:40,calle:"Victoria Embankment"},{km:42.195,calle:"The Mall"}]},
+  "París":{flag:"🇫🇷", coords:[[48.86929,2.3094],[48.86635,2.32136],[48.86534,2.32727],[48.87024,2.33217],[48.87218,2.33257],[48.8602,2.33328],[48.86087,2.34092],[48.85337,2.36767],[48.85241,2.37196],[48.84966,2.38727],[48.84385,2.39663],[48.83402,2.41111],[48.84012,2.43407],[48.82455,2.45733],[48.82051,2.44597],[48.81911,2.44388],[48.82036,2.435],[48.82483,2.41152],[48.8298,2.40097],[48.84161,2.38692],[48.84964,2.37077],[48.85354,2.36921],[48.85286,2.35913],[48.85876,2.34017],[48.86483,2.31835],[48.86265,2.29436],[48.84086,2.2653],[48.84329,2.2597],[48.84561,2.25059],[48.84774,2.24235],[48.85844,2.24477],[48.85701,2.26592],[48.85829,2.27249],[48.8693,2.28544],[48.87165,2.27654]], puntos:[{km:6,calle:"Rue de Rivoli"},{km:10,calle:"Bd de Reuilly"},{km:14,calle:"Rue de la Pyramide"},{km:18,calle:"Av. de Gravelle"},{km:22,calle:"Rue de Charenton"},{km:26,calle:"Parc Rives de Seine"},{km:30,calle:"Cours la Reine"},{km:34,calle:"Bd Exelmans"},{km:38,calle:"Av. de l'Hippodrome"},{km:40,calle:"Av. Paul Doumer"},{km:42.195,calle:"Av. Foch"}]},
+  "Valencia":{flag:"🇪🇸", coords:[[39.45629,-0.35661],[39.45866,-0.35415],[39.46187,-0.35266],[39.46458,-0.35156],[39.46507,-0.34959],[39.46227,-0.34018],[39.46048,-0.3344],[39.46099,-0.3318],[39.46291,-0.3285],[39.46324,-0.32506],[39.46729,-0.32506],[39.47199,-0.32549],[39.47484,-0.32759],[39.47711,-0.33526],[39.48022,-0.346],[39.48036,-0.34772],[39.47401,-0.33394],[39.47053,-0.33592],[39.47225,-0.34098],[39.47428,-0.34764],[39.47593,-0.35416],[39.48037,-0.35257],[39.48333,-0.35167],[39.48759,-0.3527],[39.49089,-0.35496],[39.49385,-0.35789],[39.49084,-0.36062],[39.48718,-0.36247],[39.48353,-0.36433],[39.47692,-0.36702],[39.47394,-0.36481],[39.46941,-0.36103],[39.46977,-0.35845],[39.47597,-0.35553],[39.4744,-0.35007],[39.47355,-0.34721],[39.47081,-0.33836],[39.47023,-0.33403],[39.47495,-0.33343],[39.47571,-0.33154],[39.47326,-0.32797],[39.47084,-0.32833],[39.466,-0.32904],[39.46245,-0.33044],[39.46027,-0.33344],[39.46139,-0.33775],[39.46063,-0.34043],[39.45675,-0.34759],[39.45883,-0.35195],[39.46053,-0.35566],[39.46248,-0.35823],[39.4652,-0.35929],[39.46864,-0.36141],[39.47145,-0.36316],[39.47462,-0.3658],[39.47703,-0.36806],[39.47964,-0.37193],[39.4805,-0.37356],[39.47835,-0.3733],[39.47567,-0.36974],[39.4735,-0.37418],[39.47192,-0.37433],[39.46914,-0.37385],[39.46922,-0.37683],[39.46839,-0.37995],[39.46957,-0.38235],[39.47253,-0.3864],[39.47893,-0.39112],[39.48005,-0.39596],[39.48268,-0.40142],[39.48179,-0.40526],[39.48045,-0.407],[39.47576,-0.406],[39.47048,-0.40509],[39.46791,-0.40586],[39.46393,-0.40535],[39.46177,-0.40457],[39.45848,-0.40256],[39.46045,-0.39983],[39.46509,-0.39484],[39.46748,-0.39254],[39.46643,-0.38671],[39.46572,-0.38179],[39.46816,-0.37975],[39.46715,-0.37488],[39.46993,-0.37086],[39.47133,-0.36689],[39.46889,-0.36402],[39.46544,-0.36181],[39.46211,-0.36041],[39.45964,-0.35864],[39.45855,-0.35574],[39.45665,-0.35252],[39.45484,-0.35114]], puntos:[{km:5,calle:"Av. Tarongers"},{km:10,calle:"Blasco Ibañez"},{km:15,calle:"Cavanilles"},{km:20,calle:"Lluis Peixó"},{km:25,calle:"Plaza Saragossa"},{km:30,calle:"Guillerm de Castro"},{km:35,calle:"Tres Creus"},{km:40,calle:"Porta de la mar"},{km:42.195,calle:"Hemisferic"}]},
+  "Rom":{flag:"🇮🇹", coords:[[41.89204,12.4894],[41.89555,12.48301],[41.88937,12.48131],[41.8863,12.48668],[41.87991,12.48364],[41.87253,12.48974],[41.86806,12.49607],[41.86736,12.48575],[41.8606,12.47836],[41.85246,12.47659],[41.86117,12.47028],[41.86306,12.47468],[41.86811,12.473],[41.8711,12.46775],[41.87415,12.46767],[41.87758,12.47299],[41.8767,12.4739],[41.88198,12.47695],[41.88789,12.48103],[41.89159,12.47807],[41.89691,12.46605],[41.90073,12.46476],[41.90304,12.45821],[41.90333,12.46299],[41.90566,12.46347],[41.90597,12.47041],[41.90509,12.47335],[41.90983,12.47306],[41.90655,12.45689],[41.90646,12.45594],[41.90906,12.45682],[41.91274,12.4653],[41.91169,12.45466],[41.91624,12.45447],[41.91505,12.45806],[41.91546,12.46281],[41.91927,12.46162],[41.92085,12.46645],[41.91896,12.4691],[41.91933,12.46948],[41.92207,12.46328],[41.92417,12.45872],[41.92786,12.4571],[41.93065,12.45632],[41.93328,12.45754],[41.93516,12.45671],[41.9335,12.45924],[41.93076,12.46211],[41.93414,12.4662],[41.93539,12.47314],[41.93472,12.47855],[41.9331,12.47842],[41.93185,12.46857],[41.92853,12.46912],[41.92444,12.47065],[41.92606,12.46428],[41.92722,12.46168],[41.9251,12.46257],[41.92093,12.47078],[41.91179,12.47261],[41.90776,12.47514],[41.90652,12.47797],[41.91028,12.47649],[41.91092,12.4766],[41.90543,12.4825],[41.90298,12.48544],[41.90155,12.48036],[41.90453,12.47892],[41.90183,12.47189],[41.90053,12.47268],[41.89801,12.47301],[41.89664,12.47428],[41.89603,12.47916],[41.89661,12.48209],[41.89222,12.48055],[41.88875,12.48146],[41.88685,12.48376]], puntos:[{km:6,calle:"Ostiense"},{km:10,calle:"Vittorio Gassman"},{km:14,calle:"Aventino"},{km:18,calle:"Piazza Cavour"},{km:22,calle:"delle Milizie"},{km:26,calle:"Flaminio"},{km:30,calle:"Acqua Acetosa"},{km:34,calle:"Flaminio, 4"},{km:38,calle:"Due Macelli"},{km:40,calle:"Piazza Navana"},{km:42.195,calle:"Circus Maximus"}]},
+  "Sevilla":{flag:"🇪🇸", coords:[[37.37839,-5.99006],[37.37946,-5.98946],[37.38427,-5.98682],[37.38941,-5.98438],[37.39357,-5.98387],[37.39739,-5.98143],[37.39987,-5.98412],[37.403,-5.98766],[37.40353,-5.99336],[37.40003,-5.99902],[37.39389,-6.00356],[37.38803,-6.00209],[37.38417,-5.99775],[37.38026,-5.99731],[37.37836,-6.00106],[37.37584,-6.00544],[37.37289,-6.00349],[37.3721,-6.00731],[37.37424,-6.00886],[37.37616,-6.00571],[37.38036,-6.00907],[37.38551,-6.01126],[37.39054,-6.01074],[37.39313,-6.00881],[37.3967,-6.00676],[37.40114,-6.00444],[37.41038,-6.00196],[37.41241,-6.00149],[37.41495,-6.00132],[37.41825,-6.00213],[37.4158,-6.00108],[37.4125,-6.00134],[37.41191,-5.99979],[37.4091,-5.99629],[37.40585,-5.99858],[37.40365,-5.99595],[37.4076,-5.99286],[37.41201,-5.98942],[37.41366,-5.98852],[37.41606,-6.00109],[37.43103,-6.00421]], puntos:[{km:5,calle:"Paseo Delicias"},{km:10,calle:"Ronda Triana"},{km:15,calle:"Ing. Luis Salvador"},{km:20,calle:"Ronda Capuchinos"},{km:25,calle:"C/ Ada"},{km:30,calle:"Manuel Siurot"},{km:35,calle:"Plaza España"},{km:38,calle:"San Bernardo"},{km:40,calle:"Alameda Hércules"},{km:42.195,calle:"Paseo Delicias"}]}
 };
 
 const KM=42.195;
@@ -197,33 +463,10 @@ let leafletMap=null,mapCiudadActual=null;
 
 function sv(){localStorage.setItem('mt_v5_de',JSON.stringify(C));}
 function pad(n){return String(Math.floor(Math.abs(n))).padStart(2,'0');}
-function ph(s){
-  if(!s)return null;
-  const p=s.trim().split(':').map(Number);
-  if(p.some(isNaN))return null;
-  if(p.length===3)return p[0]*3600+p[1]*60+p[2];
-  if(p.length===2)return p[0]*3600+p[1]*60;
-  return null;
-}
-function getMarca(){
-  const h=parseInt(document.getElementById('f-marca-h').value)||0;
-  const m=parseInt(document.getElementById('f-marca-m').value)||0;
-  const s=parseInt(document.getElementById('f-marca-s').value)||0;
-  if(h===0&&m===0&&s===0)return'';
-  return h+':'+pad(m)+':'+pad(s);
-}
-function getMarcaSecs(){
-  const h=parseInt(document.getElementById('f-marca-h').value)||0;
-  const m=parseInt(document.getElementById('f-marca-m').value)||0;
-  const s=parseInt(document.getElementById('f-marca-s').value)||0;
-  const total=h*3600+m*60+s;
-  return total>0?total:null;
-}
-function setMarca(str){
-  if(!str){document.getElementById('f-marca-h').value='';document.getElementById('f-marca-m').value='';document.getElementById('f-marca-s').value='';return;}
-  const p=str.split(':').map(Number);
-  if(p.length===3){document.getElementById('f-marca-h').value=p[0];document.getElementById('f-marca-m').value=pad(p[1]);document.getElementById('f-marca-s').value=pad(p[2]);}
-}
+function ph(s){if(!s)return null;const p=s.trim().split(':').map(Number);if(p.some(isNaN))return null;if(p.length===3)return p[0]*3600+p[1]*60+p[2];if(p.length===2)return p[0]*3600+p[1]*60;return null;}
+function getMarca(){const h=parseInt(document.getElementById('f-marca-h').value)||0;const m=parseInt(document.getElementById('f-marca-m').value)||0;const s=parseInt(document.getElementById('f-marca-s').value)||0;if(h===0&&m===0&&s===0)return'';return h+':'+pad(m)+':'+pad(s);}
+function getMarcaSecs(){const h=parseInt(document.getElementById('f-marca-h').value)||0;const m=parseInt(document.getElementById('f-marca-m').value)||0;const s=parseInt(document.getElementById('f-marca-s').value)||0;const total=h*3600+m*60+s;return total>0?total:null;}
+function setMarca(str){if(!str){document.getElementById('f-marca-h').value='';document.getElementById('f-marca-m').value='';document.getElementById('f-marca-s').value='';return;}const p=str.split(':').map(Number);if(p.length===3){document.getElementById('f-marca-h').value=p[0];document.getElementById('f-marca-m').value=pad(p[1]);document.getElementById('f-marca-s').value=pad(p[2]);}}
 function fh(s){s=Math.round(Math.abs(s));return Math.floor(s/3600)+':'+pad((s%3600)/60)+':'+pad(s%60);}
 function fm(s){s=Math.round(Math.abs(s));return Math.floor(s/60)+':'+pad(s%60);}
 function t2s(t){if(!t)return 0;const p=t.split(':').map(Number);if(p.length===3)return p[0]*3600+p[1]*60+p[2];if(p.length===2)return p[0]*3600+p[1]*60;return 0;}
@@ -244,33 +487,22 @@ function showPage(id){
 // ===================== MAPA =====================
 function buildMapaCitySelector(){
   const g=document.getElementById('mapa-city-selector');
-  g.innerHTML=Object.entries(CIUDADES).map(([name,d])=>
-    `<button class="mapa-city-btn" id="mcbtn-${name}" onclick="loadMapaCiudad('${name}')">${d.flag} ${name}</button>`
-  ).join('');
-  if(ca!==null&&C[ca]&&C[ca].ciudad){
-    loadMapaCiudad(C[ca].ciudad);
-  }
+  g.innerHTML=Object.entries(CIUDADES).map(([name,d])=>`<button class="mapa-city-btn" id="mcbtn-${name}" onclick="loadMapaCiudad('${name}')">${d.flag} ${name}</button>`).join('');
+  if(ca!==null&&C[ca]&&C[ca].ciudad){loadMapaCiudad(C[ca].ciudad);}
 }
 
 function initMapa(){
   buildMapaCitySelector();
   if(!leafletMap){
     leafletMap=L.map('leaflet-map').setView([48.8584,2.2945],12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-      attribution:'© OpenStreetMap contributors',maxZoom:19
-    }).addTo(leafletMap);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(leafletMap);
     document.getElementById('map-no-city').style.display='flex';
   }
-  if(mapCiudadActual){
-    setTimeout(()=>leafletMap.invalidateSize(),100);
-  }
+  if(mapCiudadActual){setTimeout(()=>leafletMap.invalidateSize(),100);}
 }
 
 let mapaLayers=[];
-function clearMapaLayers(){
-  mapaLayers.forEach(l=>leafletMap.removeLayer(l));
-  mapaLayers=[];
-}
+function clearMapaLayers(){mapaLayers.forEach(l=>leafletMap.removeLayer(l));mapaLayers=[];}
 
 function loadMapaCiudad(name){
   if(!leafletMap)return;
@@ -278,8 +510,8 @@ function loadMapaCiudad(name){
   const btn=document.getElementById('mcbtn-'+name);if(btn)btn.classList.add('active');
   mapCiudadActual=name;
   const ciudad=CIUDADES[name];
-  document.getElementById('mapa-titulo').textContent='🗺 Marathon von '+name;
-  document.getElementById('mapa-subtitulo').textContent='42,195 km · '+ciudad.puntos.length+' markierte Punkte';
+  document.getElementById('mapa-titulo').textContent='🗺 Marathon '+name;
+  document.getElementById('mapa-subtitulo').textContent='42,195 km · '+ciudad.puntos.length+' Punkte';
   document.getElementById('map-no-city').style.display='none';
   document.getElementById('map-legend').style.display='block';
   clearMapaLayers();
@@ -290,19 +522,11 @@ function loadMapaCiudad(name){
   const kmIcon=(km,isStart,isMeta)=>{
     const bg=isStart?'#1a9e5c':isMeta?'#c0392b':'#1a6fc4';
     const label=isStart?'S':isMeta?'🏁':km;
-    return L.divIcon({
-      className:'',
-      html:`<div style="background:${bg};color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:${isMeta?'12px':'10px'};font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);white-space:nowrap;">${label}</div>`,
-      iconSize:[26,26],iconAnchor:[13,13]
-    });
+    return L.divIcon({className:'',html:`<div style="background:${bg};color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:${isMeta?'12px':'10px'};font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${label}</div>`,iconSize:[26,26],iconAnchor:[13,13]});
   };
 
   const myIcon=(km)=>{
-    return L.divIcon({
-      className:'',
-      html:`<div style="background:#e8a020;color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${km}</div>`,
-      iconSize:[22,22],iconAnchor:[11,11]
-    });
+    return L.divIcon({className:'',html:`<div style="background:#e8a020;color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${km}</div>`,iconSize:[22,22],iconAnchor:[11,11]});
   };
 
   const calcHoraPrevista=(km)=>{
@@ -321,57 +545,26 @@ function loadMapaCiudad(name){
     return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
   };
 
-  const todosKm=ciudad.puntos;
-  const kmFiltrados=todosKm.filter(p=>p.km%5===0||p.km===42.195||p.km===2);
-
   const toRad=x=>x*Math.PI/180;
-  const distM=(a,b)=>{
-    const R=6371000,dLat=toRad(b[0]-a[0]),dLon=toRad(b[1]-a[1]);
-    const s=Math.sin(dLat/2)**2+Math.cos(toRad(a[0]))*Math.cos(toRad(b[0]))*Math.sin(dLon/2)**2;
-    return R*2*Math.asin(Math.sqrt(s));
-  };
+  const distM=(a,b)=>{const R=6371000,dLat=toRad(b[0]-a[0]),dLon=toRad(b[1]-a[1]);const s=Math.sin(dLat/2)**2+Math.cos(toRad(a[0]))*Math.cos(toRad(b[0]))*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(s));};
   const acumDist=[0];
   for(let i=1;i<ciudad.coords.length;i++) acumDist.push(acumDist[i-1]+distM(ciudad.coords[i-1],ciudad.coords[i]));
   const totalDistM=acumDist[acumDist.length-1];
-  const idxByKm=(km)=>{
-    const target=km*1000*(totalDistM/(42.195*1000));
-    let best=0;
-    for(let i=1;i<acumDist.length;i++) if(Math.abs(acumDist[i]-target)<Math.abs(acumDist[best]-target)) best=i;
-    return best;
-  };
+  const idxByKm=(km)=>{const target=km*1000*(totalDistM/(42.195*1000));let best=0;for(let i=1;i<acumDist.length;i++) if(Math.abs(acumDist[i]-target)<Math.abs(acumDist[best]-target)) best=i;return best;};
+
+  const todosKm=ciudad.puntos;
+  const kmFiltrados=todosKm.filter(p=>p.km%5===0||p.km===42.195||p.km===2);
 
   kmFiltrados.forEach(p=>{
     const idx=idxByKm(p.km);
-    const lat=ciudad.coords[idx][0];
-    const lng=ciudad.coords[idx][1];
-    const isStart=p.km<=2;
-    const isMeta=p.km>=42;
+    const lat=ciudad.coords[idx][0],lng=ciudad.coords[idx][1];
+    const isStart=p.km<=2,isMeta=p.km>=42;
     const horaPrev=calcHoraPrevista(p.km);
     const kmLabel=isStart?t('mapa.start'):isMeta?t('mapa.goal'):'Km '+p.km;
-    const popupHTML=`<div style="font-family:sans-serif;min-width:180px;max-width:240px;">
-      <div style="font-weight:800;font-size:.95rem;color:#1a2740;margin-bottom:4px;">📍 ${kmLabel}</div>
-      <div style="font-size:.82rem;color:#555;margin-bottom:${horaPrev?'8px':'0'};">${p.calle}</div>
-      ${horaPrev?`<div style="background:#eef4ff;border-radius:6px;padding:5px 8px;font-size:.82rem;">⏱ <strong>${t('mapa.estimatedTime')}: ${horaPrev}</strong></div>`:''}
-    </div>`;
-    const marker=L.marker([lat,lng],{icon:kmIcon(p.km,isStart,isMeta)})
-      .bindTooltip(isStart?'🏁 START':(isMeta?'🏁 ZIEL · '+p.calle:'km '+p.km+' · '+p.calle),{permanent:false,direction:'top',offset:[0,-14]})
-      .bindPopup(popupHTML,{maxWidth:260,className:'km-popup'})
-      .addTo(leafletMap);
+    const popupHTML=`<div style="font-family:sans-serif;min-width:180px;max-width:240px;"><div style="font-weight:800;font-size:.95rem;color:#1a2740;margin-bottom:4px;">📍 ${kmLabel}</div><div style="font-size:.82rem;color:#555;">${p.calle}</div>${horaPrev?`<div style="background:#eef4ff;border-radius:6px;padding:5px 8px;margin-top:6px;font-size:.82rem;">⏱ <strong>${t('mapa.estimatedTime')}: ${horaPrev}</strong></div>`:''}</div>`;
+    const marker=L.marker([lat,lng],{icon:kmIcon(p.km,isStart,isMeta)}).bindTooltip(isStart?'🏁 START':(isMeta?'🏁 ZIEL · '+p.calle:'km '+p.km+' · '+p.calle),{permanent:false,direction:'top',offset:[0,-14]}).bindPopup(popupHTML,{maxWidth:260,className:'km-popup'}).addTo(leafletMap);
     mapaLayers.push(marker);
   });
-
-  if(ca!==null&&C[ca]&&C[ca].ciudad===name){
-    const pasosCorredor=C[ca].pasos||[];
-    pasosCorredor.forEach(p=>{
-      const idx=idxByKm(p.km);
-      const lat=ciudad.coords[idx][0];
-      const lng=ciudad.coords[idx][1];
-      const m2=L.marker([lat,lng],{icon:myIcon(p.km)})
-        .bindTooltip('📍 '+p.calle+(p.horaReal?' · ✓ '+p.horaReal:''),{permanent:false,direction:'top',offset:[0,-12]})
-        .addTo(leafletMap);
-      mapaLayers.push(m2);
-    });
-  }
 
   leafletMap.fitBounds(poly.getBounds(),{padding:[30,30]});
   setTimeout(()=>leafletMap.invalidateSize(),150);
@@ -380,20 +573,15 @@ function loadMapaCiudad(name){
 // ===================== FICHA =====================
 function buildCityGrid(){
   const g=document.getElementById('city-grid');
-  g.innerHTML=Object.entries(CIUDADES).map(([name,d])=>
-    `<div class="city-btn" id="cbtn-${name}" onclick="selCiudad('${name}')">`+
-    `<span class="city-flag">${d.flag}</span>${name}</div>`
-  ).join('');
+  g.innerHTML=Object.entries(CIUDADES).map(([name,d])=>`<div class="city-btn" id="cbtn-${name}" onclick="selCiudad('${name}')"><span class="city-flag">${d.flag}</span>${name}</div>`).join('');
   if(ciudadSel){const b=document.getElementById('cbtn-'+ciudadSel);if(b)b.classList.add('sel');}
 }
-
 function selCiudad(name){
   ciudadSel=name;
   document.querySelectorAll('.city-btn').forEach(b=>b.classList.remove('sel'));
   const btn=document.getElementById('cbtn-'+name);if(btn)btn.classList.add('sel');
   const fc=document.getElementById('f-carrera');
-  if(!fc.value||Object.keys(CIUDADES).some(c=>fc.value.includes(c)))
-    fc.value='Marathon von '+name;
+  if(!fc.value||Object.keys(CIUDADES).some(c=>fc.value.includes(c))) fc.value='Marathon '+name;
   pt=CIUDADES[name].puntos.map(p=>({km:p.km,calle:p.calle}));
   rPF();
 }
@@ -403,46 +591,22 @@ function rL(){
   if(!C.length){el.innerHTML='<div style="text-align:center;padding:48px 20px;color:var(--text2);"><div style="font-size:3rem;margin-bottom:12px;">🏃</div><p>'+t('lista.noRunners')+'<br><b>'+t('lista.addRunner')+'</b></p></div>';return;}
   el.innerHTML=C.map((c,i)=>{
     const p=(c.pasos||[]).filter(x=>x.horaReal).length,tt=(c.pasos||[]).length;
-    const b=p===0?'<span class="badge badge-yellow">'+t('lista.waiting')+'</span>':
-             p>=tt?'<span class="badge badge-green">'+t('lista.finished')+'</span>':
-             '<span class="badge badge-red">'+t('lista.running')+' · '+p+'/'+tt+'</span>';
+    const b=p===0?'<span class="badge badge-yellow">'+t('lista.waiting')+'</span>':p>=tt?'<span class="badge badge-green">'+t('lista.finished')+'</span>':'<span class="badge badge-red">'+t('lista.running')+' · '+p+'/'+tt+'</span>';
     const flag=c.ciudad&&CIUDADES[c.ciudad]?CIUDADES[c.ciudad].flag+' ':'🏙️ ';
-    return '<div class="runner-item">'+
-      '<div class="runner-avatar">'+c.nombre.charAt(0).toUpperCase()+'</div>'+
-      '<div class="runner-info">'+
-        '<div class="runner-name">'+c.nombre+(c.dorsal?' <span style="color:var(--text2);font-size:.8rem;">#'+c.dorsal+'</span>':'')+'</div>'+
-        '<div class="runner-sub">'+flag+(c.carrera||'—')+' · '+t('ficha.targetTime')+': '+(c.marca||'—')+' · '+(c.ritmo||'—')+'/km</div>'+
-        '<div style="margin-top:5px;">'+b+'</div>'+
-      '</div>'+
-      '<div class="runner-actions">'+
-        '<button class="btn btn-outline btn-sm" onclick="eC('+i+')">✏️ '+t('lista.edit')+'</button>'+
-        '<button class="btn btn-primary btn-sm" onclick="aS('+i+')">📍 '+t('lista.follow')+'</button>'+
-        '<button class="btn btn-outline btn-sm" onclick="verMapa('+i+')">'+t('lista.route')+'</button>'+
-        '<button class="btn btn-danger btn-sm" onclick="bC('+i+')">🗑</button>'+
-      '</div></div>';
+    return '<div class="runner-item"><div class="runner-avatar">'+c.nombre.charAt(0).toUpperCase()+'</div><div class="runner-info"><div class="runner-name">'+c.nombre+(c.dorsal?' <span style="color:var(--text2);font-size:.8rem;">#'+c.dorsal+'</span>':'')+'</div><div class="runner-sub">'+flag+(c.carrera||'—')+' · '+(c.marca||'—')+' · '+(c.ritmo||'—')+'/km</div><div style="margin-top:5px;">'+b+'</div></div><div class="runner-actions"><button class="btn btn-outline btn-sm" onclick="eC('+i+')">✏️ '+t('lista.edit')+'</button><button class="btn btn-primary btn-sm" onclick="aS('+i+')">📍 '+t('lista.follow')+'</button><button class="btn btn-outline btn-sm" onclick="verMapa('+i+')">'+t('lista.route')+'</button><button class="btn btn-danger btn-sm" onclick="bC('+i+')">🗑</button></div></div>';
   }).join('');
 }
 
-function verMapa(i){
-  ca=i;
-  showPage('mapa');
-  if(C[i].ciudad){
-    setTimeout(()=>loadMapaCiudad(C[i].ciudad),200);
-  }
-}
-
+function verMapa(i){ca=i;showPage('mapa');if(C[i].ciudad){setTimeout(()=>loadMapaCiudad(C[i].ciudad),200);}}
 function bC(i){if(confirm(t('lista.delete')+' "'+C[i].nombre+'"?')){C.splice(i,1);sv();rL();}}
-
 function nuevoCorreder(){
   ca=null;ciudadSel=null;
   ['f-nombre','f-dorsal','f-carrera','f-ritmo','f-salida-oficial','f-salida-personal'].forEach(id=>document.getElementById(id).value='');
-  setMarca('');
-  document.getElementById('f-sexo').value='';
+  setMarca('');document.getElementById('f-sexo').value='';
   document.getElementById('diferencia-salida').style.display='none';
   document.getElementById('ficha-titulo').textContent=t('ficha.newTitle');
   pt=[];buildCityGrid();rPF();showPage('ficha');
 }
-
 function eC(i){
   ca=i;const c=C[i];
   document.getElementById('f-nombre').value=c.nombre||'';
@@ -462,34 +626,21 @@ function eC(i){
 
 function rPF(){
   pt.sort((a,b)=>(parseFloat(a.km)||0)-(parseFloat(b.km)||0));
-  document.getElementById('puntos-container').innerHTML=pt.map((p,i)=>
-    '<div class="punto-row">'+
-    '<input type="number" placeholder="KM" value="'+p.km+'" step="0.001" onchange="pt['+i+'].km=parseFloat(this.value)||0;ordenarYRenderizar()">'+
-    '<input type="text" placeholder="Nombre de calle" value="'+(p.calle||'')+'" oninput="pt['+i+'].calle=this.value">'+
-    '<button class="btn btn-danger btn-sm" onclick="rP('+i+')">✕</button>'+
-    '</div>'
-  ).join('');
+  document.getElementById('puntos-container').innerHTML=pt.map((p,i)=>'<div class="punto-row"><input type="number" placeholder="KM" value="'+p.km+'" step="0.001" onchange="pt['+i+'].km=parseFloat(this.value)||0;ordenarYRenderizar()"><input type="text" placeholder="Calle" value="'+(p.calle||'')+'" oninput="pt['+i+'].calle=this.value"><button class="btn btn-danger btn-sm" onclick="rP('+i+')">✕</button></div>').join('');
 }
 function ordenarYRenderizar(){pt.sort((a,b)=>(parseFloat(a.km)||0)-(parseFloat(b.km)||0));rPF();}
 function addPunto(){pt.push({km:'',calle:''});rPF();}
 function rP(i){pt.splice(i,1);rPF();}
 function limpiarPuntos(){if(confirm(t('ficha.deleteAll')+'?')){pt=[];rPF();}}
 
-function calcularRitmo(){
-  const s=getMarcaSecs();
-  document.getElementById('f-ritmo').value=s?fm(s/KM):'';
-}
+function calcularRitmo(){const s=getMarcaSecs();document.getElementById('f-ritmo').value=s?fm(s/KM):'';}
 function syncSalida(){
   const p=document.getElementById('f-salida-personal').value;
   const o=document.getElementById('f-salida-oficial').value;
   const el=document.getElementById('diferencia-salida');
   if(!p)return;
   document.getElementById('f-salida-oficial').value=p;
-  if(o&&o!==p){
-    const d=t2s(p)-t2s(o);
-    el.style.display='block';
-    el.textContent=Math.abs(d)+'s '+(d>0?'später':'früher')+' — Offizielle Zeit auf Chip-Zeit aktualisiert.';
-  }else el.style.display='none';
+  if(o&&o!==p){const d=t2s(p)-t2s(o);el.style.display='block';el.textContent=Math.abs(d)+'s '+(d>0?'später':'früher');}else el.style.display='none';
 }
 
 function guardarCorreder(){
@@ -501,16 +652,8 @@ function guardarCorreder(){
     let hp='';if(rs&&so)hp=s2t(t2s(so)+rs*p.km);
     return{km:parseFloat(p.km),calle:p.calle||'KM '+p.km,horaPrevista:hp,horaReal:'',horaRealSecs:null};
   });
-  const corredor={nombre:n,dorsal:document.getElementById('f-dorsal').value,
-    sexo:document.getElementById('f-sexo').value,
-    carrera:document.getElementById('f-carrera').value.trim(),
-    ciudad:ciudadSel,marca,ritmo:rs?fm(rs):'',
-    salidaOficial:so,salidaPersonal:document.getElementById('f-salida-personal').value,pasos};
-  if(ca!==null){
-    const v=C[ca].pasos||[];
-    corredor.pasos=corredor.pasos.map(p=>{const x=v.find(y=>y.km===p.km);if(x&&x.horaReal){p.horaReal=x.horaReal;p.horaRealSecs=x.horaRealSecs;}return p;});
-    C[ca]=corredor;
-  }else{if(C.length>=5){alert('Maximal 5 Läufer');return;}C.push(corredor);}
+  const corredor={nombre:n,dorsal:document.getElementById('f-dorsal').value,sexo:document.getElementById('f-sexo').value,carrera:document.getElementById('f-carrera').value.trim(),ciudad:ciudadSel,marca,ritmo:rs?fm(rs):'',salidaOficial:so,salidaPersonal:document.getElementById('f-salida-personal').value,pasos};
+  if(ca!==null){const v=C[ca].pasos||[];corredor.pasos=corredor.pasos.map(p=>{const x=v.find(y=>y.km===p.km);if(x&&x.horaReal){p.horaReal=x.horaReal;p.horaRealSecs=x.horaRealSecs;}return p;});C[ca]=corredor;}else{if(C.length>=5){alert('Max 5 Läufer');return;}C.push(corredor);}
   sv();showPage('lista');
 }
 
@@ -518,7 +661,7 @@ function aS(i){
   ca=i;const c=C[i];
   document.getElementById('seg-nombre').textContent=t('seguimiento.title')+' - '+c.nombre+(c.dorsal?' #'+c.dorsal:'');
   const flag=c.ciudad&&CIUDADES[c.ciudad]?CIUDADES[c.ciudad].flag+' ':'';
-  document.getElementById('seg-sub').textContent=flag+(c.carrera||'')+' · Ziel Zeit: '+(c.marca||'—')+' ('+(c.ritmo||'—')+'/km)';
+  document.getElementById('seg-sub').textContent=flag+(c.carrera||'')+' · '+(c.marca||'—')+' ('+(c.ritmo||'—')+'/km)';
   rS();showPage('seguimiento');
   clearInterval(timerSeg);timerSeg=setInterval(tick,1000);tick();
 }
@@ -530,22 +673,8 @@ function tick(){
   const diff=Math.floor((ahora-sd)/1000);
   if(diff<0){reloj.textContent='⏳ Start in '+fh(-diff);return;}
   reloj.textContent='⏱ '+fh(diff);
- 
   const pasos=c.pasos||[],conHora=pasos.filter(p=>p.horaRealSecs!=null);
-  if(conHora.length>0){
-    const u=conHora[conHora.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);
-    if(tc>0&&u.km>0){
-      const r=tc/u.km;
-      document.getElementById('stat-ra').textContent=fm(r)+'/km';
-      document.getElementById('stat-mp').textContent=s2t(t2s(c.salidaOficial)+r*KM);
-      document.getElementById('stat-bz').textContent=fh(r*KM);
-    }
-  }else{
-    const ms2=ph(c.marca);
-    if(ms2)document.getElementById('stat-mp').textContent=s2t(t2s(c.salidaOficial)+ms2);
-    if(ms2)document.getElementById('stat-bz').textContent=fh(ms2);
-    document.getElementById('stat-ra').textContent=c.ritmo?c.ritmo+'/km':'—';
-  }
+  if(conHora.length>0){const u=conHora[conHora.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);if(tc>0&&u.km>0){const r=tc/u.km;document.getElementById('stat-ra').textContent=fm(r)+'/km';document.getElementById('stat-mp').textContent=s2t(t2s(c.salidaOficial)+r*KM);document.getElementById('stat-bz').textContent=fh(r*KM);}}
 }
 
 function rS(){
@@ -553,147 +682,61 @@ function rS(){
   tbody.innerHTML=pasos.map((p,i)=>{
     const ps=!!p.horaReal,nx=!ps&&(i===0||pasos[i-1].horaReal);
     let dh='—';
-    if(ps&&p.horaPrevista){
-      const d=p.horaRealSecs-t2s(p.horaPrevista);
-      if(Math.abs(d)<=10)dh='<span class="badge badge-green">'+t('seguimiento.onTime')+'</span>';
-      else if(d>0)dh='<span class="badge badge-red">+'+fm(d)+'</span>';
-      else dh='<span class="badge badge-green">-'+fm(-d)+'</span>';
-    }
-    const rc=ps?'km-passed':(nx?'km-next':'');
-    return '<tr class="'+rc+'">'+
-      '<td><b>'+p.calle+'</b></td>'+
-      '<td>'+(p.km%1===0?p.km:p.km.toFixed(3))+'</td>'+
-      '<td style="font-variant-numeric:tabular-nums;">'+(p.horaPrevista||'—')+'</td>'+
-      '<td style="font-variant-numeric:tabular-nums;color:'+(ps?'var(--green)':'var(--text2)')+';font-weight:'+(ps?700:400)+';">'+(p.horaReal||'—')+'</td>'+
-      '<td>'+dh+'</td>'+
-      '<td>'+(ps?'<button class="btn btn-outline btn-sm" onclick="resP('+i+')">'+t('seguimiento.undo')+'</button>':
-                '<button class="btn btn-green btn-sm" onclick="regP('+i+')">'+t('seguimiento.here')+'</button>')+
-      '</td></tr>';
+    if(ps&&p.horaPrevista){const d=p.horaRealSecs-t2s(p.horaPrevista);if(Math.abs(d)<=10)dh='<span class="badge badge-green">'+t('seguimiento.onTime')+'</span>';else if(d>0)dh='<span class="badge badge-red">+'+fm(d)+'</span>';else dh='<span class="badge badge-green">-'+fm(-d)+'</span>';}
+    return '<tr class="'+(ps?'km-passed':(nx?'km-next':''))+'"><td><b>'+p.calle+'</b></td><td>'+(p.km%1===0?p.km:p.km.toFixed(3))+'</td><td>'+(p.horaPrevista||'—')+'</td><td style="color:'+(ps?'var(--green)':'var(--text2)')+'">'+(p.horaReal||'—')+'</td><td>'+dh+'</td><td>'+(ps?'<button class="btn btn-outline btn-sm" onclick="resP('+i+')">'+t('seguimiento.undo')+'</button>':'<button class="btn btn-green btn-sm" onclick="regP('+i+')">'+t('seguimiento.here')+'</button>')+'</td></tr>';
   }).join('');
   const mp=pasos.find(p=>p.km>=42&&p.horaReal),mc=document.getElementById('seg-meta-card');
-  if(mp&&c.salidaOficial){
-    const tf=mp.horaRealSecs-t2s(c.salidaOficial);
-    mc.style.display='block';document.getElementById('seg-meta-t').textContent=fh(tf);
-    const ms3=ph(c.marca);
-    if(ms3){
-      const d=tf-ms3,el=document.getElementById('seg-meta-d');
-      if(Math.abs(d)<=30)el.innerHTML='<span class="badge badge-green">🎯 Zielzeit erreicht! '+c.marca+'</span>';
-      else if(d>0)el.innerHTML='<span class="badge badge-red">+'+fh(d)+' über Zielzeit</span>';
-      else el.innerHTML='<span class="badge badge-green">🎉 '+fh(-d)+' unter Zielzeit</span>';
-    }
-  }else mc.style.display='none';
+  if(mp&&c.salidaOficial){const tf=mp.horaRealSecs-t2s(c.salidaOficial);mc.style.display='block';document.getElementById('seg-meta-t').textContent=fh(tf);}else mc.style.display='none';
 }
 
-function regP(i){
-  const a=new Date(),c=C[ca];
-  c.pasos[i].horaReal=a.toTimeString().substring(0,8);
-  c.pasos[i].horaRealSecs=a.getHours()*3600+a.getMinutes()*60+a.getSeconds();
-  sv();rS();
-}
-function resP(i){
-  const c=C[ca];
-  for(let j=i;j<c.pasos.length;j++){c.pasos[j].horaReal='';c.pasos[j].horaRealSecs=null;}
-  sv();rS();
-}
+function regP(i){const a=new Date(),c=C[ca];c.pasos[i].horaReal=a.toTimeString().substring(0,8);c.pasos[i].horaRealSecs=a.getHours()*3600+a.getMinutes()*60+a.getSeconds();sv();rS();}
+function resP(i){const c=C[ca];for(let j=i;j<c.pasos.length;j++){c.pasos[j].horaReal='';c.pasos[j].horaRealSecs=null;}sv();rS();}
 
 function rPS(){
   const s=document.getElementById('prono-corredor');
-  s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+
-    C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+(c.carrera?' — '+c.carrera:'')+'</option>').join('');
-}
-function autoRellenarProno(){
-  const i=document.getElementById('prono-corredor').value;
-  if(i===''){calcProno();return;}
-  const c=C[i],ch=(c.pasos||[]).filter(p=>p.horaRealSecs!=null);
-  if(ch.length&&c.salidaOficial){
-    const u=ch[ch.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);
-    document.getElementById('prono-km').value=u.km;
-    const _hv=Math.floor(tc/3600);document.getElementById('prono-th').value=_hv;document.getElementById('prono-tm2').value=('0'+Math.floor((tc%3600)/60)).slice(-2);document.getElementById('prono-ts').value=('0'+Math.round(tc%60)).slice(-2);
-  }
-  calcProno();
-}
-function calcProno(){
-  const km=parseFloat(document.getElementById('prono-km').value);
-  const _th=parseInt(document.getElementById('prono-th').value)||0,_tm=parseInt(document.getElementById('prono-tm2').value)||0,_ts2=parseInt(document.getElementById('prono-ts').value)||0;const ts=_th*3600+_tm*60+_ts2;
-  const dist=parseFloat(document.getElementById('prono-dist').value)||KM;
-  const el=document.getElementById('prono-res');
-  if(!km||!ts||km<=0||km>dist||ts<=0){el.style.display='none';return;}
-  const r=ts/km,tot=r*dist,res=dist-km;
-  const _tot=Math.round(Math.abs(tot));document.getElementById('prono-tm-h').textContent=Math.floor(_tot/3600);document.getElementById('prono-tm-m').textContent=('0'+Math.floor((_tot%3600)/60)).slice(-2);document.getElementById('prono-tm-s').textContent=('0'+(_tot%60)).slice(-2);
-  document.getElementById('prono-rm').textContent=fm(r)+'/km';
-  document.getElementById('prono-kr').textContent=res.toFixed(2)+' km';
-  const idx=document.getElementById('prono-corredor').value;
-  let hl='—';
-  if(idx!==''){const c=C[idx];if(c.salidaOficial)hl=s2t(t2s(c.salidaOficial)+tot);}
-  else{const now=new Date();const nowS=now.getHours()*3600+now.getMinutes()*60+now.getSeconds();hl=s2t(nowS+tot);}
-  document.getElementById('prono-hl').textContent=hl;
-  const vs=document.getElementById('prono-vs');
-  if(idx!==''){
-    const c=C[idx],ms4=ph(c.marca);
-    if(ms4){
-      vs.style.display='block';
-      const d=tot-ms4,e=document.getElementById('prono-vs-t');
-      if(Math.abs(d)<=30)e.innerHTML='<span class="badge badge-green">🎯 Zielzeit erreicht! '+fh(tot)+' vs '+c.marca+'</span>';
-      else if(d>0)e.innerHTML='<span class="badge badge-red">+'+fh(d)+' über Zielzeit ('+c.marca+')</span>';
-      else e.innerHTML='<span class="badge badge-green">🔥 '+fh(-d)+' unter Zielzeit ('+c.marca+')</span>';
-    }else vs.style.display='none';
-  }else vs.style.display='none';
-  el.style.display='block';
+  s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');
 }
 
 // ===================== LICENCIA =====================
 var _SEC="MaratonTrack2025_XK9";
-async function _sha256(m){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(m));return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0");}).join("");}
+async function _sha256(m){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(m));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
 function _b64d(s){try{return decodeURIComponent(escape(atob(s)));}catch(e){return null;}}
 function _fd(s){return s.slice(6,8)+"/"+s.slice(4,6)+"/"+s.slice(0,4);}
 async function checkLicense(){
   var raw=document.getElementById("lic-input").value.trim();
-  var err=document.getElementById("lic-err");
-  var ok=document.getElementById("lic-ok");
+  var err=document.getElementById("lic-err"),ok=document.getElementById("lic-ok");
   err.textContent="";ok.style.display="none";
   try{
     var b64=raw.replace(/-/g,"").replace(/ /g,"");
     var full=_b64d(b64);
-    if(!full)throw "invalid";
+    if(!full)throw"invalid";
     var parts=full.split("|");
-    if(parts.length!==3)throw "invalid";
+    if(parts.length!==3)throw"invalid";
     var empresa=parts[0],expiry=parts[1],check=parts[2];
     var hash=await _sha256(empresa+"|"+expiry+_SEC);
-    if(hash.substring(0,8).toUpperCase()!==check)throw "tampered";
+    if(hash.substring(0,8).toUpperCase()!==check)throw"tampered";
     var exp=new Date(expiry.slice(0,4),expiry.slice(4,6)-1,expiry.slice(6,8));
     var today=new Date();today.setHours(0,0,0,0);
     var daysLeft=Math.ceil((exp-today)/86400000);
-    if(daysLeft<0)throw "expired";
+    if(daysLeft<0)throw"expired";
     sessionStorage.setItem("mt_lic_ok","1");
-    sessionStorage.setItem("mt_lic_empresa",empresa);
-    sessionStorage.setItem("mt_lic_expiry",_fd(expiry));
-    sessionStorage.setItem("mt_lic_days",daysLeft);
     ok.innerHTML=t('license.welcome')+", <b>"+empresa+"</b><br>"+t('license.validUntil')+": "+_fd(expiry)+" &middot; <b>"+daysLeft+" "+t('license.daysLeft')+"</b>";
     ok.style.display="block";
     setTimeout(function(){document.getElementById("license-screen").style.display="none";},1800);
   }catch(e){
-    if(String(e)==="expired"){err.textContent=t('license.expired');}
-    else if(String(e)==="tampered"){err.textContent=t('license.tampered');}
-    else{err.textContent=t('license.invalidCode');}
+    if(String(e)==="expired")err.textContent=t('license.expired');
+    else if(String(e)==="tampered")err.textContent=t('license.tampered');
+    else err.textContent=t('license.invalidCode');
     var inp=document.getElementById("lic-input");inp.style.borderColor="#c0392b";
     setTimeout(function(){inp.style.borderColor="#c8d8ee";},2000);
   }
 }
 
-// ===================== INICIALIZACIÓN =====================
+// ===================== INIT =====================
 (function(){
-  // Establecer idioma guardado
-  idiomaActual = localStorage.getItem('marathon_lang') || 'de';
-  
-  // Verificar licencia
-  if(sessionStorage.getItem("mt_lic_ok")==="1"){
-    document.getElementById("license-screen").style.display="none";
-  }
-  
-  // Actualizar interfaz con el idioma correcto
-  setTimeout(actualizarIdiomaInterfaz, 100);
-  
-  // Cargar lista de corredores
+  idiomaActual=localStorage.getItem('marathon_lang')||'de';
+  if(sessionStorage.getItem("mt_lic_ok")==="1")document.getElementById("license-screen").style.display="none";
+  setTimeout(actualizarIdiomaInterfaz,100);
   rL();
 })();
 </script>
