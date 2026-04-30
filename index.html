@@ -27,25 +27,10 @@
   .nav-btn:hover{color:#fff}.nav-btn.active{color:#fff;border-bottom-color:#fff}
   
   .language-selector{display:flex;gap:4px;margin-left:auto;padding:8px 0}
- .lang-btn {
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.9);
-    padding: 8px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    transition: all .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-} .lang-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.9);padding:6px 8px;border-radius:6px;cursor:pointer;font-size:.75rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:3px;white-space:nowrap}
+  .lang-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.9);padding:8px 10px;border-radius:8px;cursor:pointer;font-size:1.2rem;transition:all .3s;display:flex;align-items:center;justify-content:center;width:40px;height:40px}
   .lang-btn:hover{background:rgba(255,255,255,0.25);color:#fff;transform:translateY(-1px)}
   .lang-btn.active{background:#fff;color:var(--primary);border-color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
   .lang-flag{font-size:1.1rem}
-  .lang-text{font-size:.7rem}
   
   .page{display:none;padding:24px 16px;max-width:960px;margin:0 auto}.page.active{display:block}
   .card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -89,9 +74,7 @@
   .km-table tr:hover td{background:#f8fafd}
   .km-passed td{opacity:.45}
   .km-next td{background:var(--primary-light) !important}
-  .km-next td b{color:var(--primary)}
   .prono-result{background:linear-gradient(135deg,var(--primary),#2980d9);border-radius:14px;padding:28px;text-align:center;margin-top:16px;color:#fff;box-shadow:0 4px 16px rgba(26,111,196,0.3)}
-  .prono-time{font-size:3rem;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1px}
   .alert{padding:10px 14px;border-radius:8px;font-size:.85rem;margin-top:10px}
   .alert-info{background:var(--primary-light);border:1px solid var(--border);color:var(--primary)}
   .alert-landscape{background:var(--yellow-bg);border:1.5px solid #f0d080;color:var(--yellow);padding:12px 16px;border-radius:10px;display:flex;align-items:center;gap:10px;margin-bottom:16px;font-weight:600}
@@ -104,10 +87,8 @@
   .text2{color:var(--text2);font-size:.85rem}
   .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
   .page-header-left{display:flex;align-items:center;gap:12px}
-
   #page-mapa{padding:0;max-width:100%}
   .mapa-header{padding:16px 16px 0 16px;max-width:960px;margin:0 auto;}
-  .mapa-header h2{margin-bottom:4px}
   .mapa-city-selector{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;max-width:960px;margin:0 auto;}
   .mapa-city-btn{background:var(--bg2);border:1.5px solid var(--border);border-radius:20px;padding:6px 14px;cursor:pointer;font-size:.8rem;font-weight:600;color:var(--text2);transition:all .2s;display:flex;align-items:center;gap:5px}
   .mapa-city-btn:hover{border-color:var(--primary);color:var(--primary)}
@@ -120,7 +101,6 @@
   .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
   .map-no-city{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;background:var(--bg3);color:var(--text2);gap:12px;font-size:.95rem}
   .map-no-city-icon{font-size:3rem}
-
   @media(max-width:640px){
     .row2,.row3{grid-template-columns:1fr}
     .stats-row{grid-template-columns:1fr 1fr}
@@ -129,31 +109,13 @@
     .runner-actions{flex-direction:column}
     #map-container{height:calc(100vh - 220px)}
     .language-selector{margin-left:0;justify-content:center;padding:4px 0}
-    .lang-btn{padding:4px 6px}
-    .lang-text{display:none}
+    .lang-btn{padding:6px 8px}
   }
   @media(orientation:portrait) and (max-width:768px){.landscape-hint{display:flex !important}}
   .landscape-hint{display:none}
-  .leaflet-popup-content-wrapper{border-radius:12px!important;box-shadow:0 4px 20px rgba(0,0,0,0.15)!important;}
-  .leaflet-popup-content{margin:12px 14px!important;}
-  .km-popup .leaflet-popup-tip{background:white;}
 </style>
 </head>
 <body>
-
-<!-- LICENSE SCREEN -->
-<div id="license-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#1a6fc4,#0d3d73);display:flex;align-items:center;justify-content:center;z-index:99999;font-family:Segoe UI,system-ui,sans-serif;">
-  <div style="background:#fff;border-radius:20px;padding:36px 28px;max-width:400px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.3);text-align:center;">
-    <div style="font-size:3rem;margin-bottom:8px;">&#127939;</div>
-    <div style="font-size:1.3rem;font-weight:800;color:#1a2740;margin-bottom:4px;" id="lic-title">MaratonTrack</div>
-    <div style="font-size:.85rem;color:#5a7499;margin-bottom:24px;" id="lic-subtitle">Bitte Lizenzcode eingeben</div>
-    <label style="font-size:.8rem;font-weight:700;color:#5a7499;display:block;text-align:left;margin-bottom:6px;" id="lic-label">Lizenzcode</label>
-    <input id="lic-input" type="text" placeholder="XXXXXX-XXXXXX-XXXXXX-..." style="width:100%;padding:11px 14px;border:2px solid #c8d8ee;border-radius:10px;font-size:.9rem;outline:none;text-align:center;font-family:monospace;letter-spacing:1px;color:#1a2740;" onkeydown="if(event.key==='Enter')checkLicense()">
-    <div id="lic-err" style="color:#c0392b;font-size:.8rem;margin-top:8px;min-height:18px;"></div>
-    <button onclick="checkLicense()" style="width:100%;margin-top:12px;padding:12px;background:#1a6fc4;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:800;cursor:pointer;" id="lic-btn">Anmelden &rarr;</button>
-    <div id="lic-ok" style="display:none;margin-top:14px;background:#e6f7ef;border-radius:10px;padding:12px;font-size:.82rem;color:#1a9e5c;font-weight:600;"></div>
-  </div>
-</div>
 
 <nav>
   <div class="nav-logo">🏃 <span>Marathon</span> Tracking</div>
@@ -164,19 +126,11 @@
   <button class="nav-btn" id="nav-mapa" onclick="showPage('mapa')">Strecke</button>
   
   <div class="language-selector">
-    <button class="lang-btn active" onclick="cambiarIdioma('de')" data-lang="de" title="Deutsch">
-      <span class="lang-flag">🇩🇪</span>
-    </button>
-    <button class="lang-btn" onclick="cambiarIdioma('en')" data-lang="en" title="English">
-      <span class="lang-flag">🇬🇧</span>
-    </button>
-    <button class="lang-btn" onclick="cambiarIdioma('es')" data-lang="es" title="Español">
-      <span class="lang-flag">🇪🇸</span>
-    </button>
-    <button class="lang-btn" onclick="cambiarIdioma('fr')" data-lang="fr" title="Français">
-      <span class="lang-flag">🇫🇷</span>
-    </button>
-</div>
+    <button class="lang-btn active" onclick="cambiarIdioma('de')" data-lang="de" title="Deutsch">🇩🇪</button>
+    <button class="lang-btn" onclick="cambiarIdioma('en')" data-lang="en" title="English">🇬🇧</button>
+    <button class="lang-btn" onclick="cambiarIdioma('es')" data-lang="es" title="Español">🇪🇸</button>
+    <button class="lang-btn" onclick="cambiarIdioma('fr')" data-lang="fr" title="Français">🇫🇷</button>
+  </div>
 </nav>
 
 <!-- LISTA -->
@@ -365,6 +319,7 @@
     </div>
   </div>
 </div>
+
 <script>
 // ===================== SISTEMA DE TRADUCCIONES =====================
 const TRADUCCIONES = {
@@ -374,8 +329,7 @@ const TRADUCCIONES = {
     ficha: { newTitle: "Neuer Läufer", editTitle: "Bearbeiten", subtitle: "Scrolle nach unten und drücke Läufer speichern", personalData: "Persönliche Daten", name: "Name des Läufers *", namePlaceholder: "z.B.: Thomas", bib: "Startnummer", bibPlaceholder: "z.B.: 4521", gender: "Geschlecht", genderSelect: "—", genderM: "Männlich", genderF: "Weiblich", cityTitle: "Stadt / Wettkampf", cityDesc: "Stadt auswählen, um die Treffpunkte automatisch zu laden.", race: "Name des Wettkampfs", racePlaceholder: "z.B.: Berlin Marathon", targetTitle: "Zielzeit und Start", targetTime: "Zielzeit", pace: "Berechnetes Tempo/km", officialStart: "Offizielle Startzeit", personalStart: "Persönliche Startzeit (Chip)", checkpoints: "Treffpunkte", checkpointsDesc: "KM und Straßenname, wo du den Läufer siehst.", addPoint: "+ Punkt hinzufügen", deleteAll: "✕ Alle löschen", save: "💾 Läufer speichern", cancel: "Abbrechen", back: "← Zurück" },
     seguimiento: { title: "Folgen", landscape: "Für alle Informationen, drehe das Handy horizontal", currentPace: "Aktuelles Tempo", arrivalTime: "Ankunftszeit Ziel", calculatedTime: "Berechnete Zeit", onTime: "Pünktlich", result: "Endergebnis", totalTime: "Gesamtzeit", here: "📍 Hier!", undo: "↩ Rückgängig", hours: "Std", minutes: "Min", seconds: "Sek" },
     prognosis: { title: "Zielprognose", desc: "Aktuellen KM und Laufzeit eingeben, um die Zielankunft zu berechnen", runnerTitle: "👤 Läufer (optional)", noRunner: "— Keinen Läufer ausgewählt —", dataTitle: "📊 Durchgangsdaten", currentKm: "Aktueller Kilometer", totalDist: "Gesamtdistanz (km)", raceTime: "Laufzeit (h:mm:ss)", estimated: "⏱ Geschätzte Gesamtzeit", avgPace: "Durchschnittstempo/km", remainingKm: "Verbleibende KM", arrivalTime: "Ankunftszeit", compare: "Vergleich mit Zielzeit", onTarget: "Zielzeit erreicht", hours: "Std", minutes: "Min", seconds: "Sek" },
-    mapa: { title: "Strecke", subtitle: "Wähle eine Stadt", legend: "Legende", route: "Strecke", startFinish: "Start / Ziel", kmMarkers: "KM-Marker", yourPoints: "Deine Punkte", selectCity: "Wähle oben eine Stadt aus", estimatedTime: "Voraussichtliche Zeit", start: "START", goal: "ZIEL" },
-    license: { title: "MaratonTrack", subtitle: "Bitte Lizenzcode eingeben", codeLabel: "Lizenzcode", login: "Anmelden →", welcome: "Willkommen", validUntil: "Lizenz gültig bis", daysLeft: "verbleibende Tage", invalidCode: "Code invalide.", expired: "Lizenz abgelaufen.", tampered: "Code invalide." }
+    mapa: { title: "Strecke", subtitle: "Wähle eine Stadt", legend: "Legende", route: "Strecke", startFinish: "Start / Ziel", kmMarkers: "KM-Marker", yourPoints: "Deine Punkte", selectCity: "Wähle oben eine Stadt aus", estimatedTime: "Voraussichtliche Zeit", start: "START", goal: "ZIEL" }
   },
   en: {
     nav: { runners: "Runners", newRunner: "New Runner", follow: "Follow", prognosis: "Forecast", route: "Route" },
@@ -383,8 +337,7 @@ const TRADUCCIONES = {
     ficha: { newTitle: "New Runner", editTitle: "Edit", subtitle: "Scroll down and press Save runner", personalData: "Personal Data", name: "Runner's name *", namePlaceholder: "e.g.: Thomas", bib: "Bib number", bibPlaceholder: "e.g.: 4521", gender: "Gender", genderSelect: "—", genderM: "Male", genderF: "Female", cityTitle: "City / Race", cityDesc: "Select city to load checkpoints.", race: "Race name", racePlaceholder: "e.g.: Berlin Marathon", targetTitle: "Target Time & Start", targetTime: "Target time", pace: "Calculated pace/km", officialStart: "Official start time", personalStart: "Personal start time (Chip)", checkpoints: "Checkpoints", checkpointsDesc: "KM and street name.", addPoint: "+ Add point", deleteAll: "✕ Delete all", save: "💾 Save runner", cancel: "Cancel", back: "← Back" },
     seguimiento: { title: "Follow", landscape: "Rotate your phone horizontally", currentPace: "Current pace", arrivalTime: "Arrival time", calculatedTime: "Calculated time", onTime: "On time", result: "Final Result", totalTime: "Total time", here: "📍 Here!", undo: "↩ Undo", hours: "hrs", minutes: "min", seconds: "sec" },
     prognosis: { title: "Finish Forecast", desc: "Enter current KM and race time to calculate finish time", runnerTitle: "👤 Runner (optional)", noRunner: "— No runner selected —", dataTitle: "📊 Split Data", currentKm: "Current Kilometer", totalDist: "Total Distance (km)", raceTime: "Race Time (h:mm:ss)", estimated: "⏱ Estimated Total Time", avgPace: "Average Pace/km", remainingKm: "Remaining KM", arrivalTime: "Arrival Time", compare: "Comparison with Target", onTarget: "Target achieved", hours: "hrs", minutes: "min", seconds: "sec" },
-    mapa: { title: "Route", subtitle: "Select a city", legend: "Legend", route: "Route", startFinish: "Start / Finish", kmMarkers: "KM markers", yourPoints: "Your points", selectCity: "Select a city above", estimatedTime: "Estimated time", start: "START", goal: "FINISH" },
-    license: { title: "MaratonTrack", subtitle: "Please enter license code", codeLabel: "License code", login: "Login →", welcome: "Welcome", validUntil: "License valid until", daysLeft: "days remaining", invalidCode: "Invalid code.", expired: "License expired.", tampered: "Invalid code." }
+    mapa: { title: "Route", subtitle: "Select a city", legend: "Legend", route: "Route", startFinish: "Start / Finish", kmMarkers: "KM markers", yourPoints: "Your points", selectCity: "Select a city above", estimatedTime: "Estimated time", start: "START", goal: "FINISH" }
   },
   es: {
     nav: { runners: "Corredores", newRunner: "Nuevo Corredor", follow: "Seguir", prognosis: "Pronóstico", route: "Recorrido" },
@@ -392,8 +345,7 @@ const TRADUCCIONES = {
     ficha: { newTitle: "Nuevo Corredor", editTitle: "Editar", subtitle: "Desplázate y pulsa Guardar corredor", personalData: "Datos Personales", name: "Nombre del corredor *", namePlaceholder: "ej.: Thomas", bib: "Dorsal", bibPlaceholder: "ej.: 4521", gender: "Género", genderSelect: "—", genderM: "Masculino", genderF: "Femenino", cityTitle: "Ciudad / Carrera", cityDesc: "Selecciona ciudad para cargar puntos.", race: "Nombre de la carrera", racePlaceholder: "ej.: Maratón de Berlín", targetTitle: "Tiempo Objetivo", targetTime: "Tiempo objetivo", pace: "Ritmo calculado/km", officialStart: "Hora oficial", personalStart: "Hora personal (Chip)", checkpoints: "Puntos de Encuentro", checkpointsDesc: "KM y calle.", addPoint: "+ Añadir punto", deleteAll: "✕ Eliminar todos", save: "💾 Guardar corredor", cancel: "Cancelar", back: "← Volver" },
     seguimiento: { title: "Seguimiento", landscape: "Gira el teléfono horizontalmente", currentPace: "Ritmo actual", arrivalTime: "Hora de llegada", calculatedTime: "Tiempo calculado", onTime: "En tiempo", result: "Resultado final", totalTime: "Tiempo total", here: "📍 ¡Aquí!", undo: "↩ Deshacer", hours: "hrs", minutes: "min", seconds: "seg" },
     prognosis: { title: "Pronóstico de Llegada", desc: "Introduce KM actual y tiempo para calcular hora de llegada", runnerTitle: "👤 Corredor (opcional)", noRunner: "— Sin corredor seleccionado —", dataTitle: "📊 Datos de Paso", currentKm: "Kilómetro Actual", totalDist: "Distancia Total (km)", raceTime: "Tiempo de Carrera (h:mm:ss)", estimated: "⏱ Tiempo Total Estimado", avgPace: "Ritmo Medio/km", remainingKm: "KM Restantes", arrivalTime: "Hora de Llegada", compare: "Comparación con Objetivo", onTarget: "Objetivo conseguido", hours: "hrs", minutes: "min", seconds: "seg" },
-    mapa: { title: "Recorrido", subtitle: "Selecciona una ciudad", legend: "Leyenda", route: "Recorrido", startFinish: "Salida / Meta", kmMarkers: "Marcadores KM", yourPoints: "Tus puntos", selectCity: "Selecciona una ciudad", estimatedTime: "Hora estimada", start: "SALIDA", goal: "META" },
-    license: { title: "MaratonTrack", subtitle: "Introduce el código de licencia", codeLabel: "Código de licencia", login: "Acceder →", welcome: "Bienvenido", validUntil: "Licencia válida hasta", daysLeft: "días restantes", invalidCode: "Código inválido.", expired: "Licencia expirada.", tampered: "Código inválido." }
+    mapa: { title: "Recorrido", subtitle: "Selecciona una ciudad", legend: "Leyenda", route: "Recorrido", startFinish: "Salida / Meta", kmMarkers: "Marcadores KM", yourPoints: "Tus puntos", selectCity: "Selecciona una ciudad", estimatedTime: "Hora estimada", start: "SALIDA", goal: "META" }
   },
   fr: {
     nav: { runners: "Coureurs", newRunner: "Nouveau", follow: "Suivre", prognosis: "Pronostic", route: "Parcours" },
@@ -401,8 +353,7 @@ const TRADUCCIONES = {
     ficha: { newTitle: "Nouveau Coureur", editTitle: "Modifier", subtitle: "Défilez et appuyez sur Enregistrer", personalData: "Données Personnelles", name: "Nom du coureur *", namePlaceholder: "ex.: Thomas", bib: "Dossard", bibPlaceholder: "ex.: 4521", gender: "Genre", genderSelect: "—", genderM: "Masculin", genderF: "Féminin", cityTitle: "Ville / Course", cityDesc: "Sélectionnez une ville.", race: "Nom de la course", racePlaceholder: "ex.: Marathon de Berlin", targetTitle: "Temps Objectif", targetTime: "Temps objectif", pace: "Allure calculée/km", officialStart: "Départ officiel", personalStart: "Départ personnel (Puce)", checkpoints: "Points de Rencontre", checkpointsDesc: "KM et rue.", addPoint: "+ Ajouter un point", deleteAll: "✕ Tout supprimer", save: "💾 Enregistrer", cancel: "Annuler", back: "← Retour" },
     seguimiento: { title: "Suivi", landscape: "Tournez le téléphone", currentPace: "Allure actuelle", arrivalTime: "Heure d'arrivée", calculatedTime: "Temps calculé", onTime: "Dans les temps", result: "Résultat final", totalTime: "Temps total", here: "📍 Ici!", undo: "↩ Annuler", hours: "h", minutes: "min", seconds: "sec" },
     prognosis: { title: "Pronostic d'Arrivée", desc: "Entrez le KM actuel et le temps pour calculer l'heure d'arrivée", runnerTitle: "👤 Coureur (optionnel)", noRunner: "— Aucun coureur sélectionné —", dataTitle: "📊 Données de Passage", currentKm: "Kilomètre Actuel", totalDist: "Distance Totale (km)", raceTime: "Temps de Course (h:mm:ss)", estimated: "⏱ Temps Total Estimé", avgPace: "Allure Moyenne/km", remainingKm: "KM Restants", arrivalTime: "Heure d'Arrivée", compare: "Comparaison avec Objectif", onTarget: "Objectif atteint", hours: "h", minutes: "min", seconds: "sec" },
-    mapa: { title: "Parcours", subtitle: "Sélectionnez une ville", legend: "Légende", route: "Parcours", startFinish: "Départ / Arrivée", kmMarkers: "Marqueurs KM", yourPoints: "Vos points", selectCity: "Sélectionnez une ville", estimatedTime: "Heure estimée", start: "DÉPART", goal: "ARRIVÉE" },
-    license: { title: "MaratonTrack", subtitle: "Entrez le code de licence", codeLabel: "Code de licence", login: "Se connecter →", welcome: "Bienvenue", validUntil: "Licence valide jusqu'au", daysLeft: "jours restants", invalidCode: "Code invalide.", expired: "Licence expirée.", tampered: "Code invalide." }
+    mapa: { title: "Parcours", subtitle: "Sélectionnez une ville", legend: "Légende", route: "Parcours", startFinish: "Départ / Arrivée", kmMarkers: "Marqueurs KM", yourPoints: "Vos points", selectCity: "Sélectionnez une ville", estimatedTime: "Heure estimée", start: "DÉPART", goal: "ARRIVÉE" }
   }
 };
 
@@ -411,16 +362,10 @@ let idiomaActual = localStorage.getItem('marathon_lang') || 'de';
 function t(clave) {
   const claves = clave.split('.');
   let valor = TRADUCCIONES[idiomaActual];
-  
   for (const k of claves) {
-    if (valor && valor[k] !== undefined) {
-      valor = valor[k];
-    } else {
-      // Si no encuentra la traducción, devuelve la clave original
-      return clave;
-    }
+    if (valor && valor[k] !== undefined) valor = valor[k];
+    else return clave;
   }
-  
   return typeof valor === 'string' ? valor : clave;
 }
 
@@ -442,24 +387,15 @@ function actualizarBotonesIdioma() {
 function actualizarIdiomaInterfaz() {
   actualizarBotonesIdioma();
   
-  // Navegación
   if(document.getElementById('nav-lista')) document.getElementById('nav-lista').textContent = t('nav.runners');
   if(document.getElementById('nav-nuevo')) document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
   if(document.getElementById('nav-seguimiento')) document.getElementById('nav-seguimiento').textContent = t('nav.follow');
   if(document.getElementById('nav-pronostico')) document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
   if(document.getElementById('nav-mapa')) document.getElementById('nav-mapa').textContent = t('nav.route');
   
-  // Licencia
-  if(document.getElementById('lic-title')) document.getElementById('lic-title').textContent = t('license.title');
-  if(document.getElementById('lic-subtitle')) document.getElementById('lic-subtitle').textContent = t('license.subtitle');
-  if(document.getElementById('lic-label')) document.getElementById('lic-label').textContent = t('license.codeLabel');
-  if(document.getElementById('lic-btn')) document.getElementById('lic-btn').textContent = t('license.login');
-  
-  // Lista
   if(document.getElementById('lista-titulo')) document.getElementById('lista-titulo').textContent = t('lista.title');
   if(document.getElementById('lista-sub')) document.getElementById('lista-sub').textContent = t('lista.subtitle');
   
-  // Mapa
   if(document.getElementById('mapa-titulo')) document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
   if(document.getElementById('mapa-subtitulo')) document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
   if(document.getElementById('map-select-text')) document.getElementById('map-select-text').textContent = t('mapa.selectCity');
@@ -469,14 +405,11 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('map-legend-km')) document.getElementById('map-legend-km').textContent = t('mapa.kmMarkers');
   if(document.getElementById('map-legend-points')) document.getElementById('map-legend-points').textContent = t('mapa.yourPoints');
   
-  // Pronóstico
   if(document.getElementById('pron-titulo')) document.getElementById('pron-titulo').textContent = t('prognosis.title');
   if(document.getElementById('pron-desc')) document.getElementById('pron-desc').textContent = t('prognosis.desc');
   if(document.getElementById('pron-runner-title')) document.getElementById('pron-runner-title').textContent = t('prognosis.runnerTitle');
-  
   var pronoSelect = document.getElementById('prono-corredor');
   if(pronoSelect && pronoSelect.options[0]) pronoSelect.options[0].textContent = t('prognosis.noRunner');
-  
   if(document.getElementById('pron-data-title')) document.getElementById('pron-data-title').textContent = t('prognosis.dataTitle');
   if(document.getElementById('pron-km-label')) document.getElementById('pron-km-label').textContent = t('prognosis.currentKm');
   if(document.getElementById('pron-dist-label')) document.getElementById('pron-dist-label').textContent = t('prognosis.totalDist');
@@ -494,7 +427,6 @@ function actualizarIdiomaInterfaz() {
   for(var i=0; i<mLabels.length; i++) mLabels[i].textContent = t('prognosis.minutes');
   for(var i=0; i<sLabels.length; i++) sLabels[i].textContent = t('prognosis.seconds');
   
-  // Seguimiento
   if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
   if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
   if(document.getElementById('seg-pace')) document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
@@ -504,28 +436,13 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('seg-result-title')) document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
   if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
   
-  var segTitulo = document.getElementById('seg-nombre');
-  if(segTitulo && ca !== null) {
-    var c = C[ca];
-    segTitulo.textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
-  }
-  
-  // Refrescar contenido dinámico
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
 }
-// ===================== DATOS =====================
-// Objeto CIUDADES (puede estar vacío o borrarlo)
-const CIUDADES = {};
 
-// NUEVAS CONSTANTES (fuera de CIUDADES)
-const GITHUB_BASE = "...";
-const CIUDADES_GPX = { ... };
-const INFO_CIUDADES = { ... };
+// ===================== DATOS DE CIUDADES =====================
+const GITHUB_BASE = "https://raw.githubusercontent.com/Campanero99/Tracking.TI/main/gpx";
 
-// Cache de coordenadas
-const coordenadasCache = {};
-// Lista de ciudades con sus archivos GPX
 const CIUDADES_GPX = {
   "Barcelona":   GITHUB_BASE + "/barcelona.gpx",
   "Berlín":      GITHUB_BASE + "/berlin.gpx",
@@ -542,7 +459,9 @@ const CIUDADES_GPX = {
   "Chicago":     GITHUB_BASE + "/chicago.gpx",
   "Sídney":      GITHUB_BASE + "/sidney.gpx"
 };
-// Banderas e información de cada ciudad
+
+const coordenadasCache = {};
+
 const INFO_CIUDADES = {
   "Barcelona":   {flag:"🇪🇸", puntos:[{km:5,calle:"Av. Diagonal"},{km:10,calle:"C/ València"},{km:15,calle:"C/ Mallorca"},{km:20,calle:"C/ Sepúlveda"},{km:25,calle:"Passeig de Colom"},{km:30,calle:"Av. Litoral"},{km:35,calle:"Av. Diagonal"},{km:40,calle:"C/ Marina"},{km:42.195,calle:"Arc de Triomf"}]},
   "Berlín":      {flag:"🇩🇪", puntos:[{km:5,calle:"Alt Moabit"},{km:10,calle:"Torstraße"},{km:15,calle:"Kottbuser Tor"},{km:20,calle:"Yorkstraße"},{km:25,calle:"Hauptstraße"},{km:30,calle:"Hohenzollerndamm"},{km:35,calle:"Tauentzienstr."},{km:40,calle:"Jerusalemer Str."},{km:42.195,calle:"Brandenburger Tor"}]},
@@ -560,94 +479,86 @@ const INFO_CIUDADES = {
   "Sídney":      {flag:"🇦🇺", puntos:[{km:5,calle:"Pyrmont"},{km:10,calle:"Hickson Road"},{km:15,calle:"Macquarie Street"},{km:20,calle:"Anzac Parade"},{km:25,calle:"Centennial Park"},{km:30,calle:"Lang Road"},{km:35,calle:"Surry Hills"},{km:40,calle:"Mrs Macquaries Rd"},{km:42.195,calle:"The Domain"}]}
 };
 
-// Esta variable guardará las coordenadas cargadas de cada ciudad
-const coordenadasCache = {};
-const KM=42.195;
-let C=JSON.parse(localStorage.getItem('mt_v5_de')||'[]');
-let ca=null,timerSeg=null,pt=[],ciudadSel=null;
-let leafletMap=null,mapCiudadActual=null;
+// ===================== FUNCIONES =====================
+const KM = 42.195;
+let C = JSON.parse(localStorage.getItem('mt_v5_de') || '[]');
+let ca = null, timerSeg = null, pt = [], ciudadSel = null;
+let leafletMap = null, mapCiudadActual = null;
 
-function sv(){localStorage.setItem('mt_v5_de',JSON.stringify(C));}
-function pad(n){return String(Math.floor(Math.abs(n))).padStart(2,'0');}
-function ph(s){if(!s)return null;const p=s.trim().split(':').map(Number);if(p.some(isNaN))return null;if(p.length===3)return p[0]*3600+p[1]*60+p[2];if(p.length===2)return p[0]*3600+p[1]*60;return null;}
-function getMarca(){const h=parseInt(document.getElementById('f-marca-h').value)||0;const m=parseInt(document.getElementById('f-marca-m').value)||0;const s=parseInt(document.getElementById('f-marca-s').value)||0;if(h===0&&m===0&&s===0)return'';return h+':'+pad(m)+':'+pad(s);}
-function getMarcaSecs(){const h=parseInt(document.getElementById('f-marca-h').value)||0;const m=parseInt(document.getElementById('f-marca-m').value)||0;const s=parseInt(document.getElementById('f-marca-s').value)||0;const total=h*3600+m*60+s;return total>0?total:null;}
-function setMarca(str){if(!str){document.getElementById('f-marca-h').value='';document.getElementById('f-marca-m').value='';document.getElementById('f-marca-s').value='';return;}const p=str.split(':').map(Number);if(p.length===3){document.getElementById('f-marca-h').value=p[0];document.getElementById('f-marca-m').value=pad(p[1]);document.getElementById('f-marca-s').value=pad(p[2]);}}
-function fh(s){s=Math.round(Math.abs(s));return Math.floor(s/3600)+':'+pad((s%3600)/60)+':'+pad(s%60);}
-function fm(s){s=Math.round(Math.abs(s));return Math.floor(s/60)+':'+pad(s%60);}
-function t2s(t){if(!t)return 0;const p=t.split(':').map(Number);if(p.length===3)return p[0]*3600+p[1]*60+p[2];if(p.length===2)return p[0]*3600+p[1]*60;return 0;}
-function s2t(s){s=((Math.round(s)%86400)+86400)%86400;return pad(s/3600)+':'+pad((s%3600)/60)+':'+pad(s%60);}
+function sv() { localStorage.setItem('mt_v5_de', JSON.stringify(C)); }
+function pad(n) { return String(Math.floor(Math.abs(n))).padStart(2, '0'); }
+function ph(s) { if (!s) return null; const p = s.trim().split(':').map(Number); if (p.some(isNaN)) return null; if (p.length === 3) return p[0] * 3600 + p[1] * 60 + p[2]; if (p.length === 2) return p[0] * 3600 + p[1] * 60; return null; }
+function getMarca() { const h = parseInt(document.getElementById('f-marca-h').value) || 0; const m = parseInt(document.getElementById('f-marca-m').value) || 0; const s = parseInt(document.getElementById('f-marca-s').value) || 0; if (h === 0 && m === 0 && s === 0) return ''; return h + ':' + pad(m) + ':' + pad(s); }
+function getMarcaSecs() { const h = parseInt(document.getElementById('f-marca-h').value) || 0; const m = parseInt(document.getElementById('f-marca-m').value) || 0; const s = parseInt(document.getElementById('f-marca-s').value) || 0; const total = h * 3600 + m * 60 + s; return total > 0 ? total : null; }
+function setMarca(str) { if (!str) { document.getElementById('f-marca-h').value = ''; document.getElementById('f-marca-m').value = ''; document.getElementById('f-marca-s').value = ''; return; } const p = str.split(':').map(Number); if (p.length === 3) { document.getElementById('f-marca-h').value = p[0]; document.getElementById('f-marca-m').value = pad(p[1]); document.getElementById('f-marca-s').value = pad(p[2]); } }
+function fh(s) { s = Math.round(Math.abs(s)); return Math.floor(s / 3600) + ':' + pad((s % 3600) / 60) + ':' + pad(s % 60); }
+function fm(s) { s = Math.round(Math.abs(s)); return Math.floor(s / 60) + ':' + pad(s % 60); }
+function t2s(t) { if (!t) return 0; const p = t.split(':').map(Number); if (p.length === 3) return p[0] * 3600 + p[1] * 60 + p[2]; if (p.length === 2) return p[0] * 3600 + p[1] * 60; return 0; }
+function s2t(s) { s = ((Math.round(s) % 86400) + 86400) % 86400; return pad(s / 3600) + ':' + pad((s % 3600) / 60) + ':' + pad(s % 60); }
 
-function showPage(id){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
-  const m={lista:0,ficha:1,seguimiento:2,pronostico:3,mapa:4};
-  if(m[id]!==undefined)document.querySelectorAll('.nav-btn')[m[id]].classList.add('active');
-  if(id==='lista')rL();
-  if(id==='pronostico'){rPS();calcProno();}
-  if(id==='mapa'){initMapa();}
-  if(id==='seguimiento'&&ca!==null)rS();
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const m = { lista: 0, ficha: 1, seguimiento: 2, pronostico: 3, mapa: 4 };
+  if (m[id] !== undefined) document.querySelectorAll('.nav-btn')[m[id]].classList.add('active');
+  if (id === 'lista') rL();
+  if (id === 'pronostico') { rPS(); calcProno(); }
+  if (id === 'mapa') { initMapa(); }
+  if (id === 'seguimiento' && ca !== null) rS();
 }
 
 // ===================== MAPA =====================
-function buildMapaCitySelector(){
-  const g=document.getElementById('mapa-city-selector');
-  g.innerHTML=Object.entries(CIUDADES).map(([name,d])=>`<button class="mapa-city-btn" id="mcbtn-${name}" onclick="loadMapaCiudad('${name}')">${d.flag} ${name}</button>`).join('');
-  if(ca!==null&&C[ca]&&C[ca].ciudad){loadMapaCiudad(C[ca].ciudad);}
-}
-
-function initMapa(){
-  buildMapaCitySelector();
-  if(!leafletMap){
-    leafletMap=L.map('leaflet-map').setView([48.8584,2.2945],12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(leafletMap);
-    document.getElementById('map-no-city').style.display='flex';
-  }
-  if(mapCiudadActual){setTimeout(()=>leafletMap.invalidateSize(),100);}
-}
-
-let mapaLayers=[];
-function clearMapaLayers(){mapaLayers.forEach(l=>leafletMap.removeLayer(l));mapaLayers=[];}
-// ===================== CARGAR GPX DESDE ARCHIVO =====================
-// Esta función va a internet, descarga el archivo GPX y extrae las coordenadas
 async function cargarGPXdesdeURL(url) {
   try {
-    // 1. Descargar el archivo GPX desde internet
     const respuesta = await fetch(url);
-    
-    // 2. Leer el contenido como texto
     const textoGPX = await respuesta.text();
-    
-    // 3. Convertir el texto XML en algo que JavaScript pueda leer
     const parser = new DOMParser();
     const xml = parser.parseFromString(textoGPX, "text/xml");
-    
-    // 4. Buscar todos los puntos de coordenadas en el archivo
     const puntos = xml.querySelectorAll("trkpt");
-    
-    // 5. Extraer latitud y longitud de cada punto
     const coordenadas = [];
     puntos.forEach(function(punto) {
       const lat = parseFloat(punto.getAttribute("lat"));
       const lon = parseFloat(punto.getAttribute("lon"));
       coordenadas.push([lat, lon]);
     });
-    
-    console.log("✅ Cargado: " + coordenadas.length + " puntos");
     return coordenadas;
   } catch (error) {
-    console.error("❌ Error al cargar GPX:", error);
+    console.error("Error al cargar GPX:", error);
     return null;
   }
 }
-async function loadMapaCiudad(name){
-  if(!leafletMap) return;
+
+function buildMapaCitySelector() {
+  const g = document.getElementById('mapa-city-selector');
+  let html = '';
+  for (const nombre in INFO_CIUDADES) {
+    const info = INFO_CIUDADES[nombre];
+    html += '<button class="mapa-city-btn" id="mcbtn-' + nombre + '" onclick="loadMapaCiudad(\'' + nombre + '\')">' + info.flag + ' ' + nombre + '</button>';
+  }
+  g.innerHTML = html;
+  if (ca !== null && C[ca] && C[ca].ciudad) { loadMapaCiudad(C[ca].ciudad); }
+}
+
+function initMapa() {
+  buildMapaCitySelector();
+  if (!leafletMap) {
+    leafletMap = L.map('leaflet-map').setView([48.8584, 2.2945], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap', maxZoom: 19 }).addTo(leafletMap);
+    document.getElementById('map-no-city').style.display = 'flex';
+  }
+  if (mapCiudadActual) { setTimeout(() => leafletMap.invalidateSize(), 100); }
+}
+
+let mapaLayers = [];
+function clearMapaLayers() { mapaLayers.forEach(l => leafletMap.removeLayer(l)); mapaLayers = []; }
+
+async function loadMapaCiudad(name) {
+  if (!leafletMap) return;
   
-  // Mostrar ciudad seleccionada
   document.querySelectorAll('.mapa-city-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('mcbtn-'+name);
-  if(btn) btn.classList.add('active');
+  const btn = document.getElementById('mcbtn-' + name);
+  if (btn) btn.classList.add('active');
   
   mapCiudadActual = name;
   document.getElementById('mapa-titulo').textContent = '🗺 Marathon ' + name;
@@ -655,43 +566,32 @@ async function loadMapaCiudad(name){
   document.getElementById('map-legend').style.display = 'block';
   clearMapaLayers();
   
-  // Mostrar mensaje de carga
   document.getElementById('mapa-subtitulo').textContent = '⏳ Cargando ruta...';
   
-  // Obtener coordenadas (del caché o descargando)
   let coords = coordenadasCache[name];
   
   if (!coords) {
-    // Si no están en caché, descargar del archivo GPX
     const urlGPX = CIUDADES_GPX[name];
     if (urlGPX) {
       coords = await cargarGPXdesdeURL(urlGPX);
       if (coords && coords.length > 0) {
-        coordenadasCache[name] = coords; // Guardar en caché
+        coordenadasCache[name] = coords;
       }
     }
   }
   
-  // Si no se pudieron cargar las coordenadas, mostrar error
   if (!coords || coords.length === 0) {
     document.getElementById('mapa-subtitulo').textContent = '❌ Error al cargar la ruta';
     return;
   }
   
-  // Actualizar información
   const info = INFO_CIUDADES[name];
   const numPuntos = info ? info.puntos.length : 0;
   document.getElementById('mapa-subtitulo').textContent = '42,195 km · ' + numPuntos + ' puntos de referencia';
   
-  // Dibujar la línea de la ruta
-  const poly = L.polyline(coords, {
-    color: '#1a6fc4',
-    weight: 4,
-    opacity: 0.85
-  }).addTo(leafletMap);
+  const poly = L.polyline(coords, { color: '#1a6fc4', weight: 4, opacity: 0.85 }).addTo(leafletMap);
   mapaLayers.push(poly);
   
-  // Icono para los marcadores de kilómetros
   const kmIcon = function(km, isStart, isMeta) {
     const bg = isStart ? '#1a9e5c' : (isMeta ? '#c0392b' : '#1a6fc4');
     const label = isStart ? 'S' : (isMeta ? '🏁' : km);
@@ -703,13 +603,11 @@ async function loadMapaCiudad(name){
     });
   };
   
-  // Calcular punto en la ruta para un kilómetro específico
   const totalPuntos = coords.length;
   const idxPorKm = function(km) {
     return Math.floor((km / 42.195) * (totalPuntos - 1));
   };
   
-  // Añadir marcadores de kilómetros
   if (info && info.puntos) {
     info.puntos.forEach(function(p) {
       const idx = idxPorKm(p.km);
@@ -718,330 +616,226 @@ async function loadMapaCiudad(name){
       const isStart = p.km <= 2;
       const isMeta = p.km >= 42;
       
-      const marker = L.marker([lat, lng], {icon: kmIcon(p.km, isStart, isMeta)})
-        .bindTooltip((isStart ? '🏁 START' : (isMeta ? '🏁 META' : 'km ' + p.km)) + ' · ' + p.calle, {
-          permanent: false,
-          direction: 'top',
-          offset: [0, -14]
-        })
+      const marker = L.marker([lat, lng], { icon: kmIcon(p.km, isStart, isMeta) })
+        .bindTooltip((isStart ? '🏁 START' : (isMeta ? '🏁 META' : 'km ' + p.km)) + ' · ' + p.calle, { permanent: false, direction: 'top', offset: [0, -14] })
         .addTo(leafletMap);
       mapaLayers.push(marker);
     });
   }
   
-  // Ajustar el mapa para que se vea toda la ruta
-  leafletMap.fitBounds(poly.getBounds(), {padding: [30, 30]});
+  leafletMap.fitBounds(poly.getBounds(), { padding: [30, 30] });
   setTimeout(function() { leafletMap.invalidateSize(); }, 150);
 }
 
-  const myIcon=(km)=>{
-    return L.divIcon({className:'',html:`<div style="background:#e8a020;color:white;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">${km}</div>`,iconSize:[22,22],iconAnchor:[11,11]});
-  };
-
-  const calcHoraPrevista=(km)=>{
-    const corredor=ca!==null&&C[ca]?C[ca]:null;
-    if(!corredor) return null;
-    const salida=corredor.salidaPersonal||corredor.salidaOficial;
-    if(!salida) return null;
-    const ritmoStr=corredor.ritmo;
-    if(!ritmoStr) return null;
-    const parts=ritmoStr.split(':');
-    if(parts.length<2) return null;
-    const ritmoSeg=parseInt(parts[0])*60+parseInt(parts[1]);
-    const totalSeg=t2s(salida)+Math.round(km*ritmoSeg);
-    const h=Math.floor(totalSeg/3600)%24;
-    const m=Math.floor((totalSeg%3600)/60);
-    return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
-  };
-
-  const toRad=x=>x*Math.PI/180;
-  const distM=(a,b)=>{const R=6371000,dLat=toRad(b[0]-a[0]),dLon=toRad(b[1]-a[1]);const s=Math.sin(dLat/2)**2+Math.cos(toRad(a[0]))*Math.cos(toRad(b[0]))*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(s));};
-  const acumDist=[0];
-  for(let i=1;i<ciudad.coords.length;i++) acumDist.push(acumDist[i-1]+distM(ciudad.coords[i-1],ciudad.coords[i]));
-  const totalDistM=acumDist[acumDist.length-1];
-  const idxByKm=(km)=>{const target=km*1000*(totalDistM/(42.195*1000));let best=0;for(let i=1;i<acumDist.length;i++) if(Math.abs(acumDist[i]-target)<Math.abs(acumDist[best]-target)) best=i;return best;};
-
-  const todosKm=ciudad.puntos;
-  const kmFiltrados=todosKm.filter(p=>p.km%5===0||p.km===42.195||p.km===2);
-
-  kmFiltrados.forEach(p=>{
-    const idx=idxByKm(p.km);
-    const lat=ciudad.coords[idx][0],lng=ciudad.coords[idx][1];
-    const isStart=p.km<=2,isMeta=p.km>=42;
-    const horaPrev=calcHoraPrevista(p.km);
-    const kmLabel=isStart?t('mapa.start'):isMeta?t('mapa.goal'):'Km '+p.km;
-    const popupHTML=`<div style="font-family:sans-serif;min-width:180px;max-width:240px;"><div style="font-weight:800;font-size:.95rem;color:#1a2740;margin-bottom:4px;">📍 ${kmLabel}</div><div style="font-size:.82rem;color:#555;">${p.calle}</div>${horaPrev?`<div style="background:#eef4ff;border-radius:6px;padding:5px 8px;margin-top:6px;font-size:.82rem;">⏱ <strong>${t('mapa.estimatedTime')}: ${horaPrev}</strong></div>`:''}</div>`;
-    const marker=L.marker([lat,lng],{icon:kmIcon(p.km,isStart,isMeta)}).bindTooltip(isStart?'🏁 START':(isMeta?'🏁 ZIEL · '+p.calle:'km '+p.km+' · '+p.calle),{permanent:false,direction:'top',offset:[0,-14]}).bindPopup(popupHTML,{maxWidth:260,className:'km-popup'}).addTo(leafletMap);
-    mapaLayers.push(marker);
-  });
-
-  leafletMap.fitBounds(poly.getBounds(),{padding:[30,30]});
-  setTimeout(()=>leafletMap.invalidateSize(),150);
-}
-
 // ===================== FICHA =====================
-function buildCityGrid(){
+function buildCityGrid() {
   const g = document.getElementById('city-grid');
   let html = '';
-  
-  // Usar las ciudades de INFO_CIUDADES (14 ciudades)
   for (const nombre in INFO_CIUDADES) {
     const info = INFO_CIUDADES[nombre];
-    html += '<div class="city-btn" id="cbtn-' + nombre + '" onclick="selCiudad(\'' + nombre + '\')">';
-    html += '<span class="city-flag">' + info.flag + '</span>' + nombre;
-    html += '</div>';
+    html += '<div class="city-btn" id="cbtn-' + nombre + '" onclick="selCiudad(\'' + nombre + '\')"><span class="city-flag">' + info.flag + '</span>' + nombre + '</div>';
   }
-  
   g.innerHTML = html;
-  
-  if (ciudadSel) {
-    const b = document.getElementById('cbtn-' + ciudadSel);
-    if (b) b.classList.add('sel');
-  }
+  if (ciudadSel) { const b = document.getElementById('cbtn-' + ciudadSel); if (b) b.classList.add('sel'); }
 }
 
-// También actualizar el selector del mapa
-function buildMapaCitySelector(){
-  const g = document.getElementById('mapa-city-selector');
-  let html = '';
-  
-  for (const nombre in INFO_CIUDADES) {
-    const info = INFO_CIUDADES[nombre];
-    html += '<button class="mapa-city-btn" id="mcbtn-' + nombre + '" onclick="loadMapaCiudad(\'' + nombre + '\')">' + info.flag + ' ' + nombre + '</button>';
+function selCiudad(name) {
+  ciudadSel = name;
+  document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('sel'));
+  const btn = document.getElementById('cbtn-' + name);
+  if (btn) btn.classList.add('sel');
+  const fc = document.getElementById('f-carrera');
+  if (!fc.value) { fc.value = 'Marathon ' + name; }
+  const info = INFO_CIUDADES[name];
+  if (info && info.puntos) {
+    pt = info.puntos.map(function(p) { return { km: p.km, calle: p.calle }; });
+  } else {
+    pt = [];
   }
-  
-  g.innerHTML = html;
-  
-  if (ca !== null && C[ca] && C[ca].ciudad) {
-    loadMapaCiudad(C[ca].ciudad);
-  }
-}
-function selCiudad(name){
-  ciudadSel=name;
-  document.querySelectorAll('.city-btn').forEach(b=>b.classList.remove('sel'));
-  const btn=document.getElementById('cbtn-'+name);if(btn)btn.classList.add('sel');
-  const fc=document.getElementById('f-carrera');
-  if(!fc.value||Object.keys(CIUDADES).some(c=>fc.value.includes(c))) fc.value='Marathon '+name;
-  pt=CIUDADES[name].puntos.map(p=>({km:p.km,calle:p.calle}));
   rPF();
 }
 
-function rL(){
-  const el=document.getElementById('lista-corredores');
-  if(!C.length){el.innerHTML='<div style="text-align:center;padding:48px 20px;color:var(--text2);"><div style="font-size:3rem;margin-bottom:12px;">🏃</div><p>'+t('lista.noRunners')+'<br><b>'+t('lista.addRunner')+'</b></p></div>';return;}
-  el.innerHTML=C.map((c,i)=>{
-    const p=(c.pasos||[]).filter(x=>x.horaReal).length,tt=(c.pasos||[]).length;
-    const b=p===0?'<span class="badge badge-yellow">'+t('lista.waiting')+'</span>':p>=tt?'<span class="badge badge-green">'+t('lista.finished')+'</span>':'<span class="badge badge-red">'+t('lista.running')+' · '+p+'/'+tt+'</span>';
-    const flag=c.ciudad&&CIUDADES[c.ciudad]?CIUDADES[c.ciudad].flag+' ':'🏙️ ';
-    return '<div class="runner-item"><div class="runner-avatar">'+c.nombre.charAt(0).toUpperCase()+'</div><div class="runner-info"><div class="runner-name">'+c.nombre+(c.dorsal?' <span style="color:var(--text2);font-size:.8rem;">#'+c.dorsal+'</span>':'')+'</div><div class="runner-sub">'+flag+(c.carrera||'—')+' · '+(c.marca||'—')+' · '+(c.ritmo||'—')+'/km</div><div style="margin-top:5px;">'+b+'</div></div><div class="runner-actions"><button class="btn btn-outline btn-sm" onclick="eC('+i+')">✏️ '+t('lista.edit')+'</button><button class="btn btn-primary btn-sm" onclick="aS('+i+')">📍 '+t('lista.follow')+'</button><button class="btn btn-outline btn-sm" onclick="verMapa('+i+')">'+t('lista.route')+'</button><button class="btn btn-danger btn-sm" onclick="bC('+i+')">🗑</button></div></div>';
+function rL() {
+  const el = document.getElementById('lista-corredores');
+  if (!C.length) { el.innerHTML = '<div style="text-align:center;padding:48px 20px;color:var(--text2);"><div style="font-size:3rem;margin-bottom:12px;">🏃</div><p>' + t('lista.noRunners') + '<br><b>' + t('lista.addRunner') + '</b></p></div>'; return; }
+  el.innerHTML = C.map((c, i) => {
+    const p = (c.pasos || []).filter(x => x.horaReal).length, tt = (c.pasos || []).length;
+    const b = p === 0 ? '<span class="badge badge-yellow">' + t('lista.waiting') + '</span>' : p >= tt ? '<span class="badge badge-green">' + t('lista.finished') + '</span>' : '<span class="badge badge-red">' + t('lista.running') + ' · ' + p + '/' + tt + '</span>';
+    const flag = c.ciudad && INFO_CIUDADES[c.ciudad] ? INFO_CIUDADES[c.ciudad].flag + ' ' : '🏙️ ';
+    return '<div class="runner-item"><div class="runner-avatar">' + c.nombre.charAt(0).toUpperCase() + '</div><div class="runner-info"><div class="runner-name">' + c.nombre + (c.dorsal ? ' <span style="color:var(--text2);font-size:.8rem;">#' + c.dorsal + '</span>' : '') + '</div><div class="runner-sub">' + flag + (c.carrera || '—') + ' · ' + (c.marca || '—') + ' · ' + (c.ritmo || '—') + '/km</div><div style="margin-top:5px;">' + b + '</div></div><div class="runner-actions"><button class="btn btn-outline btn-sm" onclick="eC(' + i + ')">✏️ ' + t('lista.edit') + '</button><button class="btn btn-primary btn-sm" onclick="aS(' + i + ')">📍 ' + t('lista.follow') + '</button><button class="btn btn-outline btn-sm" onclick="verMapa(' + i + ')">' + t('lista.route') + '</button><button class="btn btn-danger btn-sm" onclick="bC(' + i + ')">🗑</button></div></div>';
   }).join('');
 }
 
-function verMapa(i){ca=i;showPage('mapa');if(C[i].ciudad){setTimeout(()=>loadMapaCiudad(C[i].ciudad),200);}}
-function bC(i){if(confirm(t('lista.delete')+' "'+C[i].nombre+'"?')){C.splice(i,1);sv();rL();}}
-function nuevoCorreder(){
-  ca=null;ciudadSel=null;
-  ['f-nombre','f-dorsal','f-carrera','f-ritmo','f-salida-oficial','f-salida-personal'].forEach(id=>document.getElementById(id).value='');
-  setMarca('');document.getElementById('f-sexo').value='';
-  document.getElementById('diferencia-salida').style.display='none';
-  document.getElementById('ficha-titulo').textContent=t('ficha.newTitle');
-  pt=[];buildCityGrid();rPF();showPage('ficha');
+function verMapa(i) { ca = i; showPage('mapa'); if (C[i].ciudad) { setTimeout(() => loadMapaCiudad(C[i].ciudad), 200); } }
+function bC(i) { if (confirm(t('lista.delete') + ' "' + C[i].nombre + '"?')) { C.splice(i, 1); sv(); rL(); } }
+function nuevoCorreder() {
+  ca = null; ciudadSel = null;
+  ['f-nombre', 'f-dorsal', 'f-carrera', 'f-ritmo', 'f-salida-oficial', 'f-salida-personal'].forEach(id => document.getElementById(id).value = '');
+  setMarca(''); document.getElementById('f-sexo').value = '';
+  document.getElementById('diferencia-salida').style.display = 'none';
+  document.getElementById('ficha-titulo').textContent = t('ficha.newTitle');
+  pt = []; buildCityGrid(); rPF(); showPage('ficha');
 }
-function eC(i){
-  ca=i;const c=C[i];
-  document.getElementById('f-nombre').value=c.nombre||'';
-  document.getElementById('f-dorsal').value=c.dorsal||'';
-  document.getElementById('f-sexo').value=c.sexo||'';
-  document.getElementById('f-carrera').value=c.carrera||'';
-  setMarca(c.marca||'');
-  document.getElementById('f-ritmo').value=c.ritmo||'';
-  document.getElementById('f-salida-oficial').value=c.salidaOficial||'';
-  document.getElementById('f-salida-personal').value=c.salidaPersonal||'';
-  document.getElementById('diferencia-salida').style.display='none';
-  document.getElementById('ficha-titulo').textContent=t('ficha.editTitle')+' - '+c.nombre;
-  ciudadSel=c.ciudad||null;
-  pt=(c.pasos||[]).map(p=>({km:p.km,calle:p.calle}));
-  buildCityGrid();rPF();showPage('ficha');
-}
-
-function rPF(){
-  pt.sort((a,b)=>(parseFloat(a.km)||0)-(parseFloat(b.km)||0));
-  document.getElementById('puntos-container').innerHTML=pt.map((p,i)=>'<div class="punto-row"><input type="number" placeholder="KM" value="'+p.km+'" step="0.001" onchange="pt['+i+'].km=parseFloat(this.value)||0;ordenarYRenderizar()"><input type="text" placeholder="Calle" value="'+(p.calle||'')+'" oninput="pt['+i+'].calle=this.value"><button class="btn btn-danger btn-sm" onclick="rP('+i+')">✕</button></div>').join('');
-}
-function ordenarYRenderizar(){pt.sort((a,b)=>(parseFloat(a.km)||0)-(parseFloat(b.km)||0));rPF();}
-function addPunto(){pt.push({km:'',calle:''});rPF();}
-function rP(i){pt.splice(i,1);rPF();}
-function limpiarPuntos(){if(confirm(t('ficha.deleteAll')+'?')){pt=[];rPF();}}
-
-function calcularRitmo(){const s=getMarcaSecs();document.getElementById('f-ritmo').value=s?fm(s/KM):'';}
-function syncSalida(){
-  const p=document.getElementById('f-salida-personal').value;
-  const o=document.getElementById('f-salida-oficial').value;
-  const el=document.getElementById('diferencia-salida');
-  if(!p)return;
-  document.getElementById('f-salida-oficial').value=p;
-  if(o&&o!==p){const d=t2s(p)-t2s(o);el.style.display='block';el.textContent=Math.abs(d)+'s '+(d>0?'später':'früher');}else el.style.display='none';
+function eC(i) {
+  ca = i; const c = C[i];
+  document.getElementById('f-nombre').value = c.nombre || '';
+  document.getElementById('f-dorsal').value = c.dorsal || '';
+  document.getElementById('f-sexo').value = c.sexo || '';
+  document.getElementById('f-carrera').value = c.carrera || '';
+  setMarca(c.marca || '');
+  document.getElementById('f-ritmo').value = c.ritmo || '';
+  document.getElementById('f-salida-oficial').value = c.salidaOficial || '';
+  document.getElementById('f-salida-personal').value = c.salidaPersonal || '';
+  document.getElementById('diferencia-salida').style.display = 'none';
+  document.getElementById('ficha-titulo').textContent = t('ficha.editTitle') + ' - ' + c.nombre;
+  ciudadSel = c.ciudad || null;
+  pt = (c.pasos || []).map(p => ({ km: p.km, calle: p.calle }));
+  buildCityGrid(); rPF(); showPage('ficha');
 }
 
-function guardarCorreder(){
-  const n=document.getElementById('f-nombre').value.trim();
-  if(!n){alert(t('ficha.name'));return;}
-  const marca=getMarca(),ms=getMarcaSecs(),rs=ms?ms/KM:null;
-  const so=document.getElementById('f-salida-oficial').value;
-  const pasos=pt.filter(p=>p.km>0).sort((a,b)=>parseFloat(a.km)-parseFloat(b.km)).map(p=>{
-    let hp='';if(rs&&so)hp=s2t(t2s(so)+rs*p.km);
-    return{km:parseFloat(p.km),calle:p.calle||'KM '+p.km,horaPrevista:hp,horaReal:'',horaRealSecs:null};
+function rPF() {
+  pt.sort((a, b) => (parseFloat(a.km) || 0) - (parseFloat(b.km) || 0));
+  document.getElementById('puntos-container').innerHTML = pt.map((p, i) => '<div class="punto-row"><input type="number" placeholder="KM" value="' + p.km + '" step="0.001" onchange="pt[' + i + '].km=parseFloat(this.value)||0;ordenarYRenderizar()"><input type="text" placeholder="Calle" value="' + (p.calle || '') + '" oninput="pt[' + i + '].calle=this.value"><button class="btn btn-danger btn-sm" onclick="rP(' + i + ')">✕</button></div>').join('');
+}
+function ordenarYRenderizar() { pt.sort((a, b) => (parseFloat(a.km) || 0) - (parseFloat(b.km) || 0)); rPF(); }
+function addPunto() { pt.push({ km: '', calle: '' }); rPF(); }
+function rP(i) { pt.splice(i, 1); rPF(); }
+function limpiarPuntos() { if (confirm(t('ficha.deleteAll') + '?')) { pt = []; rPF(); } }
+
+function calcularRitmo() { const s = getMarcaSecs(); document.getElementById('f-ritmo').value = s ? fm(s / KM) : ''; }
+function syncSalida() {
+  const p = document.getElementById('f-salida-personal').value;
+  const o = document.getElementById('f-salida-oficial').value;
+  const el = document.getElementById('diferencia-salida');
+  if (!p) return;
+  document.getElementById('f-salida-oficial').value = p;
+  if (o && o !== p) { const d = t2s(p) - t2s(o); el.style.display = 'block'; el.textContent = Math.abs(d) + 's ' + (d > 0 ? 'später' : 'früher'); } else el.style.display = 'none';
+}
+
+function guardarCorreder() {
+  const n = document.getElementById('f-nombre').value.trim();
+  if (!n) { alert(t('ficha.name')); return; }
+  const marca = getMarca(), ms = getMarcaSecs(), rs = ms ? ms / KM : null;
+  const so = document.getElementById('f-salida-oficial').value;
+  const pasos = pt.filter(p => p.km > 0).sort((a, b) => parseFloat(a.km) - parseFloat(b.km)).map(p => {
+    let hp = ''; if (rs && so) hp = s2t(t2s(so) + rs * p.km);
+    return { km: parseFloat(p.km), calle: p.calle || 'KM ' + p.km, horaPrevista: hp, horaReal: '', horaRealSecs: null };
   });
-  const corredor={nombre:n,dorsal:document.getElementById('f-dorsal').value,sexo:document.getElementById('f-sexo').value,carrera:document.getElementById('f-carrera').value.trim(),ciudad:ciudadSel,marca,ritmo:rs?fm(rs):'',salidaOficial:so,salidaPersonal:document.getElementById('f-salida-personal').value,pasos};
-  if(ca!==null){const v=C[ca].pasos||[];corredor.pasos=corredor.pasos.map(p=>{const x=v.find(y=>y.km===p.km);if(x&&x.horaReal){p.horaReal=x.horaReal;p.horaRealSecs=x.horaRealSecs;}return p;});C[ca]=corredor;}else{if(C.length>=5){alert('Max 5 Läufer');return;}C.push(corredor);}
-  sv();showPage('lista');
+  const corredor = { nombre: n, dorsal: document.getElementById('f-dorsal').value, sexo: document.getElementById('f-sexo').value, carrera: document.getElementById('f-carrera').value.trim(), ciudad: ciudadSel, marca, ritmo: rs ? fm(rs) : '', salidaOficial: so, salidaPersonal: document.getElementById('f-salida-personal').value, pasos };
+  if (ca !== null) { const v = C[ca].pasos || []; corredor.pasos = corredor.pasos.map(p => { const x = v.find(y => y.km === p.km); if (x && x.horaReal) { p.horaReal = x.horaReal; p.horaRealSecs = x.horaRealSecs; } return p; }); C[ca] = corredor; } else { if (C.length >= 5) { alert('Max 5 Läufer'); return; } C.push(corredor); }
+  sv(); showPage('lista');
 }
 
-function aS(i){
-  ca=i;const c=C[i];
-  document.getElementById('seg-nombre').textContent=t('seguimiento.title')+' - '+c.nombre+(c.dorsal?' #'+c.dorsal:'');
-  const flag=c.ciudad&&CIUDADES[c.ciudad]?CIUDADES[c.ciudad].flag+' ':'';
-  document.getElementById('seg-sub').textContent=flag+(c.carrera||'')+' · '+(c.marca||'—')+' ('+(c.ritmo||'—')+'/km)';
-  rS();showPage('seguimiento');
-  clearInterval(timerSeg);timerSeg=setInterval(tick,1000);tick();
+function aS(i) {
+  ca = i; const c = C[i];
+  document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
+  const flag = c.ciudad && INFO_CIUDADES[c.ciudad] ? INFO_CIUDADES[c.ciudad].flag + ' ' : '';
+  document.getElementById('seg-sub').textContent = flag + (c.carrera || '') + ' · ' + (c.marca || '—') + ' (' + (c.ritmo || '—') + '/km)';
+  rS(); showPage('seguimiento');
+  clearInterval(timerSeg); timerSeg = setInterval(tick, 1000); tick();
 }
 
-function tick(){
-  const c=C[ca],reloj=document.getElementById('seg-reloj'),ahora=new Date();
-  if(!c.salidaOficial){reloj.textContent=ahora.toLocaleTimeString();return;}
-  const sd=new Date();const[h,m,s]=c.salidaOficial.split(':').map(Number);sd.setHours(h,m,s||0,0);
-  const diff=Math.floor((ahora-sd)/1000);
-  if(diff<0){reloj.textContent='⏳ Start in '+fh(-diff);return;}
-  reloj.textContent='⏱ '+fh(diff);
-  const pasos=c.pasos||[],conHora=pasos.filter(p=>p.horaRealSecs!=null);
-  if(conHora.length>0){const u=conHora[conHora.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);if(tc>0&&u.km>0){const r=tc/u.km;document.getElementById('stat-ra').textContent=fm(r)+'/km';document.getElementById('stat-mp').textContent=s2t(t2s(c.salidaOficial)+r*KM);document.getElementById('stat-bz').textContent=fh(r*KM);}}
+function tick() {
+  const c = C[ca], reloj = document.getElementById('seg-reloj'), ahora = new Date();
+  if (!c.salidaOficial) { reloj.textContent = ahora.toLocaleTimeString(); return; }
+  const sd = new Date(); const [h, m, s] = c.salidaOficial.split(':').map(Number); sd.setHours(h, m, s || 0, 0);
+  const diff = Math.floor((ahora - sd) / 1000);
+  if (diff < 0) { reloj.textContent = '⏳ Start in ' + fh(-diff); return; }
+  reloj.textContent = '⏱ ' + fh(diff);
+  const pasos = c.pasos || [], conHora = pasos.filter(p => p.horaRealSecs != null);
+  if (conHora.length > 0) { const u = conHora[conHora.length - 1], tc = u.horaRealSecs - t2s(c.salidaOficial); if (tc > 0 && u.km > 0) { const r = tc / u.km; document.getElementById('stat-ra').textContent = fm(r) + '/km'; document.getElementById('stat-mp').textContent = s2t(t2s(c.salidaOficial) + r * KM); document.getElementById('stat-bz').textContent = fh(r * KM); } }
 }
 
-function rS(){
-  const c=C[ca],pasos=c.pasos||[],tbody=document.getElementById('seg-tabla');
-  tbody.innerHTML=pasos.map((p,i)=>{
-    const ps=!!p.horaReal,nx=!ps&&(i===0||pasos[i-1].horaReal);
-    let dh='—';
-    if(ps&&p.horaPrevista){const d=p.horaRealSecs-t2s(p.horaPrevista);if(Math.abs(d)<=10)dh='<span class="badge badge-green">'+t('seguimiento.onTime')+'</span>';else if(d>0)dh='<span class="badge badge-red">+'+fm(d)+'</span>';else dh='<span class="badge badge-green">-'+fm(-d)+'</span>';}
-    return '<tr class="'+(ps?'km-passed':(nx?'km-next':''))+'"><td><b>'+p.calle+'</b></td><td>'+(p.km%1===0?p.km:p.km.toFixed(3))+'</td><td>'+(p.horaPrevista||'—')+'</td><td style="color:'+(ps?'var(--green)':'var(--text2)')+'">'+(p.horaReal||'—')+'</td><td>'+dh+'</td><td>'+(ps?'<button class="btn btn-outline btn-sm" onclick="resP('+i+')">'+t('seguimiento.undo')+'</button>':'<button class="btn btn-green btn-sm" onclick="regP('+i+')">'+t('seguimiento.here')+'</button>')+'</td></tr>';
+function rS() {
+  const c = C[ca], pasos = c.pasos || [], tbody = document.getElementById('seg-tabla');
+  tbody.innerHTML = pasos.map((p, i) => {
+    const ps = !!p.horaReal, nx = !ps && (i === 0 || pasos[i - 1].horaReal);
+    let dh = '—';
+    if (ps && p.horaPrevista) { const d = p.horaRealSecs - t2s(p.horaPrevista); if (Math.abs(d) <= 10) dh = '<span class="badge badge-green">' + t('seguimiento.onTime') + '</span>'; else if (d > 0) dh = '<span class="badge badge-red">+' + fm(d) + '</span>'; else dh = '<span class="badge badge-green">-' + fm(-d) + '</span>'; }
+    return '<tr class="' + (ps ? 'km-passed' : (nx ? 'km-next' : '')) + '"><td><b>' + p.calle + '</b></td><td>' + (p.km % 1 === 0 ? p.km : p.km.toFixed(3)) + '</td><td>' + (p.horaPrevista || '—') + '</td><td style="color:' + (ps ? 'var(--green)' : 'var(--text2)') + '">' + (p.horaReal || '—') + '</td><td>' + dh + '</td><td>' + (ps ? '<button class="btn btn-outline btn-sm" onclick="resP(' + i + ')">' + t('seguimiento.undo') + '</button>' : '<button class="btn btn-green btn-sm" onclick="regP(' + i + ')">' + t('seguimiento.here') + '</button>') + '</td></tr>';
   }).join('');
-  const mp=pasos.find(p=>p.km>=42&&p.horaReal),mc=document.getElementById('seg-meta-card');
-  if(mp&&c.salidaOficial){const tf=mp.horaRealSecs-t2s(c.salidaOficial);mc.style.display='block';document.getElementById('seg-meta-t').textContent=fh(tf);}else mc.style.display='none';
+  const mp = pasos.find(p => p.km >= 42 && p.horaReal), mc = document.getElementById('seg-meta-card');
+  if (mp && c.salidaOficial) { const tf = mp.horaRealSecs - t2s(c.salidaOficial); mc.style.display = 'block'; document.getElementById('seg-meta-t').textContent = fh(tf); } else mc.style.display = 'none';
 }
 
-function regP(i){const a=new Date(),c=C[ca];c.pasos[i].horaReal=a.toTimeString().substring(0,8);c.pasos[i].horaRealSecs=a.getHours()*3600+a.getMinutes()*60+a.getSeconds();sv();rS();}
-function resP(i){const c=C[ca];for(let j=i;j<c.pasos.length;j++){c.pasos[j].horaReal='';c.pasos[j].horaRealSecs=null;}sv();rS();}
-function calcProno(){
-  const km=parseFloat(document.getElementById('prono-km').value);
-  const th=parseInt(document.getElementById('prono-th').value)||0;
-  const tm=parseInt(document.getElementById('prono-tm2').value)||0;
-  const ts2=parseInt(document.getElementById('prono-ts').value)||0;
-  const ts=th*3600+tm*60+ts2;
-  const dist=parseFloat(document.getElementById('prono-dist').value)||KM;
-  const el=document.getElementById('prono-res');
+function regP(i) { const a = new Date(), c = C[ca]; c.pasos[i].horaReal = a.toTimeString().substring(0, 8); c.pasos[i].horaRealSecs = a.getHours() * 3600 + a.getMinutes() * 60 + a.getSeconds(); sv(); rS(); }
+function resP(i) { const c = C[ca]; for (let j = i; j < c.pasos.length; j++) { c.pasos[j].horaReal = ''; c.pasos[j].horaRealSecs = null; } sv(); rS(); }
+
+function calcProno() {
+  const km = parseFloat(document.getElementById('prono-km').value);
+  const th = parseInt(document.getElementById('prono-th').value) || 0;
+  const tm = parseInt(document.getElementById('prono-tm2').value) || 0;
+  const ts2 = parseInt(document.getElementById('prono-ts').value) || 0;
+  const ts = th * 3600 + tm * 60 + ts2;
+  const dist = parseFloat(document.getElementById('prono-dist').value) || KM;
+  const el = document.getElementById('prono-res');
   
-  if(!km||!ts||km<=0||km>dist||ts<=0){el.style.display='none';return;}
+  if (!km || !ts || km <= 0 || km > dist || ts <= 0) { el.style.display = 'none'; return; }
   
-  const ritmo=ts/km;
-  const tot=ritmo*dist;
-  const res=dist-km;
+  const ritmo = ts / km;
+  const tot = ritmo * dist;
+  const res = dist - km;
   
-  const _tot=Math.round(Math.abs(tot));
-  document.getElementById('prono-tm-h').textContent=Math.floor(_tot/3600);
-  document.getElementById('prono-tm-m').textContent=('0'+Math.floor((_tot%3600)/60)).slice(-2);
-  document.getElementById('prono-tm-s').textContent=('0'+(_tot%60)).slice(-2);
+  const _tot = Math.round(Math.abs(tot));
+  document.getElementById('prono-tm-h').textContent = Math.floor(_tot / 3600);
+  document.getElementById('prono-tm-m').textContent = ('0' + Math.floor((_tot % 3600) / 60)).slice(-2);
+  document.getElementById('prono-tm-s').textContent = ('0' + (_tot % 60)).slice(-2);
   
-  document.getElementById('prono-rm').textContent=fm(ritmo)+'/km';
-  document.getElementById('prono-kr').textContent=res.toFixed(2)+' km';
+  document.getElementById('prono-rm').textContent = fm(ritmo) + '/km';
+  document.getElementById('prono-kr').textContent = res.toFixed(2) + ' km';
   
-  const idx=document.getElementById('prono-corredor').value;
-  let hl='—';
-  if(idx!==''){
-    const c=C[idx];
-    if(c.salidaOficial) hl=s2t(t2s(c.salidaOficial)+tot);
+  const idx = document.getElementById('prono-corredor').value;
+  let hl = '—';
+  if (idx !== '') {
+    const c = C[idx];
+    if (c.salidaOficial) hl = s2t(t2s(c.salidaOficial) + tot);
   } else {
-    const now=new Date();
-    const nowS=now.getHours()*3600+now.getMinutes()*60+now.getSeconds();
-    hl=s2t(nowS+tot);
+    const now = new Date();
+    const nowS = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
+    hl = s2t(nowS + tot);
   }
-  document.getElementById('prono-hl').textContent=hl;
+  document.getElementById('prono-hl').textContent = hl;
   
-  const vs=document.getElementById('prono-vs');
-  if(idx!==''){
-    const c=C[idx],ms4=ph(c.marca);
-    if(ms4){
-      vs.style.display='block';
-      const d=tot-ms4;
-      const e=document.getElementById('prono-vs-t');
-      if(Math.abs(d)<=30) e.innerHTML='<span class="badge badge-green">🎯 '+t('prognosis.onTarget')+'! '+fh(tot)+' vs '+c.marca+'</span>';
-      else if(d>0) e.innerHTML='<span class="badge badge-red">+'+fh(d)+' über Zielzeit ('+c.marca+')</span>';
-      else e.innerHTML='<span class="badge badge-green">🔥 '+fh(-d)+' unter Zielzeit ('+c.marca+')</span>';
-    }else{vs.style.display='none';}
-  }else{vs.style.display='none';}
+  const vs = document.getElementById('prono-vs');
+  if (idx !== '') {
+    const c = C[idx], ms4 = ph(c.marca);
+    if (ms4) {
+      vs.style.display = 'block';
+      const d = tot - ms4;
+      const e = document.getElementById('prono-vs-t');
+      if (Math.abs(d) <= 30) e.innerHTML = '<span class="badge badge-green">🎯 ' + t('prognosis.onTarget') + '! ' + fh(tot) + ' vs ' + c.marca + '</span>';
+      else if (d > 0) e.innerHTML = '<span class="badge badge-red">+' + fh(d) + ' über Zielzeit (' + c.marca + ')</span>';
+      else e.innerHTML = '<span class="badge badge-green">🔥 ' + fh(-d) + ' unter Zielzeit (' + c.marca + ')</span>';
+    } else { vs.style.display = 'none'; }
+  } else { vs.style.display = 'none'; }
   
-  el.style.display='block';
+  el.style.display = 'block';
 }
 
-function autoRellenarProno(){
-  const i=document.getElementById('prono-corredor').value;
-  if(i===''){calcProno();return;}
-  const c=C[i],ch=(c.pasos||[]).filter(p=>p.horaRealSecs!=null);
-  if(ch.length&&c.salidaOficial){
-    const u=ch[ch.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);
-    document.getElementById('prono-km').value=u.km;
-    const _hv=Math.floor(tc/3600);
-    document.getElementById('prono-th').value=_hv;
-    document.getElementById('prono-tm2').value=('0'+Math.floor((tc%3600)/60)).slice(-2);
-    document.getElementById('prono-ts').value=('0'+Math.round(tc%60)).slice(-2);
+function autoRellenarProno() {
+  const i = document.getElementById('prono-corredor').value;
+  if (i === '') { calcProno(); return; }
+  const c = C[i], ch = (c.pasos || []).filter(p => p.horaRealSecs != null);
+  if (ch.length && c.salidaOficial) {
+    const u = ch[ch.length - 1], tc = u.horaRealSecs - t2s(c.salidaOficial);
+    document.getElementById('prono-km').value = u.km;
+    const _hv = Math.floor(tc / 3600);
+    document.getElementById('prono-th').value = _hv;
+    document.getElementById('prono-tm2').value = ('0' + Math.floor((tc % 3600) / 60)).slice(-2);
+    document.getElementById('prono-ts').value = ('0' + Math.round(tc % 60)).slice(-2);
   }
   calcProno();
 }
 
-function rPS(){
-  const s=document.getElementById('prono-corredor');
-  s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');
-}
-
-// ===================== LICENCIA =====================
-var _SEC="MaratonTrack2025_XK9";
-async function _sha256(m){var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(m));return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');}
-function _b64d(s){try{return decodeURIComponent(escape(atob(s)));}catch(e){return null;}}
-function _fd(s){return s.slice(6,8)+"/"+s.slice(4,6)+"/"+s.slice(0,4);}
-async function checkLicense(){
-  var raw=document.getElementById("lic-input").value.trim();
-  var err=document.getElementById("lic-err"),ok=document.getElementById("lic-ok");
-  err.textContent="";ok.style.display="none";
-  try{
-    var b64=raw.replace(/-/g,"").replace(/ /g,"");
-    var full=_b64d(b64);
-    if(!full)throw"invalid";
-    var parts=full.split("|");
-    if(parts.length!==3)throw"invalid";
-    var empresa=parts[0],expiry=parts[1],check=parts[2];
-    var hash=await _sha256(empresa+"|"+expiry+_SEC);
-    if(hash.substring(0,8).toUpperCase()!==check)throw"tampered";
-    var exp=new Date(expiry.slice(0,4),expiry.slice(4,6)-1,expiry.slice(6,8));
-    var today=new Date();today.setHours(0,0,0,0);
-    var daysLeft=Math.ceil((exp-today)/86400000);
-    if(daysLeft<0)throw"expired";
-    sessionStorage.setItem("mt_lic_ok","1");
-    ok.innerHTML=t('license.welcome')+", <b>"+empresa+"</b><br>"+t('license.validUntil')+": "+_fd(expiry)+" &middot; <b>"+daysLeft+" "+t('license.daysLeft')+"</b>";
-    ok.style.display="block";
-    setTimeout(function(){document.getElementById("license-screen").style.display="none";},1800);
-  }catch(e){
-    if(String(e)==="expired")err.textContent=t('license.expired');
-    else if(String(e)==="tampered")err.textContent=t('license.tampered');
-    else err.textContent=t('license.invalidCode');
-    var inp=document.getElementById("lic-input");inp.style.borderColor="#c0392b";
-    setTimeout(function(){inp.style.borderColor="#c8d8ee";},2000);
-  }
+function rPS() {
+  const s = document.getElementById('prono-corredor');
+  s.innerHTML = '<option value="">' + t('prognosis.noRunner') + '</option>' + C.map((c, i) => '<option value="' + i + '">' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '') + '</option>').join('');
 }
 
 // ===================== INIT =====================
-(function(){
-  idiomaActual=localStorage.getItem('marathon_lang')||'de';
-  document.getElementById("license-screen").style.display="none";
-  setTimeout(actualizarIdiomaInterfaz,100);
+(function() {
+  idiomaActual = localStorage.getItem('marathon_lang') || 'de';
+  setTimeout(actualizarIdiomaInterfaz, 100);
   rL();
 })();
 </script>
