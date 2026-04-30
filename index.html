@@ -515,11 +515,16 @@ function actualizarIdiomaInterfaz() {
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
 }
 // ===================== DATOS =====================
-const CIUDADES = {
-  // URLs de los archivos GPX en GitHub
-// Si cambias tu usuario de GitHub, solo tienes que cambiar "Campanero99" por tu nuevo usuario
-const GITHUB_BASE = "https://raw.githubusercontent.com/Campanero99/Tracking.TI/main/gpx";
+// Objeto CIUDADES (puede estar vacío o borrarlo)
+const CIUDADES = {};
 
+// NUEVAS CONSTANTES (fuera de CIUDADES)
+const GITHUB_BASE = "...";
+const CIUDADES_GPX = { ... };
+const INFO_CIUDADES = { ... };
+
+// Cache de coordenadas
+const coordenadasCache = {};
 // Lista de ciudades con sus archivos GPX
 const CIUDADES_GPX = {
   "Barcelona":   GITHUB_BASE + "/barcelona.gpx",
