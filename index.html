@@ -675,7 +675,12 @@ function buildCityGrid() {
 }
 
 function selCiudad(name) {
-  if (!fc.value) { 
+  ciudadSel = name;
+  document.querySelectorAll('.city-btn').forEach(b => b.classList.remove('sel'));
+  const btn = document.getElementById('cbtn-' + name);
+  if (btn) btn.classList.add('sel');
+  const fc = document.getElementById('f-carrera');
+ if (!fc.value) { 
   if (idiomaActual === 'es') {
     fc.value = 'Maratón de ' + name;
   } else if (idiomaActual === 'fr') {
@@ -685,7 +690,15 @@ function selCiudad(name) {
   } else {
     fc.value = 'Marathon ' + name;
   }
-
+}
+  const info = INFO_CIUDADES[name];
+  if (info && info.puntos) {
+    pt = info.puntos.map(function(p) { return { km: p.km, calle: p.calle }; });
+  } else {
+    pt = [];
+  }
+  rPF();
+}
 
 function rL() {
   const el = document.getElementById('lista-corredores');
