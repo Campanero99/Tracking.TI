@@ -739,7 +739,16 @@ function selCiudad(name) {
   const btn = document.getElementById('cbtn-' + name);
   if (btn) btn.classList.add('sel');
   const fc = document.getElementById('f-carrera');
- if (!fc.value) { 
+  const fc = document.getElementById('f-carrera');
+ if (idiomaActual === 'es') {
+   fc.value = 'Maratón de ' + name;
+ } else if (idiomaActual === 'fr') {
+   fc.value = 'Marathon de ' + name;
+ } else if (idiomaActual === 'en') {
+   fc.value = name + ' Marathon';
+ } else {
+   fc.value = 'Marathon ' + name;
+ } 
   if (idiomaActual === 'es') {
     fc.value = 'Maratón de ' + name;
   } else if (idiomaActual === 'fr') {
