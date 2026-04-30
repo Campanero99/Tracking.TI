@@ -596,6 +596,19 @@ async function loadMapaCiudad(name) {
   if (btn) btn.classList.add('active');
   
   mapCiudadActual = name;
+    // Actualizar el nombre de la carrera en la ficha
+  const fc = document.getElementById('f-carrera');
+  if (fc) {
+    if (idiomaActual === 'es') {
+      fc.value = 'Maratón de ' + name;
+    } else if (idiomaActual === 'fr') {
+      fc.value = 'Marathon de ' + name;
+    } else if (idiomaActual === 'en') {
+      fc.value = name + ' Marathon';
+    } else {
+      fc.value = 'Marathon ' + name;
+    }
+  }
   document.getElementById('mapa-titulo').textContent = '🗺 Marathon ' + name;
   document.getElementById('map-no-city').style.display = 'none';
   document.getElementById('map-legend').style.display = 'block';
