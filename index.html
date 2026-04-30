@@ -27,7 +27,21 @@
   .nav-btn:hover{color:#fff}.nav-btn.active{color:#fff;border-bottom-color:#fff}
   
   .language-selector{display:flex;gap:4px;margin-left:auto;padding:8px 0}
-  .lang-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.9);padding:6px 8px;border-radius:6px;cursor:pointer;font-size:.75rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:3px;white-space:nowrap}
+ .lang-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all .3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+} .lang-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:rgba(255,255,255,0.9);padding:6px 8px;border-radius:6px;cursor:pointer;font-size:.75rem;font-weight:600;transition:all .3s;display:flex;align-items:center;gap:3px;white-space:nowrap}
   .lang-btn:hover{background:rgba(255,255,255,0.25);color:#fff;transform:translateY(-1px)}
   .lang-btn.active{background:#fff;color:var(--primary);border-color:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
   .lang-flag{font-size:1.1rem}
@@ -151,18 +165,18 @@
   
   <div class="language-selector">
     <button class="lang-btn active" onclick="cambiarIdioma('de')" data-lang="de" title="Deutsch">
-      <span class="lang-flag">🇩🇪</span> <span class="lang-text">DE</span>
+      <span class="lang-flag">🇩🇪</span>
     </button>
     <button class="lang-btn" onclick="cambiarIdioma('en')" data-lang="en" title="English">
-      <span class="lang-flag">🇬🇧</span> <span class="lang-text">EN</span>
+      <span class="lang-flag">🇬🇧</span>
     </button>
     <button class="lang-btn" onclick="cambiarIdioma('es')" data-lang="es" title="Español">
-      <span class="lang-flag">🇪🇸</span> <span class="lang-text">ES</span>
+      <span class="lang-flag">🇪🇸</span>
     </button>
     <button class="lang-btn" onclick="cambiarIdioma('fr')" data-lang="fr" title="Français">
-      <span class="lang-flag">🇫🇷</span> <span class="lang-text">FR</span>
+      <span class="lang-flag">🇫🇷</span>
     </button>
-  </div>
+</div>
 </nav>
 
 <!-- LISTA -->
@@ -691,7 +705,77 @@ function rS(){
 
 function regP(i){const a=new Date(),c=C[ca];c.pasos[i].horaReal=a.toTimeString().substring(0,8);c.pasos[i].horaRealSecs=a.getHours()*3600+a.getMinutes()*60+a.getSeconds();sv();rS();}
 function resP(i){const c=C[ca];for(let j=i;j<c.pasos.length;j++){c.pasos[j].horaReal='';c.pasos[j].horaRealSecs=null;}sv();rS();}
+function calcProno(){
+  const km=parseFloat(document.getElementById('prono-km').value);
+  const th=parseInt(document.getElementById('prono-th').value)||0;
+  const tm=parseInt(document.getElementById('prono-tm2').value)||0;
+  const ts2=parseInt(document.getElementById('prono-ts').value)||0;
+  const ts=th*3600+tm*60+ts2;
+  const dist=parseFloat(document.getElementById('prono-dist').value)||KM;
+  const el=document.getElementById('prono-res');
+  
+  if(!km||!ts||km<=0||km>dist||ts<=0){el.style.display='none';return;}
+  
+  const ritmo=ts/km;
+  const tot=ritmo*dist;
+  const res=dist-km;
+  
+  const _tot=Math.round(Math.abs(tot));
+  document.getElementById('prono-tm-h').textContent=Math.floor(_tot/3600);
+  document.getElementById('prono-tm-m').textContent=('0'+Math.floor((_tot%3600)/60)).slice(-2);
+  document.getElementById('prono-tm-s').textContent=('0'+(_tot%60)).slice(-2);
+  
+  document.getElementById('prono-rm').textContent=fm(ritmo)+'/km';
+  document.getElementById('prono-kr').textContent=res.toFixed(2)+' km';
+  
+  const idx=document.getElementById('prono-corredor').value;
+  let hl='—';
+  if(idx!==''){
+    const c=C[idx];
+    if(c.salidaOficial) hl=s2t(t2s(c.salidaOficial)+tot);
+  } else {
+    const now=new Date();
+    const nowS=now.getHours()*3600+now.getMinutes()*60+now.getSeconds();
+    hl=s2t(nowS+tot);
+  }
+  document.getElementById('prono-hl').textContent=hl;
+  
+  const vs=document.getElementById('prono-vs');
+  if(idx!==''){
+    const c=C[idx],ms4=ph(c.marca);
+    if(ms4){
+      vs.style.display='block';
+      const d=tot-ms4;
+      const e=document.getElementById('prono-vs-t');
+      if(Math.abs(d)<=30) e.innerHTML='<span class="badge badge-green">🎯 '+t('prognosis.onTarget')+'! '+fh(tot)+' vs '+c.marca+'</span>';
+      else if(d>0) e.innerHTML='<span class="badge badge-red">+'+fh(d)+' über Zielzeit ('+c.marca+')</span>';
+      else e.innerHTML='<span class="badge badge-green">🔥 '+fh(-d)+' unter Zielzeit ('+c.marca+')</span>';
+    }else{vs.style.display='none';}
+  }else{vs.style.display='none';}
+  
+  el.style.display='block';
+}
 
+function autoRellenarProno(){
+  const i=document.getElementById('prono-corredor').value;
+  if(i===''){calcProno();return;}
+  const c=C[i],ch=(c.pasos||[]).filter(p=>p.horaRealSecs!=null);
+  if(ch.length&&c.salidaOficial){
+    const u=ch[ch.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);
+    document.getElementById('prono-km').value=u.km;
+    const _hv=Math.floor(tc/3600);
+    document.getElementById('prono-th').value=_hv;
+    document.getElementById('prono-tm2').value=('0'+Math.floor((tc%3600)/60)).slice(-2);
+    document.getElementById('prono-ts').value=('0'+Math.round(tc%60)).slice(-2);
+  }
+  calcProno();
+}
+
+function rPS(){
+  const s=document.getElementById('prono-corredor');
+  s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+
+    C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');
+}
 function rPS(){
   const s=document.getElementById('prono-corredor');
   s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');
