@@ -803,8 +803,8 @@ function calcProno() {
       const d = tot - ms4;
       const e = document.getElementById('prono-vs-t');
       if (Math.abs(d) <= 30) e.innerHTML = '<span class="badge badge-green">🎯 ' + t('prognosis.onTarget') + '! ' + fh(tot) + ' vs ' + c.marca + '</span>';
-      else if (d > 0) e.innerHTML = '<span class="badge badge-red">+' + fh(d) + ' über Zielzeit (' + c.marca + ')</span>';
-      else e.innerHTML = '<span class="badge badge-green">🔥 ' + fh(-d) + ' unter Zielzeit (' + c.marca + ')</span>';
+      else if(d>0) e.innerHTML='<span class="badge badge-red">+'+fh(d)+' '+(idiomaActual==='de'?'über Zielzeit':idiomaActual==='en'?'over target':idiomaActual==='es'?'sobre objetivo':'au-dessus de l\'objectif')+' ('+c.marca+')</span>';
+      else e.innerHTML='<span class="badge badge-green">🔥 '+fh(-d)+' '+(idiomaActual==='de'?'unter Zielzeit':idiomaActual==='en'?'under target':idiomaActual==='es'?'bajo objetivo':'sous l\'objectif')+' ('+c.marca+')</span>';
     } else { vs.style.display = 'none'; }
   } else { vs.style.display = 'none'; }
   
