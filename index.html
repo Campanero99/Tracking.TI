@@ -456,6 +456,46 @@ function actualizarIdiomaInterfaz() {
   document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
   document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
   document.getElementById('map-select-text').textContent = t('mapa.selectCity');
+    // Actualizar página de pronóstico
+  const pronTitulo = document.getElementById('pron-titulo');
+  const pronDesc = document.getElementById('pron-desc');
+  const pronRunnerTitle = document.getElementById('pron-runner-title');
+  const pronDataTitle = document.getElementById('pron-data-title');
+  const pronKmLabel = document.getElementById('pron-km-label');
+  const pronDistLabel = document.getElementById('pron-dist-label');
+  const pronTimeLabel = document.getElementById('pron-time-label');
+  const pronEstimated = document.getElementById('pron-estimated');
+  const pronAvg = document.getElementById('pron-avg');
+  const pronRemain = document.getElementById('pron-remain');
+  const pronArrival = document.getElementById('pron-arrival');
+  const pronCompare = document.getElementById('pron-compare');
+  
+  if(pronTitulo) pronTitulo.textContent = t('prognosis.title');
+  if(pronDesc) pronDesc.textContent = t('prognosis.desc');
+  if(pronRunnerTitle) pronRunnerTitle.textContent = t('prognosis.runnerTitle');
+  if(pronDataTitle) pronDataTitle.textContent = t('prognosis.dataTitle');
+  if(pronKmLabel) pronKmLabel.textContent = t('prognosis.currentKm');
+  if(pronDistLabel) pronDistLabel.textContent = t('prognosis.totalDist');
+  if(pronTimeLabel) pronTimeLabel.textContent = t('prognosis.raceTime');
+  if(pronEstimated) pronEstimated.textContent = '⏱ ' + t('prognosis.estimated');
+  if(pronAvg) pronAvg.textContent = t('prognosis.avgPace');
+  if(pronRemain) pronRemain.textContent = t('prognosis.remainingKm');
+  if(pronArrival) pronArrival.textContent = t('prognosis.arrivalTime');
+  if(pronCompare) pronCompare.textContent = t('prognosis.compare');
+  
+  // Actualizar opción por defecto del selector
+  const pronoSelect = document.getElementById('prono-corredor');
+  if(pronoSelect && pronoSelect.options[0]) {
+    pronoSelect.options[0].textContent = t('prognosis.noRunner');
+  }
+  
+  // Actualizar etiquetas h/min/seg en el resultado
+  const hLabels = document.querySelectorAll('.pron-h-label');
+  const mLabels = document.querySelectorAll('.pron-m-label');
+  const sLabels = document.querySelectorAll('.pron-s-label');
+  hLabels.forEach(el => { if(el) el.textContent = t('prognosis.hours'); });
+  mLabels.forEach(el => { if(el) el.textContent = t('prognosis.minutes'); });
+  sLabels.forEach(el => { if(el) el.textContent = t('prognosis.seconds'); });
 }
 
 // ===================== DATOS =====================
