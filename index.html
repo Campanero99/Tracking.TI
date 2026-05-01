@@ -205,14 +205,14 @@
 <div id="page-seguimiento" class="page">
   <div class="alert-landscape landscape-hint">
     <span style="font-size:1.4rem;">📱↔️</span>
-    <span id="seg-landscape">Für alle Informationen, drehe das Handy <b>horizontal</b></span>
+    <span id="seg-landscape">Gira el teléfono <b>horizontalmente</b></span>
   </div>
   <div class="page-header">
     <div class="page-header-left">
       <div>
         <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
-          <button class="btn btn-outline btn-sm" onclick="showPage('lista')" id="seg-back">← Zurück</button>
-          <h2 id="seg-nombre">Folgen</h2>
+          <button class="btn btn-outline btn-sm" onclick="showPage('lista')" id="seg-back">← Volver</button>
+          <h2 id="seg-nombre">Seguimiento</h2>
         </div>
         <p class="text2" id="seg-sub"></p>
       </div>
@@ -220,11 +220,11 @@
   </div>
   <div id="seg-reloj" style="text-align:center;font-size:2rem;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums;padding:10px 0 4px;letter-spacing:1px;"></div>
   <div class="stats-row">
-    <div class="stat-box"><div class="stat-val" id="stat-ra">—</div><div class="stat-label" id="seg-pace">Aktuelles Tempo</div></div>
-    <div class="stat-box"><div class="stat-val" id="stat-mp">—</div><div class="stat-label" id="seg-arrival">Ankunftszeit Ziel</div></div>
-    <div class="stat-box"><div class="stat-val" id="stat-bz">—</div><div class="stat-label" id="seg-calc">Berechnete Zeit</div></div>
+    <div class="stat-box"><div class="stat-val" id="stat-ra">—</div><div class="stat-label" id="seg-pace">Ritmo actual</div></div>
+    <div class="stat-box"><div class="stat-val" id="stat-mp">—</div><div class="stat-label" id="seg-arrival">Hora de llegada</div></div>
+    <div class="stat-box"><div class="stat-val" id="stat-bz">—</div><div class="stat-label" id="seg-calc">Tiempo calculado</div></div>
   </div>
-    <div class="card">
+  <div class="card">
     <div class="card-title" id="seg-check-title">📍 Puntos de encuentro — ¡Pulsa "Aquí!" cuando pase el corredor!</div>
     <div style="overflow-x:auto;">
       <table class="km-table">
@@ -244,6 +244,7 @@
       <div style="margin-top:8px;" id="seg-meta-d"></div>
     </div>
   </div>
+</div>
 
 <!-- PRONOSTICO -->
 <div id="page-pronostico" class="page">
