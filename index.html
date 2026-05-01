@@ -497,6 +497,23 @@ function actualizarIdiomaInterfaz() {
       '<option value="M">' + t('ficha.genderM') + '</option>' +
       '<option value="F">' + t('ficha.genderF') + '</option>';
     sexoSelect.value = sexoVal;
+	  // Traducción del botón de notificaciones
+  if(document.getElementById('btn-notif')) {
+    if(idiomaActual === 'de') document.getElementById('btn-notif').textContent = '🔔 Benachrichtigungen aktivieren';
+    else if(idiomaActual === 'en') document.getElementById('btn-notif').textContent = '🔔 Enable notifications';
+    else if(idiomaActual === 'es') document.getElementById('btn-notif').textContent = '🔔 Activar notificaciones';
+    else document.getElementById('btn-notif').textContent = '🔔 Activer les notifications';
+  }
+
+  // Recalcular pronóstico si está activo
+  if (document.getElementById('page-pronostico').classList.contains('active')) {
+    calcProno();
+  }
+
+  // Refrescar contenido dinámico
+  if (document.getElementById('page-lista').classList.contains('active')) rL();
+  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
+}
   }
   
   // Ciudad y carrera
@@ -542,16 +559,10 @@ function actualizarIdiomaInterfaz() {
 if (document.getElementById('page-pronostico').classList.contains('active')) {
   calcProno();
 }
+  
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
-  if (document.getElementById('page-lista').classList.contains('active')) rL();
-  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
-    if(document.getElementById('btn-notif')) {
-    if(idiomaActual === 'de') document.getElementById('btn-notif').textContent = '🔔 Benachrichtigungen aktivieren';
-    else if(idiomaActual === 'en') document.getElementById('btn-notif').textContent = '🔔 Enable notifications';
-    else if(idiomaActual === 'es') document.getElementById('btn-notif').textContent = '🔔 Activar notificaciones';
-    else document.getElementById('btn-notif').textContent = '🔔 Activer les notifications';
-  }
+  
 }
 
 // ===================== DATOS DE CIUDADES =====================
