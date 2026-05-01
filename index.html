@@ -533,6 +533,10 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
 
   // Refrescar contenido dinámico
+  // Recalcular pronóstico si está activo
+if (document.getElementById('page-pronostico').classList.contains('active')) {
+  calcProno();
+}
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
   if (document.getElementById('page-lista').classList.contains('active')) rL();
