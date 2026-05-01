@@ -219,6 +219,11 @@
     </div>
   </div>
   <div id="seg-reloj" style="text-align:center;font-size:2rem;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums;padding:10px 0 4px;letter-spacing:1px;"></div>
+  <div style="text-align:center;margin:10px 0;">
+  <button class="btn btn-outline btn-sm" onclick="iniciarNotificaciones()" id="btn-notif">
+    🔔 Activar notificaciones
+  </button>
+</div>
   <div class="stats-row">
     <div class="stat-box"><div class="stat-val" id="stat-ra">—</div><div class="stat-label" id="seg-pace">Ritmo actual</div></div>
     <div class="stat-box"><div class="stat-val" id="stat-mp">—</div><div class="stat-label" id="seg-arrival">Hora de llegada</div></div>
@@ -541,7 +546,12 @@ if (document.getElementById('page-pronostico').classList.contains('active')) {
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
-  
+    if(document.getElementById('btn-notif')) {
+    if(idiomaActual === 'de') document.getElementById('btn-notif').textContent = '🔔 Benachrichtigungen aktivieren';
+    else if(idiomaActual === 'en') document.getElementById('btn-notif').textContent = '🔔 Enable notifications';
+    else if(idiomaActual === 'es') document.getElementById('btn-notif').textContent = '🔔 Activar notificaciones';
+    else document.getElementById('btn-notif').textContent = '🔔 Activer les notifications';
+  }
 }
 
 // ===================== DATOS DE CIUDADES =====================
@@ -1175,13 +1185,16 @@ function guardarCorreder() {
   sv(); showPage('lista');
 }
 
-function aS(i) {
-  ca = i; const c = C[i];
-  document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
-  const flag = c.ciudad && INFO_CIUDADES[c.ciudad] ? INFO_CIUDADES[c.ciudad].flag + ' ' : '';
-  document.getElementById('seg-sub').textContent = flag + (c.carrera || '') + ' · ' + (c.marca || '—') + ' (' + (c.ritmo || '—') + '/km)';
-  rS(); showPage('seguimiento');
-  clearInterval(timerSeg); timerSeg = setInterval(tick, 1000); tick();
+
+  function aS(i){
+  ca=i;const c=C[i];
+  document.getElementById('seg-nombre').textContent=t('seguimiento.title')+' - '+c.nombre+(c.dorsal?' #'+c.dorsal:'');
+  const flag=c.ciudad&&INFO_CIUDADES[c.ciudad]?INFO_CIUDADES[c.ciudad].flag+' ':'';
+  document.getElementById('seg-sub').textContent=flag+(c.carrera||'')+' · '+(c.marca||'—')+' ('+(c.ritmo||'—')+'/km)';
+  rS();showPage('seguimiento');
+  clearInterval(timerSeg);timerSeg=setInterval(tick,1000);tick();
+  iniciarNotificaciones();
+}
 }
 
 function tick() {
@@ -1280,7 +1293,63 @@ function rPS() {
   const s = document.getElementById('prono-corredor');
   s.innerHTML = '<option value="">' + t('prognosis.noRunner') + '</option>' + C.map((c, i) => '<option value="' + i + '">' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '') + '</option>').join('');
 }
+// ===================== NOTIFICACIONES =====================
+let notificacionesActivadas = false;
 
+function activarNotificaciones() {
+  if (!('Notification' in window)) {
+    alert('Tu navegador no soporta notificaciones');
+    return;
+  }
+  
+  if (Notification.permission === 'granted') {
+    notificacionesActivadas = true;
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        notificacionesActivadas = true;
+      }
+    });
+  }
+}
+
+function notificarProximoPunto(corredor, punto) {
+  if (!notificacionesActivadas) return;
+  
+  var ahora = new Date();
+  var ahoraSegundos = ahora.getHours() * 3600 + ahora.getMinutes() * 60 + ahora.getSeconds();
+  var tiempoRestante = punto.horaPrevista 
+    ? Math.round((t2s(punto.horaPrevista) - ahoraSegundos) / 60)
+    : null;
+  
+  if (tiempoRestante !== null && tiempoRestante <= 5 && tiempoRestante > 0) {
+    new Notification('🏃 ¡' + corredor.nombre + ' se acerca!', {
+      body: 'Llegará a ' + punto.calle + ' (km ' + punto.km + ') en ~' + tiempoRestante + ' min.',
+      icon: 'icon.png',
+      tag: 'punto-' + punto.km
+    });
+  }
+}
+
+function revisarPuntosProximos() {
+  if (!notificacionesActivadas || ca === null) return;
+  
+  var corredor = C[ca];
+  if (!corredor || !corredor.pasos) return;
+  
+  corredor.pasos.forEach(function(punto) {
+    if (!punto.horaReal) {
+      notificarProximoPunto(corredor, punto);
+    }
+  });
+}
+
+var intervaloNotificaciones = null;
+function iniciarNotificaciones() {
+  activarNotificaciones();
+  if (intervaloNotificaciones) clearInterval(intervaloNotificaciones);
+  intervaloNotificaciones = setInterval(revisarPuntosProximos, 30000);
+}
 // ===================== INIT =====================
 (function() {
   idiomaActual = localStorage.getItem('marathon_lang') || 'de';
