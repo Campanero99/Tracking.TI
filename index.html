@@ -467,12 +467,7 @@ function actualizarIdiomaInterfaz() {
   
   // Seguimiento
   if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
-    // Seguimiento
-  if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
-  // 👇 AÑADE AQUÍ LA NUEVA LÍNEA
-  if(document.getElementById('seg-nombre') && ca !== null) {
-    var c = C[ca];
-  document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
+  if(document.getElementById('seg-nombre') && ca !== null) {var c = C[ca];document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
   if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
   if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
   if(document.getElementById('seg-pace')) document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
