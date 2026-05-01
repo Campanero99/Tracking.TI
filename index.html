@@ -520,6 +520,21 @@ function actualizarIdiomaInterfaz() {
   if (document.getElementById('ficha-cancel')) document.getElementById('ficha-cancel').textContent = t('ficha.cancel');
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
+    // Actualizar tabla de seguimiento
+  if(document.getElementById('seg-check-title')) document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
+  if(document.getElementById('seg-th-calle')) document.getElementById('seg-th-calle').textContent = t('seguimiento.thStreet');
+  if(document.getElementById('seg-th-km')) document.getElementById('seg-th-km').textContent = t('seguimiento.thKm');
+  if(document.getElementById('seg-th-plan')) document.getElementById('seg-th-plan').textContent = t('seguimiento.thPlanned');
+  if(document.getElementById('seg-th-real')) document.getElementById('seg-th-real').textContent = t('seguimiento.thReal');
+  if(document.getElementById('seg-th-diff')) document.getElementById('seg-th-diff').textContent = t('seguimiento.thDiff');
+  if(document.getElementById('seg-th-accion')) document.getElementById('seg-th-accion').textContent = t('seguimiento.thAction');
+  if(document.getElementById('seg-pace')) document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
+  if(document.getElementById('seg-arrival')) document.getElementById('seg-arrival').textContent = t('seguimiento.arrivalTime');
+  if(document.getElementById('seg-calc')) document.getElementById('seg-calc').textContent = t('seguimiento.calculatedTime');
+  if(document.getElementById('seg-result-title')) document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
+  if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
+  if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
+  if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
 }
 
 // ===================== DATOS DE CIUDADES =====================
