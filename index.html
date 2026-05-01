@@ -361,6 +361,7 @@ const TRADUCCIONES = {
 };
 
 let idiomaActual = localStorage.getItem('marathon_lang') || 'de';
+let ca = null, timerSeg = null, pt = [], ciudadSel = null;
 
 function t(clave) {
   const claves = clave.split('.');
@@ -900,7 +901,17 @@ function autoRellenarProno() {
   }
   calcProno();
 }
-
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const m = { lista: 0, ficha: 1, seguimiento: 2, pronostico: 3, mapa: 4 };
+  if (m[id] !== undefined) document.querySelectorAll('.nav-btn')[m[id]].classList.add('active');
+  if (id === 'lista') rL();
+  if (id === 'pronostico') { rPS(); calcProno(); }
+  if (id === 'mapa') { initMapa(); }
+  if (id === 'seguimiento' && ca !== null) rS();
+}
 function rPS() {
   const s = document.getElementById('prono-corredor');
   s.innerHTML = '<option value="">' + t('prognosis.noRunner') + '</option>' + C.map((c, i) => '<option value="' + i + '">' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '') + '</option>').join('');
