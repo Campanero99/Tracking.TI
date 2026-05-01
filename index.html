@@ -518,8 +518,6 @@ function actualizarIdiomaInterfaz() {
   // Botones
   if (document.getElementById('ficha-save')) document.getElementById('ficha-save').textContent = t('ficha.save');
   if (document.getElementById('ficha-cancel')) document.getElementById('ficha-cancel').textContent = t('ficha.cancel');
-  if (document.getElementById('page-lista').classList.contains('active')) rL();
-  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
     // Actualizar tabla de seguimiento
   if(document.getElementById('seg-check-title')) document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
   if(document.getElementById('seg-th-calle')) document.getElementById('seg-th-calle').textContent = t('seguimiento.thStreet');
@@ -535,6 +533,13 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
   if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
   if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
+
+  // Refrescar contenido dinámico
+  if (document.getElementById('page-lista').classList.contains('active')) rL();
+  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
+  if (document.getElementById('page-lista').classList.contains('active')) rL();
+  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
+  
 }
 
 // ===================== DATOS DE CIUDADES =====================
