@@ -909,12 +909,39 @@ function rPS() {
 let notificacionesActivadas = false;
 
 function activarNotificaciones() {
-  if (!('Notification' in window)) { alert('Tu navegador no soporta notificaciones'); return; }
-  if (Notification.permission === 'granted') { notificacionesActivadas = true; }
-  else if (Notification.permission !== 'denied') {
+  if (!('Notification' in window)) { 
+    alert('Tu navegador no soporta notificaciones'); 
+    return; 
+  }
+  
+  if (Notification.permission === 'granted') { 
+    notificacionesActivadas = true;
+    actualizarBotonNotificaciones();
+  } else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then(function(permission) {
-      if (permission === 'granted') { notificacionesActivadas = true; }
+      if (permission === 'granted') { 
+        notificacionesActivadas = true;
+        actualizarBotonNotificaciones();
+      }
     });
+  }
+}
+
+// Añade esta nueva función para cambiar el color del botón
+function actualizarBotonNotificaciones() {
+  var btn = document.getElementById('btn-notif');
+  if (btn) {
+    if (notificacionesActivadas) {
+      btn.textContent = '🔔 Notificaciones activadas';
+      btn.style.background = '#1a9e5c';
+      btn.style.color = '#fff';
+      btn.style.borderColor = '#1a9e5c';
+    } else {
+      btn.textContent = '🔔 Activar notificaciones';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+    }
   }
 }
 
@@ -946,6 +973,8 @@ function iniciarNotificaciones() {
   activarNotificaciones();
   if (intervaloNotificaciones) clearInterval(intervaloNotificaciones);
   intervaloNotificaciones = setInterval(revisarPuntosProximos, 30000);
+  actualizarBotonNotificaciones(); // ← Añade esta línea
+}
 }
 
 // ===================== INIT =====================
