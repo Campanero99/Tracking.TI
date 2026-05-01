@@ -220,10 +220,8 @@
   </div>
   <div id="seg-reloj" style="text-align:center;font-size:2rem;font-weight:800;color:var(--primary);font-variant-numeric:tabular-nums;padding:10px 0 4px;letter-spacing:1px;"></div>
   <div style="text-align:center;margin:10px 0;">
-  <button class="btn btn-outline btn-sm" onclick="iniciarNotificaciones()" id="btn-notif">
-    🔔 Activar notificaciones
-  </button>
-</div>
+    <button class="btn btn-outline btn-sm" onclick="iniciarNotificaciones()" id="btn-notif">🔔 Activar notificaciones</button>
+  </div>
   <div class="stats-row">
     <div class="stat-box"><div class="stat-val" id="stat-ra">—</div><div class="stat-label" id="seg-pace">Ritmo actual</div></div>
     <div class="stat-box"><div class="stat-val" id="stat-mp">—</div><div class="stat-label" id="seg-arrival">Hora de llegada</div></div>
@@ -340,17 +338,19 @@ const TRADUCCIONES = {
     nav: { runners: "Runners", newRunner: "New Runner", follow: "Follow", prognosis: "Forecast", route: "Route" },
     lista: { title: "My Runners", subtitle: "Up to 5 runners", noRunners: "No runners yet.", addRunner: "Click \"+ New Runner\" to start.", edit: "Edit", follow: "Follow", route: "Route", delete: "Delete", waiting: "Waiting", finished: "Finished ✓", running: "running" },
     ficha: { newTitle: "New Runner", editTitle: "Edit", subtitle: "Scroll down and press Save runner", personalData: "Personal Data", name: "Runner's name *", namePlaceholder: "e.g.: Thomas", bib: "Bib number", bibPlaceholder: "e.g.: 4521", gender: "Gender", genderSelect: "—", genderM: "Male", genderF: "Female", cityTitle: "City / Race", cityDesc: "Select city to load checkpoints.", race: "Race name", racePlaceholder: "e.g.: Berlin Marathon", targetTitle: "Target Time & Start", targetTime: "Target time", pace: "Calculated pace/km", officialStart: "Official start time", personalStart: "Personal start time (Chip)", checkpoints: "Checkpoints", checkpointsDesc: "KM and street name.", addPoint: "+ Add point", deleteAll: "✕ Delete all", save: "💾 Save runner", cancel: "Cancel", back: "← Back" },
-    seguimiento: { title: "Follow", landscape: "Rotate your phone horizontally", currentPace: "Current pace", arrivalTime: "Arrival time", calculatedTime: "Calculated time", onTime: "On time", result: "Final Result", totalTime: "Total time", here: "📍 Here!", undo: "↩ Undo", hours: "hrs", minutes: "min", seconds: "sec", checkpointTitle: "📍 Checkpoints — Press \"Here!\" when the runner passes", thStreet: "Street / Point", thKm: "KM", thPlanned: "Planned time", thReal: "Actual time", thDiff: "Difference", thAction: "Action" },    prognosis: { title: "Finish Forecast", desc: "Enter current KM and race time to calculate finish time", runnerTitle: "👤 Runner (optional)", noRunner: "— No runner selected —", dataTitle: "📊 Split Data", currentKm: "Current Kilometer", totalDist: "Total Distance (km)", raceTime: "Race Time (h:mm:ss)", estimated: "⏱ Estimated Total Time", avgPace: "Average Pace/km", remainingKm: "Remaining KM", arrivalTime: "Arrival Time", compare: "Comparison with Target", onTarget: "Target achieved", hours: "hrs", minutes: "min", seconds: "sec" },
+    seguimiento: { title: "Follow", landscape: "Rotate your phone horizontally", currentPace: "Current pace", arrivalTime: "Arrival time", calculatedTime: "Calculated time", onTime: "On time", result: "Final Result", totalTime: "Total time", here: "📍 Here!", undo: "↩ Undo", hours: "hrs", minutes: "min", seconds: "sec", checkpointTitle: "📍 Checkpoints — Press \"Here!\" when the runner passes", thStreet: "Street / Point", thKm: "KM", thPlanned: "Planned time", thReal: "Actual time", thDiff: "Difference", thAction: "Action" },
+    prognosis: { title: "Finish Forecast", desc: "Enter current KM and race time to calculate finish time", runnerTitle: "👤 Runner (optional)", noRunner: "— No runner selected —", dataTitle: "📊 Split Data", currentKm: "Current Kilometer", totalDist: "Total Distance (km)", raceTime: "Race Time (h:mm:ss)", estimated: "⏱ Estimated Total Time", avgPace: "Average Pace/km", remainingKm: "Remaining KM", arrivalTime: "Arrival Time", compare: "Comparison with Target", onTarget: "Target achieved", hours: "hrs", minutes: "min", seconds: "sec" },
     mapa: { title: "Route", subtitle: "Select a city", legend: "Legend", route: "Route", startFinish: "Start / Finish", kmMarkers: "KM markers", yourPoints: "Your points", selectCity: "Select a city above", estimatedTime: "Estimated time", start: "START", goal: "FINISH", puntosReferencia: "checkpoints" }
   },
   es: {
     nav: { runners: "Corredores", newRunner: "Nuevo Corredor", follow: "Seguir", prognosis: "Pronóstico", route: "Recorrido" },
     lista: { title: "Mis Corredores", subtitle: "Hasta 5 corredores", noRunners: "No hay corredores.", addRunner: "Haz clic en \"+ Nuevo Corredor\"", edit: "Editar", follow: "Seguir", route: "Recorrido", delete: "Eliminar", waiting: "Esperando", finished: "Finalizado ✓", running: "corriendo" },
     ficha: { newTitle: "Nuevo Corredor", editTitle: "Editar", subtitle: "Desplázate y pulsa Guardar corredor", personalData: "Datos Personales", name: "Nombre del corredor *", namePlaceholder: "ej.: Thomas", bib: "Dorsal", bibPlaceholder: "ej.: 4521", gender: "Género", genderSelect: "—", genderM: "Masculino", genderF: "Femenino", cityTitle: "Ciudad / Carrera", cityDesc: "Selecciona ciudad para cargar puntos.", race: "Nombre de la carrera", racePlaceholder: "ej.: Maratón de Berlín", targetTitle: "Tiempo Objetivo", targetTime: "Tiempo objetivo", pace: "Ritmo calculado/km", officialStart: "Hora oficial", personalStart: "Hora personal (Chip)", checkpoints: "Puntos de Encuentro", checkpointsDesc: "KM y calle.", addPoint: "+ Añadir punto", deleteAll: "✕ Eliminar todos", save: "💾 Guardar corredor", cancel: "Cancelar", back: "← Volver" },
-    seguimiento: { title: "Seguimiento", landscape: "Gira el teléfono horizontalmente", currentPace: "Ritmo actual", arrivalTime: "Hora de llegada", calculatedTime: "Tiempo calculado", onTime: "En tiempo", result: "Resultado final", totalTime: "Tiempo total", here: "📍 ¡Aquí!", undo: "↩ Deshacer", hours: "hrs", minutes: "min", seconds: "seg", checkpointTitle: "📍 Puntos de encuentro — ¡Pulsa \"Aquí!\" cuando pase el corredor!", thStreet: "Calle / Punto", thKm: "KM", thPlanned: "Hora prevista", thReal: "Hora real", thDiff: "Diferencia", thAction: "Acción" },    prognosis: { title: "Pronóstico de Llegada", desc: "Introduce KM actual y tiempo para calcular hora de llegada", runnerTitle: "👤 Corredor (opcional)", noRunner: "— Sin corredor seleccionado —", dataTitle: "📊 Datos de Paso", currentKm: "Kilómetro Actual", totalDist: "Distancia Total (km)", raceTime: "Tiempo de Carrera (h:mm:ss)", estimated: "⏱ Tiempo Total Estimado", avgPace: "Ritmo Medio/km", remainingKm: "KM Restantes", arrivalTime: "Hora de Llegada", compare: "Comparación con Objetivo", onTarget: "Objetivo conseguido", hours: "hrs", minutes: "min", seconds: "seg" },
+    seguimiento: { title: "Seguimiento", landscape: "Gira el teléfono horizontalmente", currentPace: "Ritmo actual", arrivalTime: "Hora de llegada", calculatedTime: "Tiempo calculado", onTime: "En tiempo", result: "Resultado final", totalTime: "Tiempo total", here: "📍 ¡Aquí!", undo: "↩ Deshacer", hours: "hrs", minutes: "min", seconds: "seg", checkpointTitle: "📍 Puntos de encuentro — ¡Pulsa \"Aquí!\" cuando pase el corredor!", thStreet: "Calle / Punto", thKm: "KM", thPlanned: "Hora prevista", thReal: "Hora real", thDiff: "Diferencia", thAction: "Acción" },
+    prognosis: { title: "Pronóstico de Llegada", desc: "Introduce KM actual y tiempo para calcular hora de llegada", runnerTitle: "👤 Corredor (opcional)", noRunner: "— Sin corredor seleccionado —", dataTitle: "📊 Datos de Paso", currentKm: "Kilómetro Actual", totalDist: "Distancia Total (km)", raceTime: "Tiempo de Carrera (h:mm:ss)", estimated: "⏱ Tiempo Total Estimado", avgPace: "Ritmo Medio/km", remainingKm: "KM Restantes", arrivalTime: "Hora de Llegada", compare: "Comparación con Objetivo", onTarget: "Objetivo conseguido", hours: "hrs", minutes: "min", seconds: "seg" },
     mapa: { title: "Recorrido", subtitle: "Selecciona una ciudad", legend: "Leyenda", route: "Recorrido", startFinish: "Salida / Meta", kmMarkers: "Marcadores KM", yourPoints: "Tus puntos", selectCity: "Selecciona una ciudad", estimatedTime: "Hora estimada", start: "SALIDA", goal: "META", puntosReferencia: "puntos de referencia" }
   },
-    fr: {
+  fr: {
     nav: { runners: "Coureurs", newRunner: "Nouveau", follow: "Suivre", prognosis: "Pronostic", route: "Parcours" },
     lista: { title: "Mes Coureurs", subtitle: "Jusqu'à 5 coureurs", noRunners: "Pas encore de coureurs.", addRunner: "Cliquez sur \"+ Nouveau\"", edit: "Modifier", follow: "Suivre", route: "Parcours", delete: "Supprimer", waiting: "En attente", finished: "Terminé ✓", running: "en course" },
     ficha: { newTitle: "Nouveau Coureur", editTitle: "Modifier", subtitle: "Défilez et appuyez sur Enregistrer", personalData: "Données Personnelles", name: "Nom du coureur *", namePlaceholder: "ex.: Thomas", bib: "Dossard", bibPlaceholder: "ex.: 4521", gender: "Genre", genderSelect: "—", genderM: "Masculin", genderF: "Féminin", cityTitle: "Ville / Course", cityDesc: "Sélectionnez une ville.", race: "Nom de la course", racePlaceholder: "ex.: Marathon de Berlin", targetTitle: "Temps Objectif", targetTime: "Temps objectif", pace: "Allure calculée/km", officialStart: "Départ officiel", personalStart: "Départ personnel (Puce)", checkpoints: "Points de Rencontre", checkpointsDesc: "KM et rue.", addPoint: "+ Ajouter un point", deleteAll: "✕ Tout supprimer", save: "💾 Enregistrer", cancel: "Annuler", back: "← Retour" },
@@ -358,7 +358,7 @@ const TRADUCCIONES = {
     prognosis: { title: "Pronostic d'Arrivée", desc: "Entrez le KM actuel et le temps", runnerTitle: "👤 Coureur (optionnel)", noRunner: "— Aucun coureur sélectionné —", dataTitle: "📊 Données de Passage", currentKm: "Kilomètre Actuel", totalDist: "Distance Totale (km)", raceTime: "Temps de Course (h:mm:ss)", estimated: "⏱ Temps Total Estimé", avgPace: "Allure Moyenne/km", remainingKm: "KM Restants", arrivalTime: "Heure d'Arrivée", compare: "Comparaison avec Objectif", onTarget: "Objectif atteint", hours: "h", minutes: "min", seconds: "sec" },
     mapa: { title: "Parcours", subtitle: "Sélectionnez une ville", legend: "Légende", route: "Parcours", startFinish: "Départ / Arrivée", kmMarkers: "Marqueurs KM", yourPoints: "Vos points", selectCity: "Sélectionnez une ville", estimatedTime: "Heure estimée", start: "DÉPART", goal: "ARRIVÉE", puntosReferencia: "points de repère" }
   }
-  };
+};
 
 let idiomaActual = localStorage.getItem('marathon_lang') || 'de';
 
@@ -390,26 +390,33 @@ function actualizarBotonesIdioma() {
 function actualizarIdiomaInterfaz() {
   actualizarBotonesIdioma();
   
-    // Traducir página de ficha (editar corredor)
-  if(document.getElementById('ficha-titulo')) {
-    document.getElementById('ficha-titulo').textContent = ca !== null ? t('ficha.editTitle') : t('ficha.newTitle');
-  }
+  // Navegación
+  if(document.getElementById('nav-lista')) document.getElementById('nav-lista').textContent = t('nav.runners');
+  if(document.getElementById('nav-nuevo')) document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
+  if(document.getElementById('nav-seguimiento')) document.getElementById('nav-seguimiento').textContent = t('nav.follow');
+  if(document.getElementById('nav-pronostico')) document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
+  if(document.getElementById('nav-mapa')) document.getElementById('nav-mapa').textContent = t('nav.route');
+  
+  // Lista
+  if(document.getElementById('lista-titulo')) document.getElementById('lista-titulo').textContent = t('lista.title');
+  if(document.getElementById('lista-sub')) document.getElementById('lista-sub').textContent = t('lista.subtitle');
+  
+  // Ficha
+  if(document.getElementById('ficha-titulo')) document.getElementById('ficha-titulo').textContent = ca !== null ? t('ficha.editTitle') : t('ficha.newTitle');
   if(document.getElementById('ficha-sub')) document.getElementById('ficha-sub').textContent = t('ficha.subtitle');
+  if(document.getElementById('ficha-back')) document.getElementById('ficha-back').textContent = t('ficha.back');
   if(document.getElementById('ficha-personal')) document.getElementById('ficha-personal').textContent = t('ficha.personalData');
   if(document.getElementById('ficha-nombre-label')) document.getElementById('ficha-nombre-label').textContent = t('ficha.name');
   if(document.getElementById('f-nombre')) document.getElementById('f-nombre').placeholder = t('ficha.namePlaceholder');
   if(document.getElementById('ficha-dorsal-label')) document.getElementById('ficha-dorsal-label').textContent = t('ficha.bib');
   if(document.getElementById('f-dorsal')) document.getElementById('f-dorsal').placeholder = t('ficha.bibPlaceholder');
   if(document.getElementById('ficha-sexo-label')) document.getElementById('ficha-sexo-label').textContent = t('ficha.gender');
-  
-  // Traducir selector de género
   var sexoSelect = document.getElementById('f-sexo');
   if(sexoSelect) {
     var sexoVal = sexoSelect.value;
     sexoSelect.innerHTML = '<option value="">'+t('ficha.genderSelect')+'</option><option value="M">'+t('ficha.genderM')+'</option><option value="F">'+t('ficha.genderF')+'</option>';
     sexoSelect.value = sexoVal;
   }
-  
   if(document.getElementById('ficha-ciudad')) document.getElementById('ficha-ciudad').textContent = t('ficha.cityTitle');
   if(document.getElementById('ficha-ciudad-desc')) document.getElementById('ficha-ciudad-desc').textContent = t('ficha.cityDesc');
   if(document.getElementById('ficha-carrera-label')) document.getElementById('ficha-carrera-label').textContent = t('ficha.race');
@@ -425,16 +432,8 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('ficha-delete')) document.getElementById('ficha-delete').textContent = t('ficha.deleteAll');
   if(document.getElementById('ficha-save')) document.getElementById('ficha-save').textContent = t('ficha.save');
   if(document.getElementById('ficha-cancel')) document.getElementById('ficha-cancel').textContent = t('ficha.cancel');
-  if(document.getElementById('ficha-back')) document.getElementById('ficha-back').textContent = t('ficha.back');
-  if(document.getElementById('nav-lista')) document.getElementById('nav-lista').textContent = t('nav.runners');
-  if(document.getElementById('nav-nuevo')) document.getElementById('nav-nuevo').textContent = t('nav.newRunner');
-  if(document.getElementById('nav-seguimiento')) document.getElementById('nav-seguimiento').textContent = t('nav.follow');
-  if(document.getElementById('nav-pronostico')) document.getElementById('nav-pronostico').textContent = t('nav.prognosis');
-  if(document.getElementById('nav-mapa')) document.getElementById('nav-mapa').textContent = t('nav.route');
   
-  if(document.getElementById('lista-titulo')) document.getElementById('lista-titulo').textContent = t('lista.title');
-  if(document.getElementById('lista-sub')) document.getElementById('lista-sub').textContent = t('lista.subtitle');
-  
+  // Mapa
   if(document.getElementById('mapa-titulo')) document.getElementById('mapa-titulo').textContent = '🗺 ' + t('mapa.title');
   if(document.getElementById('mapa-subtitulo')) document.getElementById('mapa-subtitulo').textContent = t('mapa.subtitle');
   if(document.getElementById('map-select-text')) document.getElementById('map-select-text').textContent = t('mapa.selectCity');
@@ -444,6 +443,7 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('map-legend-km')) document.getElementById('map-legend-km').textContent = t('mapa.kmMarkers');
   if(document.getElementById('map-legend-points')) document.getElementById('map-legend-points').textContent = t('mapa.yourPoints');
   
+  // Pronóstico
   if(document.getElementById('pron-titulo')) document.getElementById('pron-titulo').textContent = t('prognosis.title');
   if(document.getElementById('pron-desc')) document.getElementById('pron-desc').textContent = t('prognosis.desc');
   if(document.getElementById('pron-runner-title')) document.getElementById('pron-runner-title').textContent = t('prognosis.runnerTitle');
@@ -458,7 +458,6 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('pron-remain')) document.getElementById('pron-remain').textContent = t('prognosis.remainingKm');
   if(document.getElementById('pron-arrival')) document.getElementById('pron-arrival').textContent = t('prognosis.arrivalTime');
   if(document.getElementById('pron-compare')) document.getElementById('pron-compare').textContent = t('prognosis.compare');
-  
   var hLabels = document.querySelectorAll('.pron-h-label');
   var mLabels = document.querySelectorAll('.pron-m-label');
   var sLabels = document.querySelectorAll('.pron-s-label');
@@ -466,6 +465,7 @@ function actualizarIdiomaInterfaz() {
   for(var i=0; i<mLabels.length; i++) mLabels[i].textContent = t('prognosis.minutes');
   for(var i=0; i<sLabels.length; i++) sLabels[i].textContent = t('prognosis.seconds');
   
+  // Seguimiento
   if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
   if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
   if(document.getElementById('seg-pace')) document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
@@ -474,30 +474,14 @@ function actualizarIdiomaInterfaz() {
   if(document.getElementById('seg-check-title')) document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
   if(document.getElementById('seg-result-title')) document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
   if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
-    // ========== TRADUCIR PÁGINA DE FICHA ==========
-  if (document.getElementById('ficha-titulo')) {
-    document.getElementById('ficha-titulo').textContent = ca !== null ? t('ficha.editTitle') : t('ficha.newTitle');
-  }
-  if (document.getElementById('ficha-sub')) document.getElementById('ficha-sub').textContent = t('ficha.subtitle');
-  if (document.getElementById('ficha-back')) document.getElementById('ficha-back').textContent = t('ficha.back');
+  if(document.getElementById('seg-th-calle')) document.getElementById('seg-th-calle').textContent = t('seguimiento.thStreet');
+  if(document.getElementById('seg-th-km')) document.getElementById('seg-th-km').textContent = t('seguimiento.thKm');
+  if(document.getElementById('seg-th-plan')) document.getElementById('seg-th-plan').textContent = t('seguimiento.thPlanned');
+  if(document.getElementById('seg-th-real')) document.getElementById('seg-th-real').textContent = t('seguimiento.thReal');
+  if(document.getElementById('seg-th-diff')) document.getElementById('seg-th-diff').textContent = t('seguimiento.thDiff');
+  if(document.getElementById('seg-th-accion')) document.getElementById('seg-th-accion').textContent = t('seguimiento.thAction');
   
-  // Datos personales
-  if (document.getElementById('ficha-personal')) document.getElementById('ficha-personal').textContent = t('ficha.personalData');
-  if (document.getElementById('ficha-nombre-label')) document.getElementById('ficha-nombre-label').textContent = t('ficha.name');
-  if (document.getElementById('f-nombre')) document.getElementById('f-nombre').placeholder = t('ficha.namePlaceholder');
-  if (document.getElementById('ficha-dorsal-label')) document.getElementById('ficha-dorsal-label').textContent = t('ficha.bib');
-  if (document.getElementById('f-dorsal')) document.getElementById('f-dorsal').placeholder = t('ficha.bibPlaceholder');
-  if (document.getElementById('ficha-sexo-label')) document.getElementById('ficha-sexo-label').textContent = t('ficha.gender');
-  
-  // Selector de género
-  var sexoSelect = document.getElementById('f-sexo');
-  if (sexoSelect) {
-    var sexoVal = sexoSelect.value;
-    sexoSelect.innerHTML = '<option value="">' + t('ficha.genderSelect') + '</option>' +
-      '<option value="M">' + t('ficha.genderM') + '</option>' +
-      '<option value="F">' + t('ficha.genderF') + '</option>';
-    sexoSelect.value = sexoVal;
-	  // Traducción del botón de notificaciones
+  // Botón de notificaciones
   if(document.getElementById('btn-notif')) {
     if(idiomaActual === 'de') document.getElementById('btn-notif').textContent = '🔔 Benachrichtigungen aktivieren';
     else if(idiomaActual === 'en') document.getElementById('btn-notif').textContent = '🔔 Enable notifications';
@@ -514,56 +498,6 @@ function actualizarIdiomaInterfaz() {
   if (document.getElementById('page-lista').classList.contains('active')) rL();
   if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
 }
-  }
-  
-  // Ciudad y carrera
-  if (document.getElementById('ficha-ciudad')) document.getElementById('ficha-ciudad').textContent = t('ficha.cityTitle');
-  if (document.getElementById('ficha-ciudad-desc')) document.getElementById('ficha-ciudad-desc').textContent = t('ficha.cityDesc');
-  if (document.getElementById('ficha-carrera-label')) document.getElementById('ficha-carrera-label').textContent = t('ficha.race');
-  if (document.getElementById('f-carrera')) document.getElementById('f-carrera').placeholder = t('ficha.racePlaceholder');
-  
-  // Tiempo objetivo
-  if (document.getElementById('ficha-tiempo')) document.getElementById('ficha-tiempo').textContent = t('ficha.targetTitle');
-  if (document.getElementById('ficha-marca-label')) document.getElementById('ficha-marca-label').textContent = t('ficha.targetTime');
-  if (document.getElementById('ficha-ritmo-label')) document.getElementById('ficha-ritmo-label').textContent = t('ficha.pace');
-  if (document.getElementById('ficha-oficial-label')) document.getElementById('ficha-oficial-label').textContent = t('ficha.officialStart');
-  if (document.getElementById('ficha-personal-label')) document.getElementById('ficha-personal-label').textContent = t('ficha.personalStart');
-  
-  // Puntos de encuentro
-  if (document.getElementById('ficha-puntos')) document.getElementById('ficha-puntos').textContent = t('ficha.checkpoints');
-  if (document.getElementById('ficha-puntos-desc')) document.getElementById('ficha-puntos-desc').textContent = t('ficha.checkpointsDesc');
-  if (document.getElementById('ficha-add')) document.getElementById('ficha-add').textContent = t('ficha.addPoint');
-  if (document.getElementById('ficha-delete')) document.getElementById('ficha-delete').textContent = t('ficha.deleteAll');
-  
-  // Botones
-  if (document.getElementById('ficha-save')) document.getElementById('ficha-save').textContent = t('ficha.save');
-  if (document.getElementById('ficha-cancel')) document.getElementById('ficha-cancel').textContent = t('ficha.cancel');
-    // Actualizar tabla de seguimiento
-  if(document.getElementById('seg-check-title')) document.getElementById('seg-check-title').textContent = t('seguimiento.checkpointTitle');
-  if(document.getElementById('seg-th-calle')) document.getElementById('seg-th-calle').textContent = t('seguimiento.thStreet');
-  if(document.getElementById('seg-th-km')) document.getElementById('seg-th-km').textContent = t('seguimiento.thKm');
-  if(document.getElementById('seg-th-plan')) document.getElementById('seg-th-plan').textContent = t('seguimiento.thPlanned');
-  if(document.getElementById('seg-th-real')) document.getElementById('seg-th-real').textContent = t('seguimiento.thReal');
-  if(document.getElementById('seg-th-diff')) document.getElementById('seg-th-diff').textContent = t('seguimiento.thDiff');
-  if(document.getElementById('seg-th-accion')) document.getElementById('seg-th-accion').textContent = t('seguimiento.thAction');
-  if(document.getElementById('seg-pace')) document.getElementById('seg-pace').textContent = t('seguimiento.currentPace');
-  if(document.getElementById('seg-arrival')) document.getElementById('seg-arrival').textContent = t('seguimiento.arrivalTime');
-  if(document.getElementById('seg-calc')) document.getElementById('seg-calc').textContent = t('seguimiento.calculatedTime');
-  if(document.getElementById('seg-result-title')) document.getElementById('seg-result-title').textContent = '🏁 ' + t('seguimiento.result');
-  if(document.getElementById('seg-total')) document.getElementById('seg-total').textContent = t('seguimiento.totalTime');
-  if(document.getElementById('seg-back')) document.getElementById('seg-back').textContent = '← ' + t('ficha.back');
-  if(document.getElementById('seg-landscape')) document.getElementById('seg-landscape').innerHTML = t('seguimiento.landscape');
-
-  // Refrescar contenido dinámico
-  // Recalcular pronóstico si está activo
-if (document.getElementById('page-pronostico').classList.contains('active')) {
-  calcProno();
-}
-  
-  if (document.getElementById('page-lista').classList.contains('active')) rL();
-  if (document.getElementById('page-seguimiento').classList.contains('active') && ca !== null) rS();
-  
-}
 
 // ===================== DATOS DE CIUDADES =====================
 const GITHUB_BASE = "https://raw.githubusercontent.com/Campanero99/Tracking.TI/main/GPX";
@@ -579,7 +513,7 @@ const CIUDADES_GPX = {
   "Hamburg":     GITHUB_BASE + "/hamburg.gpx",
   "Tokyo":       GITHUB_BASE + "/tokyo.gpx",
   "Rotterdam":   GITHUB_BASE + "/rotterdam.gpx",
-  "New York":    GITHUB_BASE + "/new york.gpx",
+  "New York":    GITHUB_BASE + "/new-york.gpx",
   "Chicago":     GITHUB_BASE + "/chicago.gpx",
   "Sídney":      GITHUB_BASE + "/sidney.gpx"
 };
@@ -588,343 +522,47 @@ const coordenadasCache = {};
 
 const INFO_CIUDADES = {
   "Barcelona": {flag:"🇪🇸", puntos:[
-{km:10,calle:"Carrer de València"},
-{km:12,calle:"Avinguda Meridiana"},
-{km:14,calle:"Carrer de Mallorca"},
-{km:16,calle:"Carrer de Mallorca"},
-{km:18,calle:"Gran Via de les Corts Catalanes"},
-{km:20,calle:"Carrer de Sepúlveda"},
-{km:22,calle:"Carrer de Manso"},
-{km:24,calle:"Passeig de Colom"},
-{km:26,calle:"Passeig de Pujades"},
-{km:28,calle:"Avinguda del Litoral"},
-{km:30,calle:"Avinguda del Litoral"},
-{km:32,calle:"Avinguda Diagonal"},
-{km:34,calle:"Avinguda Diagonal"},
-{km:36,calle:"Carrer de Llull"},
-{km:38,calle:"Carrer de Pallars"},
-{km:40,calle:"Carrer de la Marina"},
-{km:42.195,calle:"Arc de Triomf"}
+{km:10,calle:"Carrer de València"},{km:12,calle:"Avinguda Meridiana"},{km:14,calle:"Carrer de Mallorca"},{km:16,calle:"Carrer de Mallorca"},{km:18,calle:"Gran Via de les Corts Catalanes"},{km:20,calle:"Carrer de Sepúlveda"},{km:22,calle:"Carrer de Manso"},{km:24,calle:"Passeig de Colom"},{km:26,calle:"Passeig de Pujades"},{km:28,calle:"Avinguda del Litoral"},{km:30,calle:"Avinguda del Litoral"},{km:32,calle:"Avinguda Diagonal"},{km:34,calle:"Avinguda Diagonal"},{km:36,calle:"Carrer de Llull"},{km:38,calle:"Carrer de Pallars"},{km:40,calle:"Carrer de la Marina"},{km:42.195,calle:"Arc de Triomf"}
 ]},
-"Berlín": {flag:"🇩🇪", puntos:[
-{km:10,calle:"Torstraße"},
-{km:11,calle:"Otto-Braun-Straße"},
-{km:12,calle:"Strausberger Platz"},
-{km:13,calle:"Lichtenberger Straße"},
-{km:14,calle:"Heinrich Heine Str."},
-{km:15,calle:"Kottbuser Tor"},
-{km:16,calle:"Kottbuser Damm"},
-{km:17,calle:"Hasenheide"},
-{km:18,calle:"Gneisenaustr."},
-{km:19,calle:"Gneisenaustr."},
-{km:20,calle:"Yorkstraße"},
-{km:21,calle:"Goebenstraße"},
-{km:22,calle:"Kleistpark"},
-{km:23,calle:"Martin-Luther Str."},
-{km:24,calle:"Hauptstraße"},
-{km:25,calle:"Hauptstraße"},
-{km:26,calle:"Wiesbadener Str."},
-{km:27,calle:"Breitenbach Platz"},
-{km:28,calle:"Lenzeallee"},
-{km:29,calle:"Roseneck Platz"},
-{km:30,calle:"Hohenzollerndamm"},
-{km:31,calle:"Hohenzollerndamm"},
-{km:32,calle:"Fehrberliner Platz"},
-{km:33,calle:"Konstanzer Straße"},
-{km:34,calle:"Kurfürstendamm"},
-{km:35,calle:"Tauentzienstr."},
-{km:36,calle:"Kleiststraße"},
-{km:37,calle:"Potsdamer Straße"},
-{km:38,calle:"Potsdamer Platz"},
-{km:39,calle:"Leipziger Str."},
-{km:40,calle:"Jerusalemer Str."},
-{km:42.195,calle:"Brandenburger Tor"}
+  "Berlín": {flag:"🇩🇪", puntos:[
+{km:10,calle:"Torstraße"},{km:11,calle:"Otto-Braun-Straße"},{km:12,calle:"Strausberger Platz"},{km:13,calle:"Lichtenberger Straße"},{km:14,calle:"Heinrich Heine Str."},{km:15,calle:"Kottbuser Tor"},{km:16,calle:"Kottbuser Damm"},{km:17,calle:"Hasenheide"},{km:18,calle:"Gneisenaustr."},{km:19,calle:"Gneisenaustr."},{km:20,calle:"Yorkstraße"},{km:21,calle:"Goebenstraße"},{km:22,calle:"Kleistpark"},{km:23,calle:"Martin-Luther Str."},{km:24,calle:"Hauptstraße"},{km:25,calle:"Hauptstraße"},{km:26,calle:"Wiesbadener Str."},{km:27,calle:"Breitenbach Platz"},{km:28,calle:"Lenzeallee"},{km:29,calle:"Roseneck Platz"},{km:30,calle:"Hohenzollerndamm"},{km:31,calle:"Hohenzollerndamm"},{km:32,calle:"Fehrberliner Platz"},{km:33,calle:"Konstanzer Straße"},{km:34,calle:"Kurfürstendamm"},{km:35,calle:"Tauentzienstr."},{km:36,calle:"Kleiststraße"},{km:37,calle:"Potsdamer Straße"},{km:38,calle:"Potsdamer Platz"},{km:39,calle:"Leipziger Str."},{km:40,calle:"Jerusalemer Str."},{km:42.195,calle:"Brandenburger Tor"}
 ]},
-"Frankfurt": {flag:"🇩🇪", puntos:[
-{km:10,calle:"Bremer Straße"},
-{km:11,calle:"Eschersheimer Landstraße"},
-{km:12,calle:"Bleichstraße"},
-{km:13,calle:"Konrad Adenauer-Straße"},
-{km:14,calle:"Schaumainkai"},
-{km:15,calle:"Kennedyallee"},
-{km:16,calle:"Kennedyallee"},
-{km:17,calle:"Niederräder Landstraße"},
-{km:18,calle:"Bruchfeldstraße"},
-{km:19,calle:"Goldsteinstraße"},
-{km:20,calle:"Zur Frankenfurt"},
-{km:21,calle:"Zur Frankenfurt"},
-{km:22,calle:"Martinkirchstraße"},
-{km:23,calle:"Mauritiusstr."},
-{km:24,calle:"Schwanheimer Brücke"},
-{km:25,calle:"Nieder Kirchweg"},
-{km:26,calle:"Nieder Kirchweg"},
-{km:27,calle:"Kasinostr."},
-{km:28,calle:"Bolongarostraße"},
-{km:29,calle:"Oeserstraße"},
-{km:30,calle:"Mainzer Landstraße"},
-{km:31,calle:"Mainzer Landstraße"},
-{km:32,calle:"Mainzer Landstraße"},
-{km:33,calle:"Mainzer Landstraße"},
-{km:34,calle:"Kriegkstr."},
-{km:35,calle:"Europaallee"},
-{km:36,calle:"Osloer Straße"},
-{km:37,calle:"Mainzer Landstraße"},
-{km:38,calle:"Junghofstraße"},
-{km:39,calle:"Große Eschenheimer Str."},
-{km:40,calle:"Taubenstr."},
-{km:42.195,calle:"Festhalle"}
+  "Frankfurt": {flag:"🇩🇪", puntos:[
+{km:10,calle:"Bremer Straße"},{km:11,calle:"Eschersheimer Landstraße"},{km:12,calle:"Bleichstraße"},{km:13,calle:"Konrad Adenauer-Straße"},{km:14,calle:"Schaumainkai"},{km:15,calle:"Kennedyallee"},{km:16,calle:"Kennedyallee"},{km:17,calle:"Niederräder Landstraße"},{km:18,calle:"Bruchfeldstraße"},{km:19,calle:"Goldsteinstraße"},{km:20,calle:"Zur Frankenfurt"},{km:21,calle:"Zur Frankenfurt"},{km:22,calle:"Martinkirchstraße"},{km:23,calle:"Mauritiusstr."},{km:24,calle:"Schwanheimer Brücke"},{km:25,calle:"Nieder Kirchweg"},{km:26,calle:"Nieder Kirchweg"},{km:27,calle:"Kasinostr."},{km:28,calle:"Bolongarostraße"},{km:29,calle:"Oeserstraße"},{km:30,calle:"Mainzer Landstraße"},{km:31,calle:"Mainzer Landstraße"},{km:32,calle:"Mainzer Landstraße"},{km:33,calle:"Mainzer Landstraße"},{km:34,calle:"Kriegkstr."},{km:35,calle:"Europaallee"},{km:36,calle:"Osloer Straße"},{km:37,calle:"Mainzer Landstraße"},{km:38,calle:"Junghofstraße"},{km:39,calle:"Große Eschenheimer Str."},{km:40,calle:"Taubenstr."},{km:42.195,calle:"Festhalle"}
 ]},
-"London": {flag:"🇬🇧", puntos:[
-{km:10,calle:"Romney Road"},
-{km:12,calle:"Evely St"},
-{km:14,calle:"Redriff Road"},
-{km:16,calle:"Salter Road"},
-{km:18,calle:"Jamaica Road"},
-{km:20,calle:"Tower Bridge"},
-{km:21,calle:"The Highway"},
-{km:22,calle:"The Highway"},
-{km:24,calle:"Westferry Road"},
-{km:25,calle:"Westferry Road"},
-{km:26,calle:"Westferry Road"},
-{km:28,calle:"Limeharbour"},
-{km:30,calle:"Upper Bank Street"},
-{km:32,calle:"Poplar High Street"},
-{km:34,calle:"Commercial Road"},
-{km:35,calle:"The Highway"},
-{km:36,calle:"The Highway"},
-{km:37,calle:"Lower Thames Street"},
-{km:38,calle:"Upper Thames Street"},
-{km:39,calle:"Victoria Embankment"},
-{km:40,calle:"Victoria Embankment"},
-{km:42.195,calle:"The Mall"}
+  "London": {flag:"🇬🇧", puntos:[
+{km:10,calle:"Romney Road"},{km:12,calle:"Evely St"},{km:14,calle:"Redriff Road"},{km:16,calle:"Salter Road"},{km:18,calle:"Jamaica Road"},{km:20,calle:"Tower Bridge"},{km:21,calle:"The Highway"},{km:22,calle:"The Highway"},{km:24,calle:"Westferry Road"},{km:25,calle:"Westferry Road"},{km:26,calle:"Westferry Road"},{km:28,calle:"Limeharbour"},{km:30,calle:"Upper Bank Street"},{km:32,calle:"Poplar High Street"},{km:34,calle:"Commercial Road"},{km:35,calle:"The Highway"},{km:36,calle:"The Highway"},{km:37,calle:"Lower Thames Street"},{km:38,calle:"Upper Thames Street"},{km:39,calle:"Victoria Embankment"},{km:40,calle:"Victoria Embankment"},{km:42.195,calle:"The Mall"}
 ]},
-"París": {flag:"🇫🇷", puntos:[
-{km:10,calle:"Bd de Reuilly"},
-{km:12,calle:"Av. Daumesnil"},
-{km:14,calle:"Rue de la Pyramide"},
-{km:16,calle:"Rte de la Ferme"},
-{km:18,calle:"Avenue de Gravelle"},
-{km:20,calle:"Avenue de Gravelle"},
-{km:22,calle:"Rue de Charenton"},
-{km:24,calle:"Rue de Lyon"},
-{km:26,calle:"Parc Rives de Seine"},
-{km:28,calle:"Quai Aimé Césaire"},
-{km:30,calle:"Cours la Reine"},
-{km:32,calle:"Av. du President Kennedy"},
-{km:34,calle:"Bd Exelmans"},
-{km:36,calle:"Allée de la Reine Marguerite"},
-{km:38,calle:"Av. de l'Hippodrome"},
-{km:40,calle:"Av. Paul Doumer"},
-{km:42.195,calle:"Av. Foch"}
+  "París": {flag:"🇫🇷", puntos:[
+{km:10,calle:"Bd de Reuilly"},{km:12,calle:"Av. Daumesnil"},{km:14,calle:"Rue de la Pyramide"},{km:16,calle:"Rte de la Ferme"},{km:18,calle:"Avenue de Gravelle"},{km:20,calle:"Avenue de Gravelle"},{km:22,calle:"Rue de Charenton"},{km:24,calle:"Rue de Lyon"},{km:26,calle:"Parc Rives de Seine"},{km:28,calle:"Quai Aimé Césaire"},{km:30,calle:"Cours la Reine"},{km:32,calle:"Av. du President Kennedy"},{km:34,calle:"Bd Exelmans"},{km:36,calle:"Allée de la Reine Marguerite"},{km:38,calle:"Av. de l'Hippodrome"},{km:40,calle:"Av. Paul Doumer"},{km:42.195,calle:"Av. Foch"}
 ]},
-"Valencia": {flag:"🇪🇸", puntos:[
-{km:10,calle:"Avinguda de Blasco Ibañez"},
-{km:11,calle:"C/ d'Alfahuir"},
-{km:12,calle:"C/ de Cavanilles"},
-{km:13,calle:"C/ del Gral Elio"},
-{km:14,calle:"Passeig de l'Albereda"},
-{km:15,calle:"Carrer de Cavanilles"},
-{km:16,calle:"Avenida de Blasco Ibañez"},
-{km:17,calle:"Avenida de Blasco Ibañez"},
-{km:18,calle:"Calle Ramón Llull"},
-{km:19,calle:"Avenida del Tarongers"},
-{km:20,calle:"Carrer de Lluis Peixó"},
-{km:21,calle:"Calle Reina"},
-{km:22,calle:"Avenida del Port"},
-{km:23,calle:"Avenida del Port"},
-{km:24,calle:"Calle Eduardo Boscà"},
-{km:25,calle:"Plaza Saragossa"},
-{km:26,calle:"Pont de les Quatre Estacions"},
-{km:27,calle:"Carrer del Gaudalaviar"},
-{km:28,calle:"C/ de Guillem de Castro"},
-{km:29,calle:"C. del Pintor López"},
-{km:30,calle:"Carrer de Guillerm de Castro"},
-{km:31,calle:"C/ Guillem de Castro"},
-{km:32,calle:"Gran Via de Ferran el Catòlico"},
-{km:33,calle:"Carrer Vall De la Ballestera"},
-{km:34,calle:"Carrer Vall de la Ballestera"},
-{km:35,calle:"Av. de les tres Creus"},
-{km:36,calle:"Av. de les Tres Creus"},
-{km:37,calle:"C/ de l'Arxiduc Carles"},
-{km:38,calle:"C/ de St. Josep de Calassanc"},
-{km:39,calle:"C/ Xàtiva"},
-{km:40,calle:"Placa de la Porta de la mar"},
-{km:42.195,calle:"Hemisferic"}
+  "Valencia": {flag:"🇪🇸", puntos:[
+{km:10,calle:"Avinguda de Blasco Ibañez"},{km:11,calle:"C/ d'Alfahuir"},{km:12,calle:"C/ de Cavanilles"},{km:13,calle:"C/ del Gral Elio"},{km:14,calle:"Passeig de l'Albereda"},{km:15,calle:"Carrer de Cavanilles"},{km:16,calle:"Avenida de Blasco Ibañez"},{km:17,calle:"Avenida de Blasco Ibañez"},{km:18,calle:"Calle Ramón Llull"},{km:19,calle:"Avenida del Tarongers"},{km:20,calle:"Carrer de Lluis Peixó"},{km:21,calle:"Calle Reina"},{km:22,calle:"Avenida del Port"},{km:23,calle:"Avenida del Port"},{km:24,calle:"Calle Eduardo Boscà"},{km:25,calle:"Plaza Saragossa"},{km:26,calle:"Pont de les Quatre Estacions"},{km:27,calle:"Carrer del Gaudalaviar"},{km:28,calle:"C/ de Guillem de Castro"},{km:29,calle:"C. del Pintor López"},{km:30,calle:"Carrer de Guillerm de Castro"},{km:31,calle:"C/ Guillem de Castro"},{km:32,calle:"Gran Via de Ferran el Catòlico"},{km:33,calle:"Carrer Vall De la Ballestera"},{km:34,calle:"Carrer Vall de la Ballestera"},{km:35,calle:"Av. de les tres Creus"},{km:36,calle:"Av. de les Tres Creus"},{km:37,calle:"C/ de l'Arxiduc Carles"},{km:38,calle:"C/ de St. Josep de Calassanc"},{km:39,calle:"C/ Xàtiva"},{km:40,calle:"Placa de la Porta de la mar"},{km:42.195,calle:"Hemisferic"}
 ]},
-"Rom": {flag:"🇮🇹", puntos:[
-{km:10,calle:"Lungotevere Vittorio Gassman"},
-{km:12,calle:"Lungotevere Testaccio"},
-{km:14,calle:"Lungotevere Aventino"},
-{km:16,calle:"Lungotevere dei Sangallo"},
-{km:18,calle:"Piazza Cavour"},
-{km:20,calle:"Cola di Rienzo"},
-{km:22,calle:"Via delle Milizie"},
-{km:24,calle:"Via Giuseppe Mazzini"},
-{km:26,calle:"Lungotevere Flaminio"},
-{km:28,calle:"Stadio"},
-{km:30,calle:"Lungotevere dell'Acqua Acetosa"},
-{km:32,calle:"Via Flaminia"},
-{km:34,calle:"Lungotevere Flaminio, 4"},
-{km:36,calle:"Passeggiata di Ripetta"},
-{km:38,calle:"Via dei Due Macelli"},
-{km:40,calle:"Piazza Navona"},
-{km:42.195,calle:"Circo Massimo"}
+  "Rom": {flag:"🇮🇹", puntos:[
+{km:10,calle:"Lungotevere Vittorio Gassman"},{km:12,calle:"Lungotevere Testaccio"},{km:14,calle:"Lungotevere Aventino"},{km:16,calle:"Lungotevere dei Sangallo"},{km:18,calle:"Piazza Cavour"},{km:20,calle:"Cola di Rienzo"},{km:22,calle:"Via delle Milizie"},{km:24,calle:"Via Giuseppe Mazzini"},{km:26,calle:"Lungotevere Flaminio"},{km:28,calle:"Stadio"},{km:30,calle:"Lungotevere dell'Acqua Acetosa"},{km:32,calle:"Via Flaminia"},{km:34,calle:"Lungotevere Flaminio, 4"},{km:36,calle:"Passeggiata di Ripetta"},{km:38,calle:"Via dei Due Macelli"},{km:40,calle:"Piazza Navona"},{km:42.195,calle:"Circo Massimo"}
 ]},
-"Sevilla": {flag:"🇪🇸", puntos:[
-{km:10,calle:"Ronda de Tiana"},
-{km:11,calle:"C. Ronda de Triana"},
-{km:12,calle:"Cno. de los Descubrimientos"},
-{km:13,calle:"Cno. de los Descubrimientos"},
-{km:14,calle:"Av. Ingeniero Luis Salvador"},
-{km:15,calle:"Av. Ingeniero Luis Salvador"},
-{km:16,calle:"C/ José de Gálvez"},
-{km:17,calle:"Av. Concejal Alberto Jiménez Becerril"},
-{km:18,calle:"C/ Doctor Pedro Albert"},
-{km:19,calle:"C/ Don Fedrique"},
-{km:20,calle:"Ronda de Capuchinos"},
-{km:21,calle:"Av. Kansas City"},
-{km:22,calle:"C/ Juan Antonio Cavestany"},
-{km:23,calle:"C/ Luis Montoto"},
-{km:24,calle:"Av. de Kansas City 31-21"},
-{km:25,calle:"C/ Ada"},
-{km:26,calle:"C/ Luís Montoto"},
-{km:27,calle:"Av. de Eduardo Dato"},
-{km:28,calle:"C/ Luís de Morales"},
-{km:29,calle:"C/ Luís de Morales"},
-{km:30,calle:"Av. Manuel Siurot"},
-{km:31,calle:"Av. Manuel Siurot"},
-{km:32,calle:"Av. de las Palmeras"},
-{km:33,calle:"Av. Don Pelayo"},
-{km:34,calle:"Plaza de España"},
-{km:35,calle:"C/ San Bernardo"},
-{km:36,calle:"C/ José María Moreno Galván"},
-{km:37,calle:"C/ Gonzalo Bilbao"},
-{km:38,calle:"Ronda de Capuchinos"},
-{km:39,calle:"C/ Resolana"},
-{km:40,calle:"Alameda de Hércules"},
-{km:42.195,calle:"Paseo de las Delicias"}
+  "Sevilla": {flag:"🇪🇸", puntos:[
+{km:10,calle:"Ronda de Tiana"},{km:11,calle:"C. Ronda de Triana"},{km:12,calle:"Cno. de los Descubrimientos"},{km:13,calle:"Cno. de los Descubrimientos"},{km:14,calle:"Av. Ingeniero Luis Salvador"},{km:15,calle:"Av. Ingeniero Luis Salvador"},{km:16,calle:"C/ José de Gálvez"},{km:17,calle:"Av. Concejal Alberto Jiménez Becerril"},{km:18,calle:"C/ Doctor Pedro Albert"},{km:19,calle:"C/ Don Fedrique"},{km:20,calle:"Ronda de Capuchinos"},{km:21,calle:"Av. Kansas City"},{km:22,calle:"C/ Juan Antonio Cavestany"},{km:23,calle:"C/ Luis Montoto"},{km:24,calle:"Av. de Kansas City 31-21"},{km:25,calle:"C/ Ada"},{km:26,calle:"C/ Luís Montoto"},{km:27,calle:"Av. de Eduardo Dato"},{km:28,calle:"C/ Luís de Morales"},{km:29,calle:"C/ Luís de Morales"},{km:30,calle:"Av. Manuel Siurot"},{km:31,calle:"Av. Manuel Siurot"},{km:32,calle:"Av. de las Palmeras"},{km:33,calle:"Av. Don Pelayo"},{km:34,calle:"Plaza de España"},{km:35,calle:"C/ San Bernardo"},{km:36,calle:"C/ José María Moreno Galván"},{km:37,calle:"C/ Gonzalo Bilbao"},{km:38,calle:"Ronda de Capuchinos"},{km:39,calle:"C/ Resolana"},{km:40,calle:"Alameda de Hércules"},{km:42.195,calle:"Paseo de las Delicias"}
 ]},
-"Hamburg": {flag:"🇩🇪", puntos:[
-{km:10,calle:"Palmaille"},
-{km:11,calle:"Landungsbrücken"},
-{km:12,calle:"Baumwall"},
-{km:13,calle:"Bei den Mühren"},
-{km:14,calle:"Klosterwall"},
-{km:15,calle:"Ballindamm"},
-{km:16,calle:"Neuer Jungfernstieg"},
-{km:17,calle:"An der Alster"},
-{km:18,calle:"Hohenfelder Brücke"},
-{km:19,calle:"Schöne Aussicht"},
-{km:20,calle:"Langen Zug / Langenzugbrücke"},
-{km:21,calle:"Sierichstraße"},
-{km:22,calle:"Grasweg"},
-{km:23,calle:"Südring"},
-{km:24,calle:"Saarlandstraße"},
-{km:25,calle:"Fuhlsbütteler Straße"},
-{km:26,calle:"Hebebrandstraße"},
-{km:27,calle:"Überseering"},
-{km:28,calle:"Traute-Lafrenz-Straße"},
-{km:29,calle:"Rathenaustraße"},
-{km:30,calle:"Rathenaustraße"},
-{km:31,calle:"Maienweg"},
-{km:32,calle:"Maienweg"},
-{km:33,calle:"Alsterkrugchaussee"},
-{km:34,calle:"Rathenaustraße"},
-{km:35,calle:"Bebelallee"},
-{km:36,calle:"Eppendorfer Landstraße"},
-{km:37,calle:"Eppendorfer Baum"},
-{km:38,calle:"Harvestehuder Weg"},
-{km:39,calle:"Harvestehuder Weg"},
-{km:40,calle:"Mittelweg"},
-{km:41,calle:"Gorch-Fock-Wall"},
-{km:42.195,calle:"Karolinenstraße"}
+  "Hamburg": {flag:"🇩🇪", puntos:[
+{km:10,calle:"Palmaille"},{km:11,calle:"Landungsbrücken"},{km:12,calle:"Baumwall"},{km:13,calle:"Bei den Mühren"},{km:14,calle:"Klosterwall"},{km:15,calle:"Ballindamm"},{km:16,calle:"Neuer Jungfernstieg"},{km:17,calle:"An der Alster"},{km:18,calle:"Hohenfelder Brücke"},{km:19,calle:"Schöne Aussicht"},{km:20,calle:"Langen Zug / Langenzugbrücke"},{km:21,calle:"Sierichstraße"},{km:22,calle:"Grasweg"},{km:23,calle:"Südring"},{km:24,calle:"Saarlandstraße"},{km:25,calle:"Fuhlsbütteler Straße"},{km:26,calle:"Hebebrandstraße"},{km:27,calle:"Überseering"},{km:28,calle:"Traute-Lafrenz-Straße"},{km:29,calle:"Rathenaustraße"},{km:30,calle:"Rathenaustraße"},{km:31,calle:"Maienweg"},{km:32,calle:"Maienweg"},{km:33,calle:"Alsterkrugchaussee"},{km:34,calle:"Rathenaustraße"},{km:35,calle:"Bebelallee"},{km:36,calle:"Eppendorfer Landstraße"},{km:37,calle:"Eppendorfer Baum"},{km:38,calle:"Harvestehuder Weg"},{km:39,calle:"Harvestehuder Weg"},{km:40,calle:"Mittelweg"},{km:41,calle:"Gorch-Fock-Wall"},{km:42.195,calle:"Karolinenstraße"}
 ]},
-"Tokyo": {flag:"🇯🇵", puntos:[
-{km:10,calle:"Hibiya / Chiyoda"},
-{km:15,calle:"Koto City"},
-{km:20,calle:"Kiba Park"},
-{km:25,calle:"Tsukishima"},
-{km:30,calle:"Shinonome"},
-{km:35,calle:"Tatsumi"},
-{km:40,calle:"Harumi"},
-{km:42.195,calle:"Tokyo Station"}
+  "Tokyo": {flag:"🇯🇵", puntos:[
+{km:10,calle:"Hibiya / Chiyoda"},{km:15,calle:"Koto City"},{km:20,calle:"Kiba Park"},{km:25,calle:"Tsukishima"},{km:30,calle:"Shinonome"},{km:35,calle:"Tatsumi"},{km:40,calle:"Harumi"},{km:42.195,calle:"Tokyo Station"}
 ]},
-"Rotterdam": {flag:"🇳🇱", puntos:[
-{km:10,calle:"Maeterlinckweg"},
-{km:12,calle:"Kapelburg"},
-{km:14,calle:"Kapelburg"},
-{km:16,calle:"Oldegaarde"},
-{km:18,calle:"Vaanweg"},
-{km:20,calle:"Oldegaarde"},
-{km:22,calle:"Dorpsweg"},
-{km:24,calle:"Brielselaan"},
-{km:26,calle:"Laan op Zuid"},
-{km:28,calle:"Schiedamsedijk"},
-{km:30,calle:"Boezemweg"},
-{km:32,calle:"Bosdreef"},
-{km:34,calle:"Boezemweg"},
-{km:36,calle:"Kralingseweg"},
-{km:38,calle:"Kralingse Plaslaan"},
-{km:40,calle:"Boezemweg"},
-{km:42.195,calle:"Coolsingel"}
+  "Rotterdam": {flag:"🇳🇱", puntos:[
+{km:10,calle:"Maeterlinckweg"},{km:12,calle:"Kapelburg"},{km:14,calle:"Kapelburg"},{km:16,calle:"Oldegaarde"},{km:18,calle:"Vaanweg"},{km:20,calle:"Oldegaarde"},{km:22,calle:"Dorpsweg"},{km:24,calle:"Brielselaan"},{km:26,calle:"Laan op Zuid"},{km:28,calle:"Schiedamsedijk"},{km:30,calle:"Boezemweg"},{km:32,calle:"Bosdreef"},{km:34,calle:"Boezemweg"},{km:36,calle:"Kralingseweg"},{km:38,calle:"Kralingse Plaslaan"},{km:40,calle:"Boezemweg"},{km:42.195,calle:"Coolsingel"}
 ]},
-"New York": {flag:"🇺🇸", puntos:[
-{km:10,calle:"4th Ave"},
-{km:12,calle:"4th Ave"},
-{km:14,calle:"Lafayette Ave"},
-{km:16,calle:"Bedford Ave"},
-{km:18,calle:"Bedford Ave"},
-{km:20,calle:"Manhattan Ave"},
-{km:22,calle:"11th St"},
-{km:24,calle:"Queens Plaza S"},
-{km:26,calle:"E 59th St"},
-{km:28,calle:"1st Ave"},
-{km:30,calle:"1st Ave"},
-{km:32,calle:"Willis Ave Bridge"},
-{km:34,calle:"E 138th St"},
-{km:36,calle:"Mt Morris Park W"},
-{km:38,calle:"5th Ave"},
-{km:40,calle:"Central Park"},
-{km:42.195,calle:"Central Park"}
+  "New York": {flag:"🇺🇸", puntos:[
+{km:10,calle:"4th Ave"},{km:12,calle:"4th Ave"},{km:14,calle:"Lafayette Ave"},{km:16,calle:"Bedford Ave"},{km:18,calle:"Bedford Ave"},{km:20,calle:"Manhattan Ave"},{km:22,calle:"11th St"},{km:24,calle:"Queens Plaza S"},{km:26,calle:"E 59th St"},{km:28,calle:"1st Ave"},{km:30,calle:"1st Ave"},{km:32,calle:"Willis Ave Bridge"},{km:34,calle:"E 138th St"},{km:36,calle:"Mt Morris Park W"},{km:38,calle:"5th Ave"},{km:40,calle:"Central Park"},{km:42.195,calle:"Central Park"}
 ]},
-"Chicago": {flag:"🇺🇸", puntos:[
-{km:10,calle:"N Cannon Drive"},
-{km:12,calle:"N Lake Shore Drive"},
-{km:14,calle:"N Broadway"},
-{km:16,calle:"N Sedgwick Street"},
-{km:18,calle:"N Wells Street"},
-{km:20,calle:"W Kinzie Street"},
-{km:22,calle:"W Adams Street"},
-{km:24,calle:"W Adams Street"},
-{km:26,calle:"Jackson Blvd Bikeway"},
-{km:28,calle:"S Halsted Street"},
-{km:30,calle:"S Ashland Avenue"},
-{km:32,calle:"W 18th Street"},
-{km:34,calle:"S Halsted Street"},
-{km:36,calle:"S Wentworth Avenue"},
-{km:38,calle:"S State Street"},
-{km:40,calle:"S Michigan Avenue"},
-{km:42.195,calle:"S Michigan Avenue"}
+  "Chicago": {flag:"🇺🇸", puntos:[
+{km:10,calle:"N Cannon Drive"},{km:12,calle:"N Lake Shore Drive"},{km:14,calle:"N Broadway"},{km:16,calle:"N Sedgwick Street"},{km:18,calle:"N Wells Street"},{km:20,calle:"W Kinzie Street"},{km:22,calle:"W Adams Street"},{km:24,calle:"W Adams Street"},{km:26,calle:"Jackson Blvd Bikeway"},{km:28,calle:"S Halsted Street"},{km:30,calle:"S Ashland Avenue"},{km:32,calle:"W 18th Street"},{km:34,calle:"S Halsted Street"},{km:36,calle:"S Wentworth Avenue"},{km:38,calle:"S State Street"},{km:40,calle:"S Michigan Avenue"},{km:42.195,calle:"S Michigan Avenue"}
 ]},
-"Sídney": {flag:"🇦🇺", puntos:[
-{km:10,calle:"Hickson Road"},
-{km:12,calle:"George Street"},
-{km:14,calle:"Macquarie Street"},
-{km:16,calle:"Flinders Street"},
-{km:18,calle:"Anzac Parade"},
-{km:20,calle:"Anzac Parade"},
-{km:22,calle:"Anzac Parade"},
-{km:24,calle:"Anzac Parade"},
-{km:26,calle:"Anzac Parade"},
-{km:28,calle:"Anzac Parade"},
-{km:30,calle:"Lang Road"},
-{km:32,calle:"Grand Drive"},
-{km:34,calle:"Grand Drive"},
-{km:36,calle:"Moore Park Road"},
-{km:38,calle:"College Street"},
-{km:40,calle:"Mrs Macquaries Road"},
-{km:42.195,calle:"Mrs Macquaries Road"}
-]},
+  "Sídney": {flag:"🇦🇺", puntos:[
+{km:10,calle:"Hickson Road"},{km:12,calle:"George Street"},{km:14,calle:"Macquarie Street"},{km:16,calle:"Flinders Street"},{km:18,calle:"Anzac Parade"},{km:20,calle:"Anzac Parade"},{km:22,calle:"Anzac Parade"},{km:24,calle:"Anzac Parade"},{km:26,calle:"Anzac Parade"},{km:28,calle:"Anzac Parade"},{km:30,calle:"Lang Road"},{km:32,calle:"Grand Drive"},{km:34,calle:"Grand Drive"},{km:36,calle:"Moore Park Road"},{km:38,calle:"College Street"},{km:40,calle:"Mrs Macquaries Road"},{km:42.195,calle:"Mrs Macquaries Road"}
+]}
 };
 
 // ===================== FUNCIONES =====================
@@ -1009,18 +647,12 @@ async function loadMapaCiudad(name) {
   if (btn) btn.classList.add('active');
   
   mapCiudadActual = name;
-    // Actualizar el nombre de la carrera en la ficha
   const fc = document.getElementById('f-carrera');
   if (fc) {
-    if (idiomaActual === 'es') {
-      fc.value = 'Maratón de ' + name;
-    } else if (idiomaActual === 'fr') {
-      fc.value = 'Marathon de ' + name;
-    } else if (idiomaActual === 'en') {
-      fc.value = name + ' Marathon';
-    } else {
-      fc.value = 'Marathon ' + name;
-    }
+    if (idiomaActual === 'es') { fc.value = 'Maratón de ' + name; }
+    else if (idiomaActual === 'fr') { fc.value = 'Marathon de ' + name; }
+    else if (idiomaActual === 'en') { fc.value = name + ' Marathon'; }
+    else { fc.value = 'Marathon ' + name; }
   }
   document.getElementById('mapa-titulo').textContent = '🗺 Marathon ' + name;
   document.getElementById('map-no-city').style.display = 'none';
@@ -1056,18 +688,11 @@ async function loadMapaCiudad(name) {
   const kmIcon = function(km, isStart, isMeta) {
     const bg = isStart ? '#1a9e5c' : (isMeta ? '#c0392b' : '#1a6fc4');
     const label = isStart ? 'S' : (isMeta ? '🏁' : km);
-    return L.divIcon({
-      className: '',
-      html: '<div style="background:' + bg + ';color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:' + (isMeta ? '12px' : '10px') + ';font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">' + label + '</div>',
-      iconSize: [26, 26],
-      iconAnchor: [13, 13]
-    });
+    return L.divIcon({ className: '', html: '<div style="background:' + bg + ';color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:' + (isMeta ? '12px' : '10px') + ';font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">' + label + '</div>', iconSize: [26, 26], iconAnchor: [13, 13] });
   };
   
   const totalPuntos = coords.length;
-  const idxPorKm = function(km) {
-    return Math.floor((km / 42.195) * (totalPuntos - 1));
-  };
+  const idxPorKm = function(km) { return Math.floor((km / 42.195) * (totalPuntos - 1)); };
   
   if (info && info.puntos) {
     info.puntos.forEach(function(p) {
@@ -1076,7 +701,6 @@ async function loadMapaCiudad(name) {
       const lng = coords[idx][1];
       const isStart = p.km <= 2;
       const isMeta = p.km >= 42;
-      
       const marker = L.marker([lat, lng], { icon: kmIcon(p.km, isStart, isMeta) })
         .bindTooltip((isStart ? '🏁 START' : (isMeta ? '🏁 META' : 'km ' + p.km)) + ' · ' + p.calle, { permanent: false, direction: 'top', offset: [0, -14] })
         .addTo(leafletMap);
@@ -1106,22 +730,13 @@ function selCiudad(name) {
   const btn = document.getElementById('cbtn-' + name);
   if (btn) btn.classList.add('sel');
   const fc = document.getElementById('f-carrera');
-  if (idiomaActual === 'es') {
-   fc.value = 'Maratón de ' + name;
- } else if (idiomaActual === 'fr') {
-   fc.value = 'Marathon de ' + name;
- } else if (idiomaActual === 'en') {
-   fc.value = name + ' Marathon';
- } else {
-   fc.value = 'Marathon ' + name;
- } 
-  
+  if (idiomaActual === 'es') { fc.value = 'Maratón de ' + name; }
+  else if (idiomaActual === 'fr') { fc.value = 'Marathon de ' + name; }
+  else if (idiomaActual === 'en') { fc.value = name + ' Marathon'; }
+  else { fc.value = 'Marathon ' + name; }
   const info = INFO_CIUDADES[name];
-  if (info && info.puntos) {
-    pt = info.puntos.map(function(p) { return { km: p.km, calle: p.calle }; });
-  } else {
-    pt = [];
-  }
+  if (info && info.puntos) { pt = info.puntos.map(function(p) { return { km: p.km, calle: p.calle }; }); }
+  else { pt = []; }
   rPF();
 }
 
@@ -1196,16 +811,14 @@ function guardarCorreder() {
   sv(); showPage('lista');
 }
 
-
-  function aS(i){
-  ca=i;const c=C[i];
-  document.getElementById('seg-nombre').textContent=t('seguimiento.title')+' - '+c.nombre+(c.dorsal?' #'+c.dorsal:'');
-  const flag=c.ciudad&&INFO_CIUDADES[c.ciudad]?INFO_CIUDADES[c.ciudad].flag+' ':'';
-  document.getElementById('seg-sub').textContent=flag+(c.carrera||'')+' · '+(c.marca||'—')+' ('+(c.ritmo||'—')+'/km)';
-  rS();showPage('seguimiento');
-  clearInterval(timerSeg);timerSeg=setInterval(tick,1000);tick();
+function aS(i) {
+  ca = i; const c = C[i];
+  document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
+  const flag = c.ciudad && INFO_CIUDADES[c.ciudad] ? INFO_CIUDADES[c.ciudad].flag + ' ' : '';
+  document.getElementById('seg-sub').textContent = flag + (c.carrera || '') + ' · ' + (c.marca || '—') + ' (' + (c.ritmo || '—') + '/km)';
+  rS(); showPage('seguimiento');
+  clearInterval(timerSeg); timerSeg = setInterval(tick, 1000); tick();
   iniciarNotificaciones();
-}
 }
 
 function tick() {
@@ -1242,33 +855,21 @@ function calcProno() {
   const ts = th * 3600 + tm * 60 + ts2;
   const dist = parseFloat(document.getElementById('prono-dist').value) || KM;
   const el = document.getElementById('prono-res');
-  
   if (!km || !ts || km <= 0 || km > dist || ts <= 0) { el.style.display = 'none'; return; }
-  
   const ritmo = ts / km;
   const tot = ritmo * dist;
   const res = dist - km;
-  
   const _tot = Math.round(Math.abs(tot));
   document.getElementById('prono-tm-h').textContent = Math.floor(_tot / 3600);
   document.getElementById('prono-tm-m').textContent = ('0' + Math.floor((_tot % 3600) / 60)).slice(-2);
   document.getElementById('prono-tm-s').textContent = ('0' + (_tot % 60)).slice(-2);
-  
   document.getElementById('prono-rm').textContent = fm(ritmo) + '/km';
   document.getElementById('prono-kr').textContent = res.toFixed(2) + ' km';
-  
   const idx = document.getElementById('prono-corredor').value;
   let hl = '—';
-  if (idx !== '') {
-    const c = C[idx];
-    if (c.salidaOficial) hl = s2t(t2s(c.salidaOficial) + tot);
-  } else {
-    const now = new Date();
-    const nowS = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds();
-    hl = s2t(nowS + tot);
-  }
+  if (idx !== '') { const c = C[idx]; if (c.salidaOficial) hl = s2t(t2s(c.salidaOficial) + tot); }
+  else { const now = new Date(); const nowS = now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds(); hl = s2t(nowS + tot); }
   document.getElementById('prono-hl').textContent = hl;
-  
   const vs = document.getElementById('prono-vs');
   if (idx !== '') {
     const c = C[idx], ms4 = ph(c.marca);
@@ -1281,7 +882,6 @@ function calcProno() {
       else e.innerHTML='<span class="badge badge-green">🔥 '+fh(-d)+' '+(idiomaActual==='de'?'unter Zielzeit':idiomaActual==='en'?'under target':idiomaActual==='es'?'bajo objetivo':'sous l\'objectif')+' ('+c.marca+')</span>';
     } else { vs.style.display = 'none'; }
   } else { vs.style.display = 'none'; }
-  
   el.style.display = 'block';
 }
 
@@ -1304,35 +904,25 @@ function rPS() {
   const s = document.getElementById('prono-corredor');
   s.innerHTML = '<option value="">' + t('prognosis.noRunner') + '</option>' + C.map((c, i) => '<option value="' + i + '">' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '') + '</option>').join('');
 }
+
 // ===================== NOTIFICACIONES =====================
 let notificacionesActivadas = false;
 
 function activarNotificaciones() {
-  if (!('Notification' in window)) {
-    alert('Tu navegador no soporta notificaciones');
-    return;
-  }
-  
-  if (Notification.permission === 'granted') {
-    notificacionesActivadas = true;
-  } else if (Notification.permission !== 'denied') {
+  if (!('Notification' in window)) { alert('Tu navegador no soporta notificaciones'); return; }
+  if (Notification.permission === 'granted') { notificacionesActivadas = true; }
+  else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then(function(permission) {
-      if (permission === 'granted') {
-        notificacionesActivadas = true;
-      }
+      if (permission === 'granted') { notificacionesActivadas = true; }
     });
   }
 }
 
 function notificarProximoPunto(corredor, punto) {
   if (!notificacionesActivadas) return;
-  
   var ahora = new Date();
   var ahoraSegundos = ahora.getHours() * 3600 + ahora.getMinutes() * 60 + ahora.getSeconds();
-  var tiempoRestante = punto.horaPrevista 
-    ? Math.round((t2s(punto.horaPrevista) - ahoraSegundos) / 60)
-    : null;
-  
+  var tiempoRestante = punto.horaPrevista ? Math.round((t2s(punto.horaPrevista) - ahoraSegundos) / 60) : null;
   if (tiempoRestante !== null && tiempoRestante <= 5 && tiempoRestante > 0) {
     new Notification('🏃 ¡' + corredor.nombre + ' se acerca!', {
       body: 'Llegará a ' + punto.calle + ' (km ' + punto.km + ') en ~' + tiempoRestante + ' min.',
@@ -1344,14 +934,10 @@ function notificarProximoPunto(corredor, punto) {
 
 function revisarPuntosProximos() {
   if (!notificacionesActivadas || ca === null) return;
-  
   var corredor = C[ca];
   if (!corredor || !corredor.pasos) return;
-  
   corredor.pasos.forEach(function(punto) {
-    if (!punto.horaReal) {
-      notificarProximoPunto(corredor, punto);
-    }
+    if (!punto.horaReal) { notificarProximoPunto(corredor, punto); }
   });
 }
 
@@ -1361,6 +947,7 @@ function iniciarNotificaciones() {
   if (intervaloNotificaciones) clearInterval(intervaloNotificaciones);
   intervaloNotificaciones = setInterval(revisarPuntosProximos, 30000);
 }
+
 // ===================== INIT =====================
 (function() {
   idiomaActual = localStorage.getItem('marathon_lang') || 'de';
