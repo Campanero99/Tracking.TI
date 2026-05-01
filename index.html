@@ -243,7 +243,7 @@ function actualizarIdiomaInterfaz(){
   for(var i=0;i<sLabels.length;i++)sLabels[i].textContent=t('prognosis.seconds');
   if(document.getElementById('seg-landscape'))document.getElementById('seg-landscape').innerHTML=t('seguimiento.landscape');
   // Actualizar título de seguimiento
-  if(document.getElementById('seg-nombre') && ca !== null) {var c = C[ca];document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');
+  if(document.getElementById('seg-nombre') && ca !== null) {var c = C[ca];document.getElementById('seg-nombre').textContent = t('seguimiento.title') + ' - ' + c.nombre + (c.dorsal ? ' #' + c.dorsal : '');}
   if(document.getElementById('seg-back'))document.getElementById('seg-back').textContent='← '+t('ficha.back');
   if(document.getElementById('seg-pace'))document.getElementById('seg-pace').textContent=t('seguimiento.currentPace');
   if(document.getElementById('seg-arrival'))document.getElementById('seg-arrival').textContent=t('seguimiento.arrivalTime');
