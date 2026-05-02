@@ -384,6 +384,14 @@ function actualizarBotonNotificaciones() {
       clearInterval(intervaloNotificaciones);
       intervaloNotificaciones = null;
     }
+    actualizarBotonNotificaciones();
+  };
+} else {
+  btn.textContent = '🔔 OFF';
+  btn.style.background = '';
+  btn.style.color = '';
+  btn.onclick = iniciarNotificaciones;
+}
 
 function notificarProximoPunto(corredor, punto) {
   if (!notificacionesActivadas) return;
