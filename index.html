@@ -354,7 +354,27 @@ function rPS(){const s=document.getElementById('prono-corredor');s.innerHTML='<o
 
 let notificacionesActivadas=false;
 function activarNotificaciones(){if(!('Notification'in window)){alert('Tu navegador no soporta notificaciones. Funciona en Android y PC, no en iPhone/iPad.');return;}if(Notification.permission==='granted'){notificacionesActivadas=true;actualizarBotonNotificaciones();}else if(Notification.permission!=='denied'){Notification.requestPermission().then(function(permission){if(permission==='granted'){notificacionesActivadas=true;actualizarBotonNotificaciones();}});}}
-function actualizarBotonNotificaciones() {var btn = document.getElementById('btn-notif');if (btn) {if (notificacionesActivadas) {btn.textContent = '🔔 Notificaciones activadas - Click para desactivar';btn.style.background = '#1a9e5c';btn.style.color = '#fff';btn.style.borderColor = '#1a9e5c';btn.onclick = desactivarNotificaciones;} else {btn.textContent = '🔔 Activar notificaciones';btn.style.background = '';btn.style.color = '';btn.style.borderColor = '';btn.onclick = iniciarNotificaciones;
+function actualizarBotonNotificaciones() {
+  var btn = document.getElementById('btn-notif');
+  if (btn) {
+    if (notificacionesActivadas) {
+      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen aktiv - Klicken zum Deaktivieren';
+      else if (idiomaActual === 'en') btn.textContent = '🔔 Notifications active - Click to deactivate';
+      else if (idiomaActual === 'es') btn.textContent = '🔔 Notificaciones activadas - Click para desactivar';
+      else btn.textContent = '🔔 Notifications actives - Cliquer pour désactiver';
+      btn.style.background = '#1a9e5c';
+      btn.style.color = '#fff';
+      btn.style.borderColor = '#1a9e5c';
+      btn.onclick = desactivarNotificaciones;
+    } else {
+      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen aktivieren';
+      else if (idiomaActual === 'en') btn.textContent = '🔔 Enable notifications';
+      else if (idiomaActual === 'es') btn.textContent = '🔔 Activar notificaciones';
+      else btn.textContent = '🔔 Activer les notifications';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+      btn.onclick = iniciarNotificaciones;
     }
   }
 }
