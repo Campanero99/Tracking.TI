@@ -374,24 +374,21 @@ function activarNotificaciones() {
 }
 
 function actualizarBotonNotificaciones() {
-  var btn = document.getElementById('btn-notif');
-  if (btn) {
-    if (notificacionesActivadas) {
-      if (idiomaActual === 'de') btn.textContent = '🔔 Aktiv';
-      else if (idiomaActual === 'en') btn.textContent = '🔔 Active';
-      else if (idiomaActual === 'es') btn.textContent = '🔔 Activadas';
-      else btn.textContent = '🔔 Actives';
-      btn.style.background = '#1a9e5c';
-      btn.style.color = '#fff';
-    } else {
-      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen';
-      else if (idiomaActual === 'en') btn.textContent = '🔔 Notifications';
-      else if (idiomaActual === 'es') btn.textContent = '🔔 Notificaciones';
-      else btn.textContent = '🔔 Notifications';
-      btn.style.background = '';
-      btn.style.color = '';
+  if (notificacionesActivadas) {
+  if (idiomaActual === 'de') btn.textContent = '🔔 Aktiv - Klick zum Deaktivieren';
+  else if (idiomaActual === 'en') btn.textContent = '🔔 Active - Click to deactivate';
+  else if (idiomaActual === 'es') btn.textContent = '🔔 Activadas - Click para desactivar';
+  else btn.textContent = '🔔 Actives - Cliquer pour désactiver';
+  btn.style.background = '#1a9e5c';
+  btn.style.color = '#fff';
+  btn.onclick = function() {
+    notificacionesActivadas = false;
+    if (intervaloNotificaciones) {
+      clearInterval(intervaloNotificaciones);
+      intervaloNotificaciones = null;
     }
-  }
+    actualizarBotonNotificaciones();
+  };
 }
 
 function notificarProximoPunto(corredor, punto) {
