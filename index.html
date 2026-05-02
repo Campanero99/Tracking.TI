@@ -352,122 +352,77 @@ function calcProno(){const km=parseFloat(document.getElementById('prono-km').val
 function autoRellenarProno(){const i=document.getElementById('prono-corredor').value;if(i===''){calcProno();return;}const c=C[i],ch=(c.pasos||[]).filter(p=>p.horaRealSecs!=null);if(ch.length&&c.salidaOficial){const u=ch[ch.length-1],tc=u.horaRealSecs-t2s(c.salidaOficial);document.getElementById('prono-km').value=u.km;const _hv=Math.floor(tc/3600);document.getElementById('prono-th').value=_hv;document.getElementById('prono-tm2').value=('0'+Math.floor((tc%3600)/60)).slice(-2);document.getElementById('prono-ts').value=('0'+Math.round(tc%60)).slice(-2);}calcProno();}
 function rPS(){const s=document.getElementById('prono-corredor');s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');}
 
-let notificacionesActivadas=false;
-if(idiomaActual==='de') alert('Ihr Browser unterstützt keine Benachrichtigungen.');
-else if(idiomaActual==='en') alert('Your browser does not support notifications.');
-else if(idiomaActual==='es') alert('Tu navegador no soporta notificaciones.');
-else alert('Votre navigateur ne supporte pas les notifications.');
+let notificacionesActivadas = false;
+
+function activarNotificaciones() {
+  if (!('Notification' in window)) {
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    notificacionesActivadas = true;
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        notificacionesActivadas = true;
+      }
+    });
+  }
+}
+
 function actualizarBotonNotificaciones() {
   var btn = document.getElementById('btn-notif');
   if (btn) {
     if (notificacionesActivadas) {
-      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen aktiv - Klicken zum Deaktivieren';
-      else if (idiomaActual === 'en') btn.textContent = '🔔 Notifications active - Click to deactivate';
-      else if (idiomaActual === 'es') btn.textContent = '🔔 Notificaciones activadas - Click para desactivar';
-      else btn.textContent = '🔔 Notifications actives - Cliquer pour désactiver';
+      if (idiomaActual === 'de') btn.textContent = '🔔 Aktiv';
+      else if (idiomaActual === 'en') btn.textContent = '🔔 Active';
+      else if (idiomaActual === 'es') btn.textContent = '🔔 Activadas';
+      else btn.textContent = '🔔 Actives';
       btn.style.background = '#1a9e5c';
       btn.style.color = '#fff';
-      btn.style.borderColor = '#1a9e5c';
-      btn.onclick = desactivarNotificaciones;
     } else {
-      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen aktivieren';
-      else if (idiomaActual === 'en') btn.textContent = '🔔 Enable notifications';
-      else if (idiomaActual === 'es') btn.textContent = '🔔 Activar notificaciones';
-      else btn.textContent = '🔔 Activer les notifications';
-      btn.style.background = '';
-      btn.style.color = '';function actualizarBotonNotificaciones() {
-  var btn = document.getElementById('btn-notif');
-  if (btn) {
-    if (notificacionesActivadas) {
-      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen aktiv - Klicken zum Deaktivieren';
-      else if (idiomaActual === 'en') btn.textContent = '🔔 Notifications active - Click to deactivate';
-      else if (idiomaActual === 'es') btn.textContent = '🔔 Notificaciones activadas - Click para desactivar';
-      else btn.textContent = '🔔 Notifications actives - Cliquer pour désactiver';
-      btn.style.background = '#1a9e5c';
-      btn.style.color = '#fff';
-      btn.style.borderColor = '#1a9e5c';
-      btn.onclick = desactivarNotificaciones;
-    } else {
-      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen aktivieren';
-      else if (idiomaActual === 'en') btn.textContent = '🔔 Enable notifications';
-      else if (idiomaActual === 'es') btn.textContent = '🔔 Activar notificaciones';
-      else btn.textContent = '🔔 Activer les notifications';
+      if (idiomaActual === 'de') btn.textContent = '🔔 Benachrichtigungen';
+      else if (idiomaActual === 'en') btn.textContent = '🔔 Notifications';
+      else if (idiomaActual === 'es') btn.textContent = '🔔 Notificaciones';
+      else btn.textContent = '🔔 Notifications';
       btn.style.background = '';
       btn.style.color = '';
-      btn.style.borderColor = '';
-      btn.onclick = reiniciarPermisosNotificaciones;
     }
   }
 }
 
-function desactivarNotificaciones() {
-  notificacionesActivadas = false;
-  if (intervaloNotificaciones) {
-    clearInterval(intervaloNotificaciones);
-    intervaloNotificaciones = null;
+function notificarProximoPunto(corredor, punto) {
+  if (!notificacionesActivadas) return;
+  var ahora = new Date();
+  var ahoraSegundos = ahora.getHours() * 3600 + ahora.getMinutes() * 60 + ahora.getSeconds();
+  var tiempoRestante = punto.horaPrevista ? Math.round((t2s(punto.horaPrevista) - ahoraSegundos) / 60) : null;
+  if (tiempoRestante !== null && tiempoRestante <= 5 && tiempoRestante > 0) {
+    new Notification('🏃 ' + corredor.nombre, {
+      body: punto.calle + ' (km ' + punto.km + ') en ~' + tiempoRestante + ' min.',
+      icon: 'icon.png',
+      tag: 'punto-' + punto.km
+    });
   }
-  actualizarBotonNotificaciones();
 }
 
-function reiniciarPermisosNotificaciones() {
-  if ('Notification' in window) {
-    Notification.requestPermission().then(function(permission) {
-      if (permission === 'granted') {
-        notificacionesActivadas = true;
-        iniciarNotificaciones();
-      }
-      actualizarBotonNotificaciones();
-    });
-  } else {
-    alert('Tu navegador no soporta notificaciones');
-  }
-}
-      btn.style.borderColor = '';
-     btn.onclick = reiniciarPermisosNotificaciones;
+function revisarPuntosProximos() {
+  if (!notificacionesActivadas || ca === null) return;
+  var corredor = C[ca];
+  if (!corredor || !corredor.pasos) return;
+  corredor.pasos.forEach(function(punto) {
+    if (!punto.horaReal) {
+      notificarProximoPunto(corredor, punto);
     }
-  }
+  });
 }
-function reiniciarPermisosNotificaciones() {
-  if ('Notification' in window) {
-    Notification.requestPermission().then(function(permission) {
-      if (permission === 'granted') {
-        notificacionesActivadas = true;
-        iniciarNotificaciones();
-      }
-      actualizarBotonNotificaciones();
-    });
-  }
-}
-function desactivarNotificaciones() {
-  notificacionesActivadas = false;
-  if (intervaloNotificaciones) {
-    clearInterval(intervaloNotificaciones);
-    intervaloNotificaciones = null;
-  }
+
+var intervaloNotificaciones = null;
+
+function iniciarNotificaciones() {
+  activarNotificaciones();
+  if (intervaloNotificaciones) clearInterval(intervaloNotificaciones);
+  intervaloNotificaciones = setInterval(revisarPuntosProximos, 30000);
   actualizarBotonNotificaciones();
 }
-var tituloNotif, cuerpoNotif;
-if(idiomaActual==='de'){
-  tituloNotif = '🏃 ' + corredor.nombre + ' nähert sich!';
-  cuerpoNotif = 'Erreicht ' + punto.calle + ' (km ' + punto.km + ') in ~' + tiempoRestante + ' Min.';
-}else if(idiomaActual==='en'){
-  tituloNotif = '🏃 ' + corredor.nombre + ' is approaching!';
-  cuerpoNotif = 'Will reach ' + punto.calle + ' (km ' + punto.km + ') in ~' + tiempoRestante + ' min.';
-}else if(idiomaActual==='es'){
-  tituloNotif = '🏃 ¡' + corredor.nombre + ' se acerca!';
-  cuerpoNotif = 'Llegará a ' + punto.calle + ' (km ' + punto.km + ') en ~' + tiempoRestante + ' min.';
-}else{
-  tituloNotif = '🏃 ' + corredor.nombre + ' approche !';
-  cuerpoNotif = 'Arrivera à ' + punto.calle + ' (km ' + punto.km + ') dans ~' + tiempoRestante + ' min.';
-}
-new Notification(tituloNotif, {
-  body: cuerpoNotif,
-  icon: 'icon.png',
-  tag: 'punto-' + punto.km
-});
-function revisarPuntosProximos(){if(!notificacionesActivadas||ca===null)return;var corredor=C[ca];if(!corredor||!corredor.pasos)return;corredor.pasos.forEach(function(punto){if(!punto.horaReal){notificarProximoPunto(corredor,punto);}});}
-var intervaloNotificaciones=null;
-function iniciarNotificaciones(){activarNotificaciones();if(intervaloNotificaciones)clearInterval(intervaloNotificaciones);intervaloNotificaciones=setInterval(revisarPuntosProximos,30000);actualizarBotonNotificaciones();}
 
 (function(){idiomaActual=localStorage.getItem('marathon_lang')||'de';setTimeout(actualizarIdiomaInterfaz,100);rL();})();
 </script>
