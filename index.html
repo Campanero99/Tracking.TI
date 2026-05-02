@@ -377,11 +377,21 @@ function actualizarBotonNotificaciones() {
       btn.style.background = '';
       btn.style.color = '';
       btn.style.borderColor = '';
-      btn.onclick = iniciarNotificaciones;
+     btn.onclick = reiniciarPermisosNotificaciones;
     }
   }
 }
-
+function reiniciarPermisosNotificaciones() {
+  if ('Notification' in window) {
+    Notification.requestPermission().then(function(permission) {
+      if (permission === 'granted') {
+        notificacionesActivadas = true;
+        iniciarNotificaciones();
+      }
+      actualizarBotonNotificaciones();
+    });
+  }
+}
 function desactivarNotificaciones() {
   notificacionesActivadas = false;
   if (intervaloNotificaciones) {
