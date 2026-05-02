@@ -397,7 +397,7 @@ function notificarProximoPunto(corredor, punto) {
   var tiempoRestante = punto.horaPrevista ? Math.round((t2s(punto.horaPrevista) - ahoraSegundos) / 60) : null;
   if (tiempoRestante !== null && tiempoRestante <= 5 && tiempoRestante > 0) {
     new Notification('🏃 ' + corredor.nombre, {
-      body: punto.calle + ' (km ' + punto.km + ') ~' + tiempoRestante + ' min.',
+      body: punto.calle + ' (km ' + punto.km + ') '~' + tiempoRestante + ' min.',
       icon: 'icon.png',
       tag: 'punto-' + punto.km
     });
