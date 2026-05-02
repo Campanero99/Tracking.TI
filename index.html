@@ -375,10 +375,7 @@ function activarNotificaciones() {
 
 function actualizarBotonNotificaciones() {
   if (notificacionesActivadas) {
-  if (idiomaActual === 'de') btn.textContent = '🔔 Aktiv - Klick zum Deaktivieren';
-  else if (idiomaActual === 'en') btn.textContent = '🔔 Active - Click to deactivate';
-  else if (idiomaActual === 'es') btn.textContent = '🔔 Activadas - Click para desactivar';
-  else btn.textContent = '🔔 Actives - Cliquer pour désactiver';
+  btn.textContent = '🔔 ON';
   btn.style.background = '#1a9e5c';
   btn.style.color = '#fff';
   btn.onclick = function() {
@@ -387,9 +384,6 @@ function actualizarBotonNotificaciones() {
       clearInterval(intervaloNotificaciones);
       intervaloNotificaciones = null;
     }
-    actualizarBotonNotificaciones();
-  };
-}
 
 function notificarProximoPunto(corredor, punto) {
   if (!notificacionesActivadas) return;
