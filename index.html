@@ -353,7 +353,10 @@ function autoRellenarProno(){const i=document.getElementById('prono-corredor').v
 function rPS(){const s=document.getElementById('prono-corredor');s.innerHTML='<option value="">'+t('prognosis.noRunner')+'</option>'+C.map((c,i)=>'<option value="'+i+'">'+c.nombre+(c.dorsal?' #'+c.dorsal:'')+'</option>').join('');}
 
 let notificacionesActivadas=false;
-function activarNotificaciones(){if(!('Notification'in window)){alert('Tu navegador no soporta notificaciones. Funciona en Android y PC, no en iPhone/iPad.');return;}if(Notification.permission==='granted'){notificacionesActivadas=true;actualizarBotonNotificaciones();}else if(Notification.permission!=='denied'){Notification.requestPermission().then(function(permission){if(permission==='granted'){notificacionesActivadas=true;actualizarBotonNotificaciones();}});}}
+if(idiomaActual==='de') alert('Ihr Browser unterstützt keine Benachrichtigungen.');
+else if(idiomaActual==='en') alert('Your browser does not support notifications.');
+else if(idiomaActual==='es') alert('Tu navegador no soporta notificaciones.');
+else alert('Votre navigateur ne supporte pas les notifications.');
 function actualizarBotonNotificaciones() {
   var btn = document.getElementById('btn-notif');
   if (btn) {
@@ -387,7 +390,25 @@ function desactivarNotificaciones() {
   }
   actualizarBotonNotificaciones();
 }
-function notificarProximoPunto(corredor,punto){if(!notificacionesActivadas)return;var ahora=new Date();var ahoraSegundos=ahora.getHours()*3600+ahora.getMinutes()*60+ahora.getSeconds();var tiempoRestante=punto.horaPrevista?Math.round((t2s(punto.horaPrevista)-ahoraSegundos)/60):null;if(tiempoRestante!==null&&tiempoRestante<=5&&tiempoRestante>0){new Notification('🏃 ¡'+corredor.nombre+' se acerca!',{body:'Llegará a '+punto.calle+' (km '+punto.km+') en ~'+tiempoRestante+' min.',icon:'icon.png',tag:'punto-'+punto.km});}}
+var tituloNotif, cuerpoNotif;
+if(idiomaActual==='de'){
+  tituloNotif = '🏃 ' + corredor.nombre + ' nähert sich!';
+  cuerpoNotif = 'Erreicht ' + punto.calle + ' (km ' + punto.km + ') in ~' + tiempoRestante + ' Min.';
+}else if(idiomaActual==='en'){
+  tituloNotif = '🏃 ' + corredor.nombre + ' is approaching!';
+  cuerpoNotif = 'Will reach ' + punto.calle + ' (km ' + punto.km + ') in ~' + tiempoRestante + ' min.';
+}else if(idiomaActual==='es'){
+  tituloNotif = '🏃 ¡' + corredor.nombre + ' se acerca!';
+  cuerpoNotif = 'Llegará a ' + punto.calle + ' (km ' + punto.km + ') en ~' + tiempoRestante + ' min.';
+}else{
+  tituloNotif = '🏃 ' + corredor.nombre + ' approche !';
+  cuerpoNotif = 'Arrivera à ' + punto.calle + ' (km ' + punto.km + ') dans ~' + tiempoRestante + ' min.';
+}
+new Notification(tituloNotif, {
+  body: cuerpoNotif,
+  icon: 'icon.png',
+  tag: 'punto-' + punto.km
+});
 function revisarPuntosProximos(){if(!notificacionesActivadas||ca===null)return;var corredor=C[ca];if(!corredor||!corredor.pasos)return;corredor.pasos.forEach(function(punto){if(!punto.horaReal){notificarProximoPunto(corredor,punto);}});}
 var intervaloNotificaciones=null;
 function iniciarNotificaciones(){activarNotificaciones();if(intervaloNotificaciones)clearInterval(intervaloNotificaciones);intervaloNotificaciones=setInterval(revisarPuntosProximos,30000);actualizarBotonNotificaciones();}
