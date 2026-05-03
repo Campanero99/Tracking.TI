@@ -403,9 +403,8 @@ async function loadMapaCiudad(name){
   mapCiudadActual=name;
   const fc=document.getElementById('f-carrera');
   if(fc){if(idiomaActual==='es'){fc.value='Maratón de '+name;}else if(idiomaActual==='fr'){fc.value='Marathon de '+name;}else if(idiomaActual==='en'){fc.value=name+' Marathon';}else{fc.value='Marathon '+name;}}
-  document.getElementById('mapa-titulo').textContent='🗺 Marathon '+name;const fecha = FECHAS_MARATONES[name];
-if (fecha) {
-  document.getElementById('mapa-subtitulo').textContent = '📅 ' + fecha + ' · ' + document.getElementById('mapa-subtitulo').textContent;
+  document.getElementById('mapa-titulo').textContent='🗺 Marathon '+name;
+if (fecha) {document.getElementById('mapa-subtitulo').textContent = '📅 ' + fecha + ' · ' + document.getElementById('mapa-subtitulo').textContent;
 }
   document.getElementById('map-no-city').style.display='none';
   document.getElementById('map-legend').style.display='block';
@@ -416,7 +415,9 @@ if (fecha) {
   if(!coords||coords.length===0){document.getElementById('mapa-subtitulo').textContent='❌ Error al cargar la ruta';return;}
   const info=INFO_CIUDADES[name];
   const numPuntos=info?info.puntos.length:0;
-  document.getElementById('mapa-subtitulo').textContent='42,195 km · '+numPuntos+' '+t('mapa.puntosReferencia');
+  document.getElementById('mapa-subtitulo').textContent='42,195 km · '+numPuntos+' '+t('mapa.puntosReferencia');if (fecha) {
+  subtitulo = '📅 ' + fecha + ' · ' + subtitulo;
+}
   const poly=L.polyline(coords,{color:'#1a6fc4',weight:4,opacity:.85}).addTo(leafletMap);mapaLayers.push(poly);
   const kmIcon=function(km,isStart,isMeta){const bg=isStart?'#1a9e5c':(isMeta?'#c0392b':'#1a6fc4');const label=isStart?'S':(isMeta?'🏁':km);return L.divIcon({className:'',html:'<div style="background:'+bg+';color:white;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:'+(isMeta?'12px':'10px')+';font-weight:800;border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);">'+label+'</div>',iconSize:[26,26],iconAnchor:[13,13]});};
   const totalPuntos=coords.length;
