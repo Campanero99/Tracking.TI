@@ -139,7 +139,25 @@ nav {
   padding-right: 12px;
 }
 .nav-btn {
-  padding: 14px 10px;
+  min-width: 80px;           /* Ancho mínimo igual para todos */
+  text-align: center;        /* Texto centrado */
+}
+
+/* Ajustes específicos para algunos botones más largos */
+#nav-nuevo {
+  min-width: 100px;           /* "Neuer Läufer" / "Nuevo Corredor" es más largo */
+}
+
+#nav-seguimiento {
+  min-width: 75px;            /* "Folgen" / "Seguir" / "Suivre" */
+}
+
+#nav-pronostico {
+  min-width: 85px;            /* "Prognose" / "Pronóstico" / "Pronostic" */
+}
+
+#nav-mapa {
+  min-width: 80px;            /* "Strecke" / "Recorrido" / "Route" / "Parcours" */
 }
 
 /* Alinear banderas verticalmente con los textos del menú */
