@@ -404,9 +404,7 @@ async function loadMapaCiudad(name){
   const fc=document.getElementById('f-carrera');
   if(fc){if(idiomaActual==='es'){fc.value='Maratón de '+name;}else if(idiomaActual==='fr'){fc.value='Marathon de '+name;}else if(idiomaActual==='en'){fc.value=name+' Marathon';}else{fc.value='Marathon '+name;}}
   document.getElementById('mapa-titulo').textContent='🗺 Marathon '+name;const fecha = FECHAS_MARATONES[name];
-if (fecha) {
-  document.getElementById('mapa-subtitulo').textContent = '📅 ' + fecha + ' · ' + document.getElementById('mapa-subtitulo').textContent;
-}
+  if (fecha) {document.getElementById('mapa-subtitulo').textContent = '📅 ' + fecha + ' · ' + document.getElementById('mapa-subtitulo').textContent;}
   document.getElementById('map-no-city').style.display='none';
   document.getElementById('map-legend').style.display='block';
   clearMapaLayers();
